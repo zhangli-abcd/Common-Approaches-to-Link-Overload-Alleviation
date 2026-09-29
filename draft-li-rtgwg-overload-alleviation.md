@@ -91,9 +91,9 @@ It is worth noting that link failures are an extreme version of link overload. W
 There are plenty of available techniques for mitigating link failure. These include:
 
 - IGP routing convergence {{!RFC4750}}, {{!RFC5340}}, {{ISO10589}}
-- End-to-end protection in MPLS-TE networks {{!}}
-- Segment protection in MPLS-TE networks {{!}}
-- Fast Reroute (FRR) for IP {{!}}, MPLS-TE {{!}}, or Segment Routing (SR) {{!}}. 
+- End-to-end protection in MPLS-TE networks {{!RFC4427}}
+- Segment protection in MPLS-TE networks {{!RFC4427}}
+- Fast Reroute (FRR) for IP {{!}}, MPLS-TE {{!RFC4090}}, or Segment Routing (SR) {{!}}. 
 
 Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.
 
