@@ -60,12 +60,6 @@ This document examines the scenarios in which links can become overloaded, the r
 
 TODO Introduction
 
-
-# Conventions and Definitions
-
-{::boilerplate bcp14-tagged}
-
-
 # Problem Description {#sec-problem}
 
 ## Definition of Link Overload {#sec-overload}
