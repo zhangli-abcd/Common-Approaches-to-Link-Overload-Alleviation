@@ -35,14 +35,24 @@ author:
 
 informative:
 
+  ISO10589:
+     title: Intermediate system to Intermediate system intra-domain routeing information exchange protocol for use in
+            conjunction with the protocol for providing the connectionless-mode Network Service (ISO 8473),
+            ISO/IEC 10589:2002, Second Edition.
+     date: 2002
+     author: International Organization for Standardization
+     target: https://www.iso.org/standard/30932.html
+     
   LCM:
     title: Local Congestion Manageent
     date: 2026
+    author: Cisco Systems Inc.
     target: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html
 
    TTE:
      title: Tactical Traffic Engineering
      date: 2025
+     author: Hewlett Packard Enterprise
      target: https://community.juniper.net/blogs/moshiko-nayman/2025/02/19/sr-tactical-traffic-engineering-in-junos
 
 --- abstract
@@ -72,7 +82,20 @@ This document examines the scenarios in which links can become overloaded, the r
 
 ## Definition of Link Overload {#sec-overload}
 
-## Required Responsiveness 
+## Required Responsiveness {#sec-required}
+
+## Comparison with Link Failure {#sec-failure}
+
+It is worth noting that link failures are an extreme version of link overload. When a link fails, it is equivalent to the link suddenly having no available bandwidth.
+
+There are plenty of available techniques for mitigating link failure. These include:
+
+- IGP routing convergence {{!RFC4750}}, {{!RFC5340}}, {{ISO10589}}
+- End-to-end protection in MPLS-TE networks {{!}}
+- Segment protection in MPLS-TE networks {{!}}
+- Fast Reroute (FRR) for IP {{!}}, MPLS-TE {{!}}, or Segment Routing (SR) {{!}}. 
+
+Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.
 
 # Use Cases and Scenarios {#sec-usecase}
 
