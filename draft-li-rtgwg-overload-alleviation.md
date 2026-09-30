@@ -56,8 +56,7 @@ informative:
 
 --- abstract
 
-Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available
-bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
+Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
 
 Traffic Engineering (TE) techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.
 
