@@ -4,7 +4,7 @@
 
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
-Intended status: Informational                                 F. Adrian
+Intended status: Informational                                 A. Farrel
 Expires: 3 April 2027                                 Old Dog Consulting
                                                        30 September 2026
 
