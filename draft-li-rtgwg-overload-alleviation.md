@@ -80,7 +80,13 @@ This document examines the scenarios in which links can become overloaded, the r
 
 ## Definition of Link Overload {#sec-overload}
 
+## Incremental Alleviation {#sec-increment}
+
 ## Required Responsiveness {#sec-required}
+
+While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.
+
+Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds.
 
 ## Comparison with Link Failure {#sec-failure}
 
