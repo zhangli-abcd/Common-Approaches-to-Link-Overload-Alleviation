@@ -22,7 +22,6 @@ venue:
   mail: rtgwg@ietf.org
   arch: https://ietf.org/rtgwg
   github: zhangli-abcd/Common-Approaches-to-Overload-Alleviation
-  
 author:
 -
     fullname: Li Zhang
