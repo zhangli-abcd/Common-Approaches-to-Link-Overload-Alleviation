@@ -48,7 +48,7 @@ informative:
     author: Cisco Systems Inc.
     target: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html
 
-   TTE:
+  TTE:
      title: Tactical Traffic Engineering
      date: 2025
      author: Hewlett Packard Enterprise
