@@ -96,6 +96,8 @@ There are plenty of available techniques for mitigating link failure. These incl
 
 Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.
 
+## Discussion of Transport-Level Congestion Control {#sec-congestion}
+
 # Use Cases and Scenarios {#sec-usecase}
 
 # Functional Model {#sec-functional-model}
