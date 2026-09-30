@@ -129,7 +129,7 @@ Tactical Traffic Engineering (TTE) is a distributed real time congestion mitigat
 
 TTE leverages pre computed backup paths such as LFA or TI LFA. When a link utilization exceeds congestion thresholds, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form ECMP multi path groups. TTE manipulates FIB or LFIB entries to achieve flow level load distribution.
 
-TTE builds upon existing loop free backup path computation capabilities such as LFA and TI LFA. Forwarding planes must support FIB/LFIB modification for dynamic multi path group adjustment. 
+TTE builds upon existing loop free backup path computation capabilities such as LFA and TI LFA. Forwarding planes must support FIB/LFIB modification for dynamic multi path group adjustment.
 
 ## Local Congestion Management  {#sec-approach-LCM}
 
