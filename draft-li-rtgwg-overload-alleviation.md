@@ -137,7 +137,7 @@ Local Congestion Mitigation (LCM) specified in {{LCM}} is a controller based tac
 
 LCM operates as a closed loop controller driven workflow. Crosswork Data Gateway (CDG) collects interface level statistics from network elements. The controller maintains real time network state and detects congestion when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve congestion. Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR TE policies to achieve the target offloaded volume. After congestion subsides and hold margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.
 
-LCM relies on BGP-LS or IGP to collect real-time topology. PCEP is required between SR PCE and PCC routers for installation and removal of PCE initiated SR TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR TE policies. 
+LCM relies on BGP-LS or IGP to collect real-time topology. PCEP is required between SR PCE and PCC routers for installation and removal of PCE initiated SR TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR TE policies.
 
 # Applicability to Different Scenarios {#sec-applicability}
 
