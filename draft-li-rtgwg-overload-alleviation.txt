@@ -85,6 +85,7 @@ Table of Contents
      2.1.  Definition of Link Overload
      2.2.  Required Responsiveness
      2.3.  Comparison with Link Failure
+     2.4.  Discussion of Transport-Level Congestion Control
    3.  Use Cases and Scenarios
    4.  Functional Model
      4.1.  Functional Actions
@@ -163,6 +164,8 @@ Table of Contents
 
    Solutions for link failure may provide a basis for, or conceptual
    input to, solutions for link overload.
+
+2.4.  Discussion of Transport-Level Congestion Control
 
 3.  Use Cases and Scenarios
 
