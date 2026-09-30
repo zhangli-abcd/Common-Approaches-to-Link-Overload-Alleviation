@@ -103,9 +103,7 @@ Table of Contents
    9.  Security Considerations
    10. Operational Considerations
    11. IANA Considerations
-   12. References
-     12.1.  Normative References
-     12.2.  Informative References
+   12. Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -312,9 +310,7 @@ Table of Contents
 
    This document makes no requests for IANA action.
 
-12.  References
-
-12.1.  Normative References
+12.  Informative References
 
    [I-D.czz-rtgwg-elastic-bandwidth-routing]
               Cheng, W., KaZhang, Zhang, L., Contreras, L. M., and J.
@@ -337,6 +333,19 @@ Table of Contents
               Internet-Draft, draft-psenak-lsr-igp-dcm-00, 6 May 2026,
               <https://datatracker.ietf.org/doc/html/draft-psenak-lsr-
               igp-dcm-00>.
+
+   [ISO10589] International Organization for Standardization,
+              "Intermediate system to Intermediate system intra-domain
+              routeing information exchange protocol for use in
+              conjunction with the protocol for providing the
+              connectionless-mode Network Service (ISO 8473), ISO/IEC
+              10589:2002, Second Edition.
+              <https://www.iso.org/standard/30932.html>", 2002.
+
+   [LCM]      Cisco Systems Inc., "Local Congestion Mitigation.
+              <https://www.cisco.com/c/en/us/products/collateral/cloud-
+              systems-management/crosswork-network-automation/local-
+              congestion-mitigation-wp.html>", 2021.
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
@@ -407,21 +416,6 @@ Table of Contents
               Reroute Using Segment Routing", RFC 9855,
               DOI 10.17487/RFC9855, October 2025,
               <https://www.rfc-editor.org/rfc/rfc9855>.
-
-12.2.  Informative References
-
-   [ISO10589] International Organization for Standardization,
-              "Intermediate system to Intermediate system intra-domain
-              routeing information exchange protocol for use in
-              conjunction with the protocol for providing the
-              connectionless-mode Network Service (ISO 8473), ISO/IEC
-              10589:2002, Second Edition.
-              <https://www.iso.org/standard/30932.html>", 2002.
-
-   [LCM]      Cisco Systems Inc., "Local Congestion Mitigation.
-              <https://www.cisco.com/c/en/us/products/collateral/cloud-
-              systems-management/crosswork-network-automation/local-
-              congestion-mitigation-wp.html>", 2021.
 
 Acknowledgments
 
