@@ -47,21 +47,22 @@ informative:
     date: 2002
     author:
       - org: "International Organization for Standardization"
-    target: https://www.iso.org/standard/30932.html
+    uri: https://www.iso.org/standard/30932.html
 
   LCM:
     title: Local Congestion Mitigation
     date: 2021
     author:
       - org: "Cisco Systems Inc."
-    target: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html
+    uri: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html
 
   TTE:
     title: SR Tactical Traffic Engineering in Junos
     date: 2025
     author:
       - org: "Hewlett Packard Enterprise"
-    target: https://community.juniper.net/blogs/moshiko-nayman/2025/02/19/sr-tactical-traffic-engineering-in-junos
+    uri: https://community.juniper.net/blogs/moshiko-nayman/2025/02/19/sr-tactical-traffic-engineering-in-junos
+
 
 --- abstract
 
