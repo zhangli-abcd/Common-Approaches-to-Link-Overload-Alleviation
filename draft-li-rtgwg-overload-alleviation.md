@@ -102,6 +102,8 @@ Congestion detection, reporting, control, and mitigation have been the subject o
 
 Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time. 
 
+Active Queue Management (AQM) {{?BCP197}} is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.
+
 The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-usecase}}) are somewhat similar, but the requirements and espescially the responsiveness (see {{sec-required}}) are different.
 
 # Use Cases and Scenarios {#sec-usecase}
