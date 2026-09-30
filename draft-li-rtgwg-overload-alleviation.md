@@ -125,7 +125,7 @@ EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{!RFC857
 
 ## Tactical Traffic Engineering{#sec-approach-TTE}
 
-Tactical Traffic Engineering (TTE) is a distributed real time congestion mitigation mechanism defined in {{!I-D.li-rtgwg-tte}}. It works in conjunction with traditional bandwidth oriented traffic engineering techniques to mitigate transient congestion while optimal traffic assignment is being recomputed. TTE dynamically distributes load if congestion is anticipated, shifts traffic load away from congested links, and reverts traffic back to original paths once congestion abates. 
+Tactical Traffic Engineering (TTE) is a distributed real time congestion mitigation mechanism defined in {{!I-D.li-rtgwg-tte}}. It works in conjunction with traditional bandwidth oriented traffic engineering techniques to mitigate transient congestion while optimal traffic assignment is being recomputed. TTE dynamically distributes load if congestion is anticipated, shifts traffic load away from congested links, and reverts traffic back to original paths once congestion abates.
 
 TTE leverages pre computed backup paths such as LFA or TI LFA. When a link utilization exceeds congestion thresholds, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form ECMP multi path groups. TTE manipulates FIB or LFIB entries to achieve flow level load distribution.
 
