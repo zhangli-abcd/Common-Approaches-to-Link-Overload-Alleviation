@@ -172,5 +172,3 @@ This document makes no requests for IANA action.
 
 # Acknowledgments
 {:numbered="false"}
-
-
