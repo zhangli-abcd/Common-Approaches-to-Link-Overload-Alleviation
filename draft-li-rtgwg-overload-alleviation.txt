@@ -22,8 +22,8 @@ Abstract
    degraded delivery such as increased delay.
 
    Traffic Engineering (TE) techniques can be applied to alleviate these
-   link-overload situations by steering traffic onto other paths that
-   are less loaded and have available bandwidth.
+   link-overload situations by steering some of the traffic onto other
+   paths that are less loaded and have available bandwidth.
 
    This document examines the scenarios in which links can become
    overloaded, the requirements for steering traffic to reduce link-
@@ -132,9 +132,9 @@ Table of Contents
    have available bandwidth.
 
    This document examines the scenarios in which links can become
-   overloaded, the requirements for steering traffic to reduce link-
-   overload, and the TE techniques that can be applied to alleviate
-   overloaded links.
+   overloaded, the requirements for steering some of the traffic to
+   reduce link-overload, and the TE techniques that can be applied to
+   alleviate overloaded links.
 
 2.  Problem Description
 
