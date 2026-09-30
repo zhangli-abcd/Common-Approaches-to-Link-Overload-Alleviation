@@ -43,19 +43,16 @@ informative:
   ISO10589:
     title: Intermediate system to Intermediate system intra-domain routeing information exchange protocol for use in
            conjunction with the protocol for providing the connectionless-mode Network Service (ISO 8473),
-           ISO/IEC 10589:2002, Second Edition.
+           ISO/IEC 10589:2002, Second Edition. <https://www.iso.org/standard/30932.html>
     date: 2002
     author:
       - org: "International Organization for Standardization"
-    href: https://www.iso.org/standard/30932.html
 
   LCM:
-    title: Local Congestion Mitigation
+    title: Local Congestion Mitigation. <https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html>
     date: 2021
     author:
       - org: "Cisco Systems Inc."
-    href: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html
-
 
 --- abstract
 
