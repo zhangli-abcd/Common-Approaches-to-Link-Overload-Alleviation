@@ -113,7 +113,7 @@ Distributed Congestion Mitigation (DCM) described in {{!I-D.psenak-lsr-igp-dcm}}
 
 In DCM, each router continuously monitors local link utilization. When link utilization exceeds the configured Congestion Threshold, the router advertises **Congestion Affinity** via IGP link attributes, which excludes the congested link from a dedicated Offloading Flex Algo (OFA) topology. Additionally, the router also performs traffic offloading to divert the traffic onto the shortest path that avoids any congested links. A separate **High Utilization Affinity** signals routers in the area to stop sending new offload traffic to the link without impacting existing offloaded traffic. DCM leverages UCMP to divert traffic across the primary and offload path in progressively in periodic iterations. When link utilization falls below restore threshold, traffic is gradually moved back to the original primary path.
 
-DCM depends on IGP(IS IS or OSPF) for affinity advertisement and IGP Flexible Algorithm ({{!RFC9350}}) to construct the OFA topology. Participating nodes must implement threshold based link state signaling and obey IGP LSP/LSA update throttling rules. 
+DCM depends on IGP(IS-IS or OSPF) for affinity advertisement and IGP Flexible Algorithm ({{!RFC9350}}) to construct the OFA topology. Participating nodes must implement threshold based link state signaling and obey IGP LSP/LSA update throttling rules. 
 
 ## Elastic Bandwidth-aware Routing {#sec-approach-EBR} 
 
@@ -121,7 +121,7 @@ Elastic Bandwidth aware Routing (EBR) specified in {{!I-D.czz-rtgwg-elastic-band
 
 In EBR, each router monitors local link bandwidth usage and advertises available bandwidth and utilization metrics via IGP TE extensions when specific conditions are meet. Then, each router pre computes loop free, preferably disjoint load balancing alternate paths for each destination. When the link utilization exceeds the configured **Congestion Threshold**, the router uses UCMP to divert specific flows to alternate paths. The diverted traffic is encapsulated with SR TE strict path for loop free forwarding. Path weights are derived from the bottleneck link on each alternate path. Traffic fallback is performed when link bandwidth utilization drops below a dynamic **Restore Threshold** to restore flows to primary paths.
 
-EBR depends on IGP (IS IS or OSPF) with existing TE metric extensions ({{!RFC8570}} for IS IS, {{!RFC7471}} for OSPF) for bandwidth information dissemination. SR TE data plane capability is mandatory for steering offloaded traffic.
+EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{!RFC8570}} for IS-IS, {{!RFC7471}} for OSPF) for bandwidth information dissemination. SR TE data plane capability is mandatory for steering offloaded traffic.
 
 ## Tactical Traffic Engineering{#sec-approach-TTE}
 
@@ -137,7 +137,7 @@ Local Congestion Mitigation (LCM) specified in {{LCM}} is a controller based tac
 
 LCM operates as a closed loop controller driven workflow. Crosswork Data Gateway (CDG) collects interface level statistics from network elements. The controller maintains real time network state and detects congestion when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve congestion. Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR TE policies to achieve the target offloaded volume. After congestion subsides and hold margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.
 
-LCM relies on BGP LS or IGP to collect real-time topology. PCEP is required between SR PCE and PCC routers for installation and removal of PCE initiated SR TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR TE policies. 
+LCM relies on BGP-LS or IGP to collect real-time topology. PCEP is required between SR PCE and PCC routers for installation and removal of PCE initiated SR TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR TE policies. 
 
 # Applicability to Different Scenarios {#sec-applicability}
 
@@ -146,6 +146,8 @@ LCM relies on BGP LS or IGP to collect real-time topology. PCEP is required betw
 ## Scenario 2
 
 # Combined Approaches {#sec-symbiosis}
+
+I am not sure whether this section is necessary, maybe we can leave it blank for now.
 
 # Deployment and Implementation Experience {#sec-deployment}
 
