@@ -41,8 +41,8 @@ author:
 informative:
 
   ISO10589:
-    title: Intermediate system to Intermediate system intra‑domain routeing information exchange protocol for use in
-           conjunction with the protocol for providing the connectionless‑mode Network Service (ISO 8473),
+    title: Intermediate system to Intermediate system intra-domain routeing information exchange protocol for use in
+           conjunction with the protocol for providing the connectionless-mode Network Service (ISO 8473),
            ISO/IEC 10589:2002, Second Edition.
     date: 2002
     author:
@@ -50,16 +50,18 @@ informative:
     target: https://www.iso.org/standard/30932.html
 
   LCM:
-    title: Local Congestion Manageent
-    date: 2026
-    author: Cisco Systems Inc.
+    title: Local Congestion Mitigation
+    date: 2021
+    author:
+      - org: "Cisco Systems Inc."
     target: https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html
 
   TTE:
-     title: Tactical Traffic Engineering
-     date: 2025
-     author: Hewlett Packard Enterprise
-     target: https://community.juniper.net/blogs/moshiko-nayman/2025/02/19/sr-tactical-traffic-engineering-in-junos
+    title: SR Tactical Traffic Engineering in Junos
+    date: 2025
+    author:
+      - org: "Hewlett Packard Enterprise"
+    target: https://community.juniper.net/blogs/moshiko-nayman/2025/02/19/sr-tactical-traffic-engineering-in-junos
 
 --- abstract
 
