@@ -115,7 +115,7 @@ In DCM, each router continuously monitors local link utilization. When link util
 
 DCM depends on IGP(IS-IS or OSPF) for affinity advertisement and IGP Flexible Algorithm ({{!RFC9350}}) to construct the OFA topology. Participating nodes must implement threshold based link state signaling and obey IGP LSP/LSA update throttling rules. 
 
-## Elastic Bandwidth-aware Routing {#sec-approach-EBR} 
+## Elastic Bandwidth-aware Routing {#sec-approach-EBR}
 
 Elastic Bandwidth aware Routing (EBR) specified in {{!I-D.czz-rtgwg-elastic-bandwidth-routing}}, is a distributed dynamic congestion alleviation mechanism that responds rapidly to unexpected network congestion before centralized TE completes global optimization. Its core goal is to mitigate congestion triggered by unexpected reasons timely by distributing traffic among the shortest paths and load-balancing alternate paths through Segment Routing Traffic Engineering (SR-TE). 
 
