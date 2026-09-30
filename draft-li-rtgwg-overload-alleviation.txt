@@ -165,6 +165,41 @@ Table of Contents
 
 2.4.  Discussion of Transport-Level Congestion Control
 
+   Congestion detection, reporting, control, and mitigation have been
+   the subject of RFCs since the earliest days of the IETF.  In general,
+   congestion notification aims to be very responsive or even take place
+   in advance of the congestion actually becoming a problem.  Early
+   Congestion Notification (ECN) [RFC3180] aims to provide information
+   to the head end of network flows so that they can moderate the rate
+   at which traffic is presented to the network and so avoid congestion
+   harming traffic flows.  The assumption is that notified traffic
+   sources will behave reasonably in their own best interests (reduced
+   throughput is preferable to recovering from dropped packets) and in
+   the best interests of the network as a whole (i.e., not deciding that
+   other sources will back off and increasing traffic to use the
+   capacity they make available).
+
+   Over the years, many other TCP/IP congestion notification and
+   remedial techniques have been proposed and some have been
+   standardised.  These predominately operate at the transport level,
+   moderating the rate at which traffic is delivered to the network in
+   order to avoid or mitigate congestion.  Response time can be as short
+   as detection time plus notification time, plus time for in-transit
+   packets to reach the point of congestion: effectively the detection
+   time plus the round-trip time.
+
+   Active Queue Management (AQM) [BCP197] is a method that allows
+   network devices to control the queue length or the mean time that a
+   packet spends in a queue.  By carefully calibrating queuing
+   behaviors, network nodes are able to mitigate high traffic levels (in
+   particular traffic bursts) and so reduce the effects.
+
+   The problems discussed in this document (see Section 2) are similar
+   to those that have been addressed previously (i.e., link overload is
+   equivalent to congestion on that link).  The use cases (see
+   Section 3) are somewhat similar, but the requirements and espescially
+   the responsiveness (see Section 2.2) are different.
+
 3.  Use Cases and Scenarios
 
 4.  Functional Model
@@ -312,6 +347,15 @@ Table of Contents
 
 12.  Informative References
 
+   [BCP197]   Best Current Practice 197,
+              <https://www.rfc-editor.org/info/bcp197>.
+              At the time of writing, this BCP comprises the following:
+
+              Baker, F., Ed. and G. Fairhurst, Ed., "IETF
+              Recommendations Regarding Active Queue Management",
+              BCP 197, RFC 7567, DOI 10.17487/RFC7567, July 2015,
+              <https://www.rfc-editor.org/info/rfc7567>.
+
    [I-D.czz-rtgwg-elastic-bandwidth-routing]
               Cheng, W., KaZhang, Zhang, L., Contreras, L. M., and J.
               Dong, "Elastic Bandwidth-aware Routing Framework", Work in
@@ -346,6 +390,10 @@ Table of Contents
               <https://www.cisco.com/c/en/us/products/collateral/cloud-
               systems-management/crosswork-network-automation/local-
               congestion-mitigation-wp.html>", 2021.
+
+   [RFC3180]  Meyer, D. and P. Lothberg, "GLOP Addressing in 233/8",
+              BCP 53, RFC 3180, DOI 10.17487/RFC3180, September 2001,
+              <https://www.rfc-editor.org/rfc/rfc3180>.
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,

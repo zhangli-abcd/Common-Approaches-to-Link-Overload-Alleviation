@@ -8,8 +8,7 @@
 <meta content="Li Zhang" name="author">
 <meta content="Adrian Farrel" name="author">
 <meta content="
-       Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available
-bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay. 
+       Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay. 
        Traffic Engineering (TE) techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth. 
        This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links. 
     " name="description">
@@ -1085,8 +1084,7 @@ svg {
 <h1 id="title">Common Approaches to Link Overload Alleviation</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available
-bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">Traffic Engineering (TE) techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
@@ -1302,7 +1300,11 @@ bandwidth. Alternatively, traffic volume may increase significantly and unexpect
 <section id="section-2.4">
         <h3 id="name-discussion-of-transport-lev">
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-discussion-of-transport-lev" class="section-name selfRef">Discussion of Transport-Level Congestion Control</a>
-      </h3>
+        </h3>
+<p id="section-2.4-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive or even take place in advance of the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-2">Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.4-3">Active Queue Management (AQM) <span>[<a href="#BCP197" class="cite xref">BCP197</a>]</span> is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
+<p id="section-2.4-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-usecase" class="auto internal xref">Section 3</a>) are somewhat similar, but the requirements and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.2</a>) are different.<a href="#section-2.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1446,6 +1448,14 @@ bandwidth. Alternatively, traffic volume may increase significantly and unexpect
 <a href="#section-12" class="section-number selfRef">12. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
       </h2>
 <dl class="references">
+<dt id="BCP197">[BCP197]</dt>
+      <dd>
+<div class="refInstance">Best Current Practice 197, <span>&lt;<a href="https://www.rfc-editor.org/info/bcp197">https://www.rfc-editor.org/info/bcp197</a>&gt;</span>.<br><span>At the time of writing, this BCP comprises the following:</span>
+</div>
+<div class="refInstance" id="RFC7567">
+          <span class="refAuthor">Baker, F., Ed.</span> and <span class="refAuthor">G. Fairhurst, Ed.</span>, <span class="refTitle">"IETF Recommendations Regarding Active Queue Management"</span>, <span class="seriesInfo">BCP 197</span>, <span class="seriesInfo">RFC 7567</span>, <span class="seriesInfo">DOI 10.17487/RFC7567</span>, <time datetime="2015-07" class="refDate">July 2015</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7567">https://www.rfc-editor.org/info/rfc7567</a>&gt;</span>. </div>
+</dd>
+<dd class="break"></dd>
 <dt id="I-D.czz-rtgwg-elastic-bandwidth-routing">[I-D.czz-rtgwg-elastic-bandwidth-routing]</dt>
       <dd>
 <span class="refAuthor">Cheng, W.</span>, <span class="refAuthor">KaZhang</span>, <span class="refAuthor">Zhang, L.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">J. Dong</span>, <span class="refTitle">"Elastic Bandwidth-aware Routing Framework"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-czz-rtgwg-elastic-bandwidth-routing-00</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-elastic-bandwidth-routing-00">https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-elastic-bandwidth-routing-00</a>&gt;</span>. </dd>
@@ -1465,6 +1475,10 @@ bandwidth. Alternatively, traffic volume may increase significantly and unexpect
 <dt id="LCM">[LCM]</dt>
       <dd>
 <span class="refAuthor">Cisco Systems Inc.</span>, <span class="refTitle">"Local Congestion Mitigation. &lt;https://www.cisco.com/c/en/us/products/collateral/cloud-systems-management/crosswork-network-automation/local-congestion-mitigation-wp.html&gt;"</span>, <time datetime="2021" class="refDate">2021</time>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3180">[RFC3180]</dt>
+      <dd>
+<span class="refAuthor">Meyer, D.</span> and <span class="refAuthor">P. Lothberg</span>, <span class="refTitle">"GLOP Addressing in 233/8"</span>, <span class="seriesInfo">BCP 53</span>, <span class="seriesInfo">RFC 3180</span>, <span class="seriesInfo">DOI 10.17487/RFC3180</span>, <time datetime="2001-09" class="refDate">September 2001</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc3180">https://www.rfc-editor.org/rfc/rfc3180</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC4090">[RFC4090]</dt>
       <dd>
