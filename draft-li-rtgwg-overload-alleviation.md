@@ -5,8 +5,8 @@ docname: draft-li-rtgwg-overload-alleviation-latest
 
 stand_alone: true
 ipr: trust200902
-area: RTG
-workgroup: WG Working Group
+area: "Routing"
+workgroup: "Routing Area Working Group"
 keyword:
  - congestion
  - bandwidth
@@ -17,11 +17,11 @@ coding: utf-8
 pi: [toc, sortrefs, symrefs]
 
 venue:
-  group: RTGWG
-  type: Working Group
-  mail: rtgwg@ietf.org
-  arch: https://ietf.org/rtgwg
-  github: zhangli-abcd/Common-Approaches-to-Overload-Alleviation
+  group: "Routing Area Working Group"
+  type: "Working Group"
+  mail: "rtgwg@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/rtgwg/"
+  github: "zhangli-abcd/Common-Approaches-to-Link-Overload-Alleviation"
 
 author:
 
@@ -92,7 +92,7 @@ There are plenty of available techniques for mitigating link failure. These incl
 - IGP routing convergence {{!RFC4750}}, {{!RFC5340}}, {{ISO10589}}
 - End-to-end protection in MPLS-TE networks {{!RFC4427}}
 - Segment protection in MPLS-TE networks {{!RFC4427}}
-- Fast Reroute (FRR) for IP {{!RFC5741}}, MPLS-TE {{!RFC4090}}, or Segment Routing (SR) {{!RFC9855}}. 
+- Fast Reroute (FRR) for IP {{!RFC5741}}, MPLS-TE {{!RFC4090}}, or Segment Routing (SR) {{!RFC9855}}.
 
 Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.
 
