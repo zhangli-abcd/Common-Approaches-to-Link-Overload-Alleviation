@@ -1161,13 +1161,16 @@ svg {
                 <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-definition-of-link-overload" class="internal xref">Definition of Link Overload</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-required-responsiveness" class="internal xref">Required Responsiveness</a></p>
+                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-incremental-alleviation" class="internal xref">Incremental Alleviation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
-                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-comparison-with-link-failur" class="internal xref">Comparison with Link Failure</a></p>
+                <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-required-responsiveness" class="internal xref">Required Responsiveness</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.4">
-                <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-discussion-of-transport-lev" class="internal xref">Discussion of Transport-Level Congestion Control</a></p>
+                <p id="section-toc.1-1.2.2.4.1"><a href="#section-2.4" class="auto internal xref">2.4</a>.  <a href="#name-comparison-with-link-failur" class="internal xref">Comparison with Link Failure</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.5">
+                <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-discussion-of-transport-lev" class="internal xref">Discussion of Transport-Level Congestion Control</a></p>
 </li>
             </ul>
 </li>
@@ -1265,46 +1268,55 @@ svg {
       </h3>
 </section>
 </div>
-<div id="sec-required">
+<div id="sec-increment">
 <section id="section-2.2">
-        <h3 id="name-required-responsiveness">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-required-responsiveness" class="section-name selfRef">Required Responsiveness</a>
+        <h3 id="name-incremental-alleviation">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-incremental-alleviation" class="section-name selfRef">Incremental Alleviation</a>
       </h3>
 </section>
 </div>
-<div id="sec-failure">
+<div id="sec-required">
 <section id="section-2.3">
-        <h3 id="name-comparison-with-link-failur">
-<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-comparison-with-link-failur" class="section-name selfRef">Comparison with Link Failure</a>
+        <h3 id="name-required-responsiveness">
+<a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-required-responsiveness" class="section-name selfRef">Required Responsiveness</a>
         </h3>
-<p id="section-2.3-1">It is worth noting that link failures are an extreme version of link overload. When a link fails, it is equivalent to the link suddenly having no available bandwidth.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">There are plenty of available techniques for mitigating link failure. These include:<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-failure">
+<section id="section-2.4">
+        <h3 id="name-comparison-with-link-failur">
+<a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-comparison-with-link-failur" class="section-name selfRef">Comparison with Link Failure</a>
+        </h3>
+<p id="section-2.4-1">It is worth noting that link failures are an extreme version of link overload. When a link fails, it is equivalent to the link suddenly having no available bandwidth.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-2">There are plenty of available techniques for mitigating link failure. These include:<a href="#section-2.4-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.3-3.1">
-            <p id="section-2.3-3.1.1">IGP routing convergence <span>[<a href="#RFC4750" class="cite xref">RFC4750</a>]</span>, <span>[<a href="#RFC5340" class="cite xref">RFC5340</a>]</span>, <span>[<a href="#ISO10589" class="cite xref">ISO10589</a>]</span><a href="#section-2.3-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2.4-3.1">
+            <p id="section-2.4-3.1.1">IGP routing convergence <span>[<a href="#RFC4750" class="cite xref">RFC4750</a>]</span>, <span>[<a href="#RFC5340" class="cite xref">RFC5340</a>]</span>, <span>[<a href="#ISO10589" class="cite xref">ISO10589</a>]</span><a href="#section-2.4-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.3-3.2">
-            <p id="section-2.3-3.2.1">End-to-end protection in MPLS-TE networks <span>[<a href="#RFC4427" class="cite xref">RFC4427</a>]</span><a href="#section-2.3-3.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-2.4-3.2">
+            <p id="section-2.4-3.2.1">End-to-end protection in MPLS-TE networks <span>[<a href="#RFC4427" class="cite xref">RFC4427</a>]</span><a href="#section-2.4-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.3-3.3">
-            <p id="section-2.3-3.3.1">Segment protection in MPLS-TE networks <span>[<a href="#RFC4427" class="cite xref">RFC4427</a>]</span><a href="#section-2.3-3.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-2.4-3.3">
+            <p id="section-2.4-3.3.1">Segment protection in MPLS-TE networks <span>[<a href="#RFC4427" class="cite xref">RFC4427</a>]</span><a href="#section-2.4-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.3-3.4">
-            <p id="section-2.3-3.4.1">Fast Reroute (FRR) for IP <span>[<a href="#RFC5741" class="cite xref">RFC5741</a>]</span>, MPLS-TE <span>[<a href="#RFC4090" class="cite xref">RFC4090</a>]</span>, or Segment Routing (SR) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>.<a href="#section-2.3-3.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-2.4-3.4">
+            <p id="section-2.4-3.4.1">Fast Reroute (FRR) for IP <span>[<a href="#RFC5741" class="cite xref">RFC5741</a>]</span>, MPLS-TE <span>[<a href="#RFC4090" class="cite xref">RFC4090</a>]</span>, or Segment Routing (SR) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>.<a href="#section-2.4-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-2.3-4">Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.3-4" class="pilcrow">¶</a></p>
+<p id="section-2.4-4">Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.4-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-congestion">
-<section id="section-2.4">
+<section id="section-2.5">
         <h3 id="name-discussion-of-transport-lev">
-<a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-discussion-of-transport-lev" class="section-name selfRef">Discussion of Transport-Level Congestion Control</a>
+<a href="#section-2.5" class="section-number selfRef">2.5. </a><a href="#name-discussion-of-transport-lev" class="section-name selfRef">Discussion of Transport-Level Congestion Control</a>
         </h3>
-<p id="section-2.4-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive or even take place in advance of the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.4-2">Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.4-3">Active Queue Management (AQM) <span>[<a href="#BCP197" class="cite xref">BCP197</a>]</span> is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
-<p id="section-2.4-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-usecase" class="auto internal xref">Section 3</a>) are somewhat similar, but the requirements and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.2</a>) are different.<a href="#section-2.4-4" class="pilcrow">¶</a></p>
+<p id="section-2.5-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive or even take place in advance of the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.5-1" class="pilcrow">¶</a></p>
+<p id="section-2.5-2">Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time.<a href="#section-2.5-2" class="pilcrow">¶</a></p>
+<p id="section-2.5-3">Active Queue Management (AQM) <span>[<a href="#BCP197" class="cite xref">BCP197</a>]</span> is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.<a href="#section-2.5-3" class="pilcrow">¶</a></p>
+<p id="section-2.5-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-usecase" class="auto internal xref">Section 3</a>) are somewhat similar, but the requirements and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.3</a>) are different.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

@@ -83,9 +83,10 @@ Table of Contents
    1.  Introduction
    2.  Problem Description
      2.1.  Definition of Link Overload
-     2.2.  Required Responsiveness
-     2.3.  Comparison with Link Failure
-     2.4.  Discussion of Transport-Level Congestion Control
+     2.2.  Incremental Alleviation
+     2.3.  Required Responsiveness
+     2.4.  Comparison with Link Failure
+     2.5.  Discussion of Transport-Level Congestion Control
    3.  Use Cases and Scenarios
    4.  Functional Model
      4.1.  Functional Actions
@@ -140,9 +141,21 @@ Table of Contents
 
 2.1.  Definition of Link Overload
 
-2.2.  Required Responsiveness
+2.2.  Incremental Alleviation
 
-2.3.  Comparison with Link Failure
+2.3.  Required Responsiveness
+
+   While, "As soon as possible," is always a good target for alleviating
+   network overload, the situation is not regarded as highly urgent
+   partly because the threshold triggering action can be set to rectify
+   the situation before serious congestion occurs or because only "best-
+   effort" traffic will be affected.
+
+   Link overload alleviation can be considered as a TE planning or
+   optimization activity, and the target response times are in the order
+   of thirty seconds.
+
+2.4.  Comparison with Link Failure
 
    It is worth noting that link failures are an extreme version of link
    overload.  When a link fails, it is equivalent to the link suddenly
@@ -163,7 +176,7 @@ Table of Contents
    Solutions for link failure may provide a basis for, or conceptual
    input to, solutions for link overload.
 
-2.4.  Discussion of Transport-Level Congestion Control
+2.5.  Discussion of Transport-Level Congestion Control
 
    Congestion detection, reporting, control, and mitigation have been
    the subject of RFCs since the earliest days of the IETF.  In general,
@@ -198,7 +211,7 @@ Table of Contents
    to those that have been addressed previously (i.e., link overload is
    equivalent to congestion on that link).  The use cases (see
    Section 3) are somewhat similar, but the requirements and espescially
-   the responsiveness (see Section 2.2) are different.
+   the responsiveness (see Section 2.3) are different.
 
 3.  Use Cases and Scenarios
 
