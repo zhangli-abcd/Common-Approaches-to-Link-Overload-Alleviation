@@ -1,7 +1,7 @@
 ---
 title: "Common Approaches to Link Overload Alleviation"
 abbrev: "Overload Alleviation"
-docname: draft-li-rtgwg-overload-alleviation
+docname: draft-li-rtgwg-overload-alleviation-latest
 
 stand_alone: true
 ipr: trust200902
@@ -23,14 +23,19 @@ venue:
   arch: https://ietf.org/rtgwg
   github: zhangli-abcd/Common-Approaches-to-Overload-Alleviation
 author:
+
 -
-    fullname: Li Zhang
-    organization: Huawei
-    email: zhangli344@huawei.com
+  ins: L. Zhang
+  name: Li Zhang
+  org: Huawei
+  country: China
+  email: zhangli344@huawei.com
+
 -
-    fullname: Adrian Farrel
-    organization: Old Dog Consulting
-    email: adrian@olddog.co.uk
+  ins: F. Adrian
+  name: Adrian Farrel
+  org: Old Dog Consulting
+  email: adrian@olddog.co.uk
 
 informative:
 
