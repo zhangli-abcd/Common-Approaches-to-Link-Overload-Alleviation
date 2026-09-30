@@ -109,7 +109,7 @@ Solutions for link failure may provide a basis for, or conceptual input to, solu
 
 ## Distributed Congestion Mitigation {#sec-approach-DCM}
 
-Distributed Congestion Mitigation (DCM) described in {{!I-D.psenak-lsr-igp-dcm}} is a distributed IGP integrated congestion mitigation mechanism. Its primary objective is to dynamically offload traffic from locally congested links onto congestion free alternate paths in Offloading Flex Algo (OFA) topologies. 
+Distributed Congestion Mitigation (DCM) described in {{!I-D.psenak-lsr-igp-dcm}} is a distributed IGP integrated congestion mitigation mechanism. Its primary objective is to dynamically offload traffic from locally congested links onto congestion free alternate paths in Offloading Flex Algo (OFA) topologies.
 
 In DCM, each router continuously monitors local link utilization. When link utilization exceeds the configured Congestion Threshold, the router advertises **Congestion Affinity** via IGP link attributes, which excludes the congested link from a dedicated Offloading Flex Algo (OFA) topology. Additionally, the router also performs traffic offloading to divert the traffic onto the shortest path that avoids any congested links. A separate **High Utilization Affinity** signals routers in the area to stop sending new offload traffic to the link without impacting existing offloaded traffic. DCM leverages UCMP to divert traffic across the primary and offload path in progressively in periodic iterations. When link utilization falls below restore threshold, traffic is gradually moved back to the original primary path.
 
