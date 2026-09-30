@@ -73,7 +73,7 @@ At the same time, traffic volume may increase significantly and unexpectedly abo
 
 Any of these circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
 
-Traffic Engineering (TE) techniques {{!RFC9522}} can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.
+Traffic Engineering (TE) techniques {{?RFC9522}} can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.
 
 This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links.
 
@@ -89,10 +89,10 @@ It is worth noting that link failures are an extreme version of link overload. W
 
 There are plenty of available techniques for mitigating link failure. These include:
 
-- IGP routing convergence {{!RFC4750}}, {{!RFC5340}}, {{ISO10589}}
-- End-to-end protection in MPLS-TE networks {{!RFC4427}}
-- Segment protection in MPLS-TE networks {{!RFC4427}}
-- Fast Reroute (FRR) for IP {{!RFC5741}}, MPLS-TE {{!RFC4090}}, or Segment Routing (SR) {{!RFC9855}}.
+- IGP routing convergence {{?RFC4750}}, {{?RFC5340}}, {{ISO10589}}
+- End-to-end protection in MPLS-TE networks {{?RFC4427}}
+- Segment protection in MPLS-TE networks {{?RFC4427}}
+- Fast Reroute (FRR) for IP {{?RFC5741}}, MPLS-TE {{?RFC4090}}, or Segment Routing (SR) {{?RFC9855}}.
 
 Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.
 
@@ -110,25 +110,25 @@ Solutions for link failure may provide a basis for, or conceptual input to, solu
 
 ## Distributed Congestion Mitigation {#sec-approach-DCM}
 
-Distributed Congestion Mitigation (DCM) described in {{!I-D.psenak-lsr-igp-dcm}} is a distributed IGP integrated congestion mitigation mechanism. Its primary objective is to dynamically offload traffic from locally congested links onto congestion free alternate paths in Offloading Flex Algo (OFA) topologies.
+Distributed Congestion Mitigation (DCM) described in {{?I-D.psenak-lsr-igp-dcm}} is a distributed IGP integrated congestion mitigation mechanism. Its primary objective is to dynamically offload traffic from locally congested links onto congestion free alternate paths in Offloading Flex Algo (OFA) topologies.
 
 In DCM, each router continuously monitors local link utilization. When link utilization exceeds the configured Congestion Threshold, the router advertises "Congestion Affinity" via IGP link attributes, which causes the congested link to be excluded from a dedicated OFA topology. Additionally, the router also performs traffic offloading to divert the traffic onto the shortest path that avoids any congested links. A separate IGP link attribute, "High Utilization Affinity" signals routers participating in the IGP to stop sending new offloaded traffic to the link without impacting existing offloaded traffic. DCM leverages Unequal Cost Multipath (UCMP) to divert traffic from the primary to the offload path (i.e., to offload traffic) in progressively periodic iterations. When link utilization on the congested link falls below a configured "Restore Threshold", traffic is gradually moved back (reverted) to the original primary path.
 
-DCM depends on IGP (IS-IS or OSPF) for affinity advertisement, and IGP Flexible Algorithm ({{!RFC9350}}) to construct the OFA topology. Participating nodes must implement threshold based link state signaling and obey IGP LSP/LSA update throttling rules.
+DCM depends on IGP (IS-IS or OSPF) for affinity advertisement, and IGP Flexible Algorithm ({{?RFC9350}}) to construct the OFA topology. Participating nodes must implement threshold based link state signaling and obey IGP LSP/LSA update throttling rules.
 
 ## Elastic Bandwidth-aware Routing {#sec-approach-EBR}
 
-Elastic Bandwidth aware Routing (EBR) specified in {{!I-D.czz-rtgwg-elastic-bandwidth-routing}}, is a distributed dynamic congestion alleviation mechanism that responds rapidly to unexpected network congestion before centralized TE completes global optimization. Its core goal is to mitigate congestion triggered by unexpected reasons timely by distributing traffic among the shortest paths and load-balancing alternate paths through Segment Routing Traffic Engineering (SR-TE) {{!RFC9256}}.
+Elastic Bandwidth aware Routing (EBR) specified in {{?I-D.czz-rtgwg-elastic-bandwidth-routing}}, is a distributed dynamic congestion alleviation mechanism that responds rapidly to unexpected network congestion before centralized TE completes global optimization. Its core goal is to mitigate congestion triggered by unexpected reasons timely by distributing traffic among the shortest paths and load-balancing alternate paths through Segment Routing Traffic Engineering (SR-TE) {{?RFC9256}}.
 
 In EBR, each router monitors local link bandwidth usage and advertises available bandwidth and utilization metrics via extensions to IGP-TE when specific conditions and thresholds are met. Then, each router pre-computes loop-free, preferably disjoint, load-balancing alternate paths for each destination. When the link utilization exceeds the configured "Congestion Threshold", the router uses UCMP to divert specific flows to alternate paths. The diverted traffic is encapsulated using an SR-TE strict path for loop-free forwarding. Path weights are derived from the bottleneck link on each alternate path. Traffic fallback (reversion) is performed when bandwidth utilization on the originally overloaded link drops below a dynamic "Restore Threshold" to restore flows to primary paths.
 
-EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{!RFC8570}} for IS-IS, {{!RFC7471}} for OSPF) for bandwidth information dissemination. SR-TE data plane capability is mandatory for steering offloaded traffic.
+EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC8570}} for IS-IS, {{?RFC7471}} for OSPF) for bandwidth information dissemination. SR-TE data plane capability is mandatory for steering offloaded traffic.
 
 ## Tactical Traffic Engineering{#sec-approach-TTE}
 
-Tactical Traffic Engineering (TTE) is a distributed real time congestion mitigation mechanism defined in {{!I-D.li-rtgwg-tte}}. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient congestion while optimal traffic assignment is being recomputed. TTE dynamically distributes load if congestion is anticipated, shifts traffic load away from congested links, and reverts traffic back to original paths once congestion abates.
+Tactical Traffic Engineering (TTE) is a distributed real time congestion mitigation mechanism defined in {{?I-D.li-rtgwg-tte}}. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient congestion while optimal traffic assignment is being recomputed. TTE dynamically distributes load if congestion is anticipated, shifts traffic load away from congested links, and reverts traffic back to original paths once congestion abates.
 
-TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{!RFC5286}} or Topology Independent Loop-Free Alternates (TI-LFAs) {{!RFC9855}}. When utilization on a link exceeds a configured congestion threshold, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form Equal Cost Multipath (ECMP) multipath groups. TTE manipulates Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to achieve flow-level load distribution.
+TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{?RFC5286}} or Topology Independent Loop-Free Alternates (TI-LFAs) {{?RFC9855}}. When utilization on a link exceeds a configured congestion threshold, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form Equal Cost Multipath (ECMP) multipath groups. TTE manipulates Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to achieve flow-level load distribution.
 
 TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.
 
@@ -138,7 +138,7 @@ Local Congestion Mitigation (LCM) specified in {{LCM}} is a controller-based tac
 
 LCM operates as a closed-loop controller-driven workflow. Crosswork Data Gateway (CDG) collects interface-level statistics from network elements. The controller maintains real-time network state and detects congestion when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve congestion. A Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR-TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR-TE policies to achieve the target offloaded volume. After congestion subsides and hold-margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.
 
-LCM relies on BGP-LS {{!RFC9552}} or the active IGP to collect real-time topology information. PCEP {{!RFC5440}} is required between the SR PCE and PCC routers for installation and removal of PCE-initiated SR-TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR-TE policies.
+LCM relies on BGP-LS {{?RFC9552}} or the active IGP to collect real-time topology information. PCEP {{?RFC5440}} is required between the SR PCE and PCC routers for installation and removal of PCE-initiated SR-TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR-TE policies.
 
 # Applicability to Different Scenarios {#sec-applicability}
 
