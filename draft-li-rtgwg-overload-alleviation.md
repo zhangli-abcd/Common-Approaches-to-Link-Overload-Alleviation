@@ -24,11 +24,11 @@ venue:
   github: zhangli-abcd/Common-Approaches-to-Overload-Alleviation
   
 author:
- -
+-
     fullname: Li Zhang
     organization: Huawei
     email: zhangli344@huawei.com
-
+-
     fullname: Adrian Farrel
     organization: Old Dog Consulting
     email: adrian@olddog.co.uk
@@ -42,7 +42,7 @@ informative:
      date: 2002
      author: International Organization for Standardization
      target: https://www.iso.org/standard/30932.html
-     
+
   LCM:
     title: Local Congestion Manageent
     date: 2026
