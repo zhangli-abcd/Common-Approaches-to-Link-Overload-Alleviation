@@ -164,6 +164,12 @@ Table of Contents
 
 2.2.  Link Overload Alleviation and Incremental Alleviation
 
+   Link overload alleviation involves redirecting (steering) traffic so
+   that it takes another path that avoids the overloaded link.  While a
+   single steering operation may alleviate link overload, in
+   manipulating live networks it is often best to make incremental
+   changes.
+
 2.3.  Required Responsiveness
 
    While, "As soon as possible," is always a good target for alleviating
@@ -174,7 +180,9 @@ Table of Contents
 
    Link overload alleviation can be considered as a TE planning or
    optimization activity, and the target response times are in the order
-   of thirty seconds.
+   of thirty seconds.  This should be factored into how the overload
+   threshold is configured so that there is no immediate urgency to
+   alleviating the overload.
 
 2.4.  Comparison with Link Failure
 

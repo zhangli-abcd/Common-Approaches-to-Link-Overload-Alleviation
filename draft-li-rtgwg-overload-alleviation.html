@@ -1271,11 +1271,12 @@ svg {
 <p id="section-2.1-3">Except when referring to congestion as defined in <a href="#sec-congestion" class="auto internal xref">Section 2.5</a>, this document uses the term "link overload". Note that "Distributed Congestion Management" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-increment">
+<div id="sec-alleviate">
 <section id="section-2.2">
         <h3 id="name-link-overload-alleviation-a">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-link-overload-alleviation-a" class="section-name selfRef">Link Overload Alleviation and Incremental Alleviation</a>
-      </h3>
+        </h3>
+<p id="section-2.2-1">Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. While a single steering operation may alleviate link overload, in manipulating live networks it is often best to make incremental changes.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-required">
@@ -1284,7 +1285,7 @@ svg {
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-required-responsiveness" class="section-name selfRef">Required Responsiveness</a>
         </h3>
 <p id="section-2.3-1">While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-failure">
