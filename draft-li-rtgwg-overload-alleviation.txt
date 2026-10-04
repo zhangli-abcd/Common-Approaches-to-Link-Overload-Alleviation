@@ -5,8 +5,8 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 3 April 2027                                 Old Dog Consulting
-                                                       30 September 2026
+Expires: 7 April 2027                                 Old Dog Consulting
+                                                          4 October 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2027.
+   This Internet-Draft will expire on 7 April 2027.
 
 Copyright Notice
 
@@ -83,7 +83,7 @@ Table of Contents
    1.  Introduction
    2.  Problem Description
      2.1.  Definition of Link Overload
-     2.2.  Incremental Alleviation
+     2.2.  Link Overload Alleviation and Incremental Alleviation
      2.3.  Required Responsiveness
      2.4.  Comparison with Link Failure
      2.5.  Discussion of Transport-Level Congestion Control
@@ -141,7 +141,20 @@ Table of Contents
 
 2.1.  Definition of Link Overload
 
-   TBD
+   A link is considered to be overloaded when the amount of traffic
+   (measured in bits per second) has reached a configured threshold on
+   the link.  The traffic is usually measured over a sample period that
+   allows short bursts.  The threshold can be set as a percentage of the
+   capacity of the link or as an absolute value.  In the absence of a
+   configured threshold, a link will be considered overloaded when the
+   link is full, i.e., when the amount of traffic is equal to the
+   capacity of the link.  When a link is full it is likely that traffic
+   will be dropped, and that transmitted traffic may be delayed.
+
+   By setting the configured threshold appropriately, a router may
+   detect an increase in traffic levels before the link is full and may
+   take action to alleviate the link overload thus preventing any impact
+   on the traffic.
 
    Except when referring to congestion as defined in Section 2.5, this
    document uses the term "link overload".  Note that "Distributed
@@ -149,7 +162,7 @@ Table of Contents
    prior term, but is described in this document in terms of link
    overload.
 
-2.2.  Incremental Alleviation
+2.2.  Link Overload Alleviation and Incremental Alleviation
 
 2.3.  Required Responsiveness
 
