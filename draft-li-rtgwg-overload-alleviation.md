@@ -80,11 +80,15 @@ This document examines the scenarios in which links can become overloaded, the r
 
 ## Definition of Link Overload {#sec-overload}
 
-TBD
+A link is considered to be overloaded when the amount of traffic (measured in bits per second) has reached a configured threshold on the link. The traffic is usually measured over a sample period that allows short bursts. The threshold can be set as a percentage of the capacity of the link or as an absolute value. In the absence of a configured threshold, a link will be considered overloaded when the link is full, i.e., when the amount of traffic is equal to the capacity of the link. When a link is full it is likely that traffic will be dropped, and that transmitted traffic may be delayed.
+
+By setting the configured threshold appropriately, a router may detect an increase in traffic levels before the link is full and may take action to alleviate the link overload thus preventing any impact on the traffic.
 
 Except when referring to congestion as defined in {{sec-congestion}}, this document uses the term "link overload". Note that "Distributed Congestion Management" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.
 
-## Incremental Alleviation {#sec-increment}
+## Link Overload Alleviation and Incremental Alleviation {#sec-increment}
+
+
 
 ## Required Responsiveness {#sec-required}
 
