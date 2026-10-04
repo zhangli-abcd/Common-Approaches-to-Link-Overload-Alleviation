@@ -85,8 +85,9 @@ Table of Contents
      2.1.  Definition of Link Overload
      2.2.  Link Overload Alleviation and Incremental Alleviation
      2.3.  Required Responsiveness
-     2.4.  Comparison with Link Failure
-     2.5.  Discussion of Transport-Level Congestion Control
+     2.4.  Traffic Reversion
+     2.5.  Comparison with Link Failure
+     2.6.  Discussion of Transport-Level Congestion Control
    3.  Use Cases and Scenarios
    4.  Functional Model
      4.1.  Functional Actions
@@ -156,7 +157,7 @@ Table of Contents
    take action to alleviate the link overload thus preventing any impact
    on the traffic.
 
-   Except when referring to congestion as defined in Section 2.5, this
+   Except when referring to congestion as defined in Section 2.6, this
    document uses the term "link overload".  Note that "Distributed
    Congestion Management" (DCM) discussed in {sec-approach-DCM} is a
    prior term, but is described in this document in terms of link
@@ -184,7 +185,9 @@ Table of Contents
    threshold is configured so that there is no immediate urgency to
    alleviating the overload.
 
-2.4.  Comparison with Link Failure
+2.4.  Traffic Reversion
+
+2.5.  Comparison with Link Failure
 
    It is worth noting that link failures are an extreme version of link
    overload.  When a link fails, it is equivalent to the link suddenly
@@ -205,7 +208,7 @@ Table of Contents
    Solutions for link failure may provide a basis for, or conceptual
    input to, solutions for link overload.
 
-2.5.  Discussion of Transport-Level Congestion Control
+2.6.  Discussion of Transport-Level Congestion Control
 
    Congestion detection, reporting, control, and mitigation have been
    the subject of RFCs since the earliest days of the IETF.  In general,
