@@ -86,15 +86,15 @@ By setting the configured threshold appropriately, a router may detect an increa
 
 Except when referring to congestion as defined in {{sec-congestion}}, this document uses the term "link overload". Note that "Distributed Congestion Management" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.
 
-## Link Overload Alleviation and Incremental Alleviation {#sec-increment}
+## Link Overload Alleviation and Incremental Alleviation {#sec-alleviate}
 
-
+Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. While a single steering operation may alleviate link overload, in manipulating live networks it is often best to make incremental changes.
 
 ## Required Responsiveness {#sec-required}
 
 While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.
 
-Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds.
+Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.
 
 ## Comparison with Link Failure {#sec-failure}
 
