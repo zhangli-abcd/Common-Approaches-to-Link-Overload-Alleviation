@@ -96,6 +96,8 @@ While, "As soon as possible," is always a good target for alleviating network ov
 
 Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.
 
+## Traffic Reversion {#sec-reversion}
+
 ## Comparison with Link Failure {#sec-failure}
 
 It is worth noting that link failures are an extreme version of link overload. When a link fails, it is equivalent to the link suddenly having no available bandwidth.
