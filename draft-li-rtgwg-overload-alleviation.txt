@@ -218,6 +218,27 @@ Table of Contents
 
 2.4.  Traffic Reversion
 
+   It may be assumed that the path originally taken by the traffic was
+   preferred because it was shorter, more cost-effective, better
+   protected, lower delay, etc.  Thus, in order to alleviate link
+   overload, traffic has been steered onto an equal or less preferred
+   path.  It follows that, if the link overload situation has been
+   alleviated, it may be desirable to revert traffic back to its
+   original path.
+
+   In order to avoid flip-flop of traffic from one path to another, it
+   is important that the link-no-longer-overloaded state involves a
+   threshold markedly lower than the link-overloaded threshold.
+   Further, reversion of traffic to its original path should be done in
+   careful increments and should be subject to local and network-wide
+   policies.
+
+   Note that switching traffic from one path to another may introduce
+   some disruption (for example, out of order packet delivery, or
+   jitter) and even risks delivery failure.  It may be preferable to
+   retain a suboptimal path rather than revert to the original (optimal)
+   path.
+
 2.5.  Comparison with Link Failure
 
    It is worth noting that link failures are an extreme version of link

@@ -1302,7 +1302,10 @@ svg {
 <section id="section-2.4">
         <h3 id="name-traffic-reversion">
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-traffic-reversion" class="section-name selfRef">Traffic Reversion</a>
-      </h3>
+        </h3>
+<p id="section-2.4-1">It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equal or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
+<p id="section-2.4-2">In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be done in careful increments and should be subject to local and network-wide policies.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.4-3">Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure. It may be preferable to retain a suboptimal path rather than revert to the original (optimal) path.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-failure">
