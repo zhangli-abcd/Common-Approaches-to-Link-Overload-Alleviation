@@ -9,7 +9,10 @@ area: "Routing"
 workgroup: "Routing Area Working Group"
 keyword:
  - congestion
+ - congestion mitigation
  - bandwidth
+ - link capacity
+ - traffic steering
 
 category: info
 submissiontype: IETF
