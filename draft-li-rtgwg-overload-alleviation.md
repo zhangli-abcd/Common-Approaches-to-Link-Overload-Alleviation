@@ -81,6 +81,14 @@ This document examines the scenarios in which links can become overloaded, the r
 
 # Problem Description {#sec-problem}
 
+Links may become overloaded when more traffic is dispatched to the link than can be transmitted on the link, or when more traffic arrives at the egress end of the link than can be processed immediately or buffered without the buffers/queue becoming full. If a link is overloaded, traffic (that is packets) will be discarded, and even those packets that are not discarded may be delayed by unacceptable amounts.
+
+Link overload may arise when traffic flows that comprise together more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see {{sec-congestion}}), but more permanent overload situations need more strategic solutions.
+
+Various solutions (see {{sec-approaches}}) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes acceptable paths (that  is, not excessive path cost, delay, etc.) but balances the traffic load in the network so that no link is overloaded and that traffic load remains below thresholds on all links where that is possible.
+
+Ideally, when the traffic load on any previously overloaded link drops below a second threshold, traffic will revert to the originally preferred path.
+
 ## Definition of Link Overload {#sec-overload}
 
 A link is considered to be overloaded when the amount of traffic (measured in bits per second) has reached a configured threshold on the link. The traffic is usually measured over a sample period that allows short bursts. The threshold can be set as a percentage of the capacity of the link or as an absolute value. In the absence of a configured threshold, a link will be considered overloaded when the link is full, i.e., when the amount of traffic is equal to the capacity of the link. When a link is full it is likely that traffic will be dropped, and that transmitted traffic may be delayed.
