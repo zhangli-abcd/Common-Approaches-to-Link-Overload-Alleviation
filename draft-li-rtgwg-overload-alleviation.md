@@ -85,7 +85,7 @@ Links may become overloaded when more traffic is dispatched to the link than can
 
 Link overload may arise when traffic flows that comprise together more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see {{sec-congestion}}), but more permanent overload situations need more strategic solutions.
 
-Various solutions (see {{sec-approaches}}) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes acceptable paths (that  is, not excessive path cost, delay, etc.) but balances the traffic load in the network so that no link is overloaded and that traffic load remains below thresholds on all links where that is possible.
+Various solutions (see {{sec-approaches}}) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes acceptable paths (that is, not excessive path cost, delay, etc.) but balances the traffic load in the network so that no link is overloaded and that traffic load remains below thresholds on all links where that is possible.
 
 Ideally, when the traffic load on any previously overloaded link drops below a second threshold, traffic will revert to the originally preferred path.
 
@@ -109,9 +109,9 @@ Link overload alleviation can be considered as a TE planning or optimization act
 
 ## Traffic Reversion {#sec-reversion}
 
-It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equal or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.
+It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equally or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.
 
-In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be subject to local and network-wide policies.
+In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be subject to local and network-wide policies such as delays (hold-off timers).
 
 Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure.
 
@@ -126,7 +126,7 @@ There are plenty of available techniques for mitigating link failure. These incl
 - Segment protection in MPLS-TE networks {{?RFC4427}}
 - Fast Reroute (FRR) for IP {{?RFC5741}}, MPLS-TE {{?RFC4090}}, or Segment Routing (SR) {{?RFC9855}}.
 
-Solutions for link failure can not directly applied to overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all traffic away. However, it may provide a basis for, or conceptual input to, solutions for link overload.
+Solutions for link failure cannot be directly applied to link overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all of the traffic. However, it may provide a basis for, or conceptual input to, solutions for link overload.
 
 ## Discussion of Transport-Level Congestion Control {#sec-congestion}
 
