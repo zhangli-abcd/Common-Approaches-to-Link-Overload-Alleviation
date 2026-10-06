@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang &amp; Farrel</td>
-<td class="center">Expires 8 April 2027</td>
+<td class="center">Expires 9 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-05" class="published">5 October 2026</time>
+<time datetime="2026-10-06" class="published">6 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-08">8 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-09">9 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1164,7 +1164,7 @@ svg {
                 <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-definition-of-link-overload" class="internal xref">Definition of Link Overload</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-link-overload-alleviation-a" class="internal xref">Link Overload Alleviation and Incremental Alleviation</a></p>
+                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-link-overload-alleviation" class="internal xref">Link Overload Alleviation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.3">
                 <p id="section-toc.1-1.2.2.3.1"><a href="#section-2.3" class="auto internal xref">2.3</a>.  <a href="#name-required-responsiveness" class="internal xref">Required Responsiveness</a></p>
@@ -1278,15 +1278,15 @@ svg {
         </h3>
 <p id="section-2.1-1">A link is considered to be overloaded when the amount of traffic (measured in bits per second) has reached a configured threshold on the link. The traffic is usually measured over a sample period that allows short bursts. The threshold can be set as a percentage of the capacity of the link or as an absolute value. In the absence of a configured threshold, a link will be considered overloaded when the link is full, i.e., when the amount of traffic is equal to the capacity of the link. When a link is full it is likely that traffic will be dropped, and that transmitted traffic may be delayed.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.1-2">By setting the configured threshold appropriately, a router may detect an increase in traffic levels before the link is full and may take action to alleviate the link overload thus preventing any impact on the traffic.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1-3">Except when referring to congestion as defined in <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>, this document uses the term "link overload". Note that "Distributed Congestion Management" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">Except when referring to congestion as defined in <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>, this document uses the term "link overload". Note that "Distributed Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-alleviate">
 <section id="section-2.2">
-        <h3 id="name-link-overload-alleviation-a">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-link-overload-alleviation-a" class="section-name selfRef">Link Overload Alleviation and Incremental Alleviation</a>
+        <h3 id="name-link-overload-alleviation">
+<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-link-overload-alleviation" class="section-name selfRef">Link Overload Alleviation</a>
         </h3>
-<p id="section-2.2-1">Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. While a single steering operation may alleviate link overload, in manipulating live networks it is often best to make incremental changes.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. It should be careful for the secondary overload in links of other paths.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-required">
@@ -1304,8 +1304,8 @@ svg {
 <a href="#section-2.4" class="section-number selfRef">2.4. </a><a href="#name-traffic-reversion" class="section-name selfRef">Traffic Reversion</a>
         </h3>
 <p id="section-2.4-1">It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equal or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.<a href="#section-2.4-1" class="pilcrow">¶</a></p>
-<p id="section-2.4-2">In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be done in careful increments and should be subject to local and network-wide policies.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
-<p id="section-2.4-3">Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure. It may be preferable to retain a suboptimal path rather than revert to the original (optimal) path.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
+<p id="section-2.4-2">In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be subject to local and network-wide policies.<a href="#section-2.4-2" class="pilcrow">¶</a></p>
+<p id="section-2.4-3">Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure.<a href="#section-2.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-failure">
@@ -1329,7 +1329,7 @@ svg {
             <p id="section-2.5-3.4.1">Fast Reroute (FRR) for IP <span>[<a href="#RFC5741" class="cite xref">RFC5741</a>]</span>, MPLS-TE <span>[<a href="#RFC4090" class="cite xref">RFC4090</a>]</span>, or Segment Routing (SR) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>.<a href="#section-2.5-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-2.5-4">Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
+<p id="section-2.5-4">Solutions for link failure can not directly applied to overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all traffic away. However, it may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-congestion">

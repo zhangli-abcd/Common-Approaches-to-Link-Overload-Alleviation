@@ -5,8 +5,8 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 8 April 2027                                 Old Dog Consulting
-                                                          5 October 2026
+Expires: 9 April 2027                                 Old Dog Consulting
+                                                          6 October 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 April 2027.
+   This Internet-Draft will expire on 9 April 2027.
 
 Copyright Notice
 
@@ -83,7 +83,7 @@ Table of Contents
    1.  Introduction
    2.  Problem Description
      2.1.  Definition of Link Overload
-     2.2.  Link Overload Alleviation and Incremental Alleviation
+     2.2.  Link Overload Alleviation
      2.3.  Required Responsiveness
      2.4.  Traffic Reversion
      2.5.  Comparison with Link Failure
@@ -190,17 +190,15 @@ Table of Contents
 
    Except when referring to congestion as defined in Section 2.6, this
    document uses the term "link overload".  Note that "Distributed
-   Congestion Management" (DCM) discussed in {sec-approach-DCM} is a
+   Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a
    prior term, but is described in this document in terms of link
    overload.
 
-2.2.  Link Overload Alleviation and Incremental Alleviation
+2.2.  Link Overload Alleviation
 
    Link overload alleviation involves redirecting (steering) traffic so
-   that it takes another path that avoids the overloaded link.  While a
-   single steering operation may alleviate link overload, in
-   manipulating live networks it is often best to make incremental
-   changes.
+   that it takes another path that avoids the overloaded link.  It
+   should be careful for the secondary overload in links of other paths.
 
 2.3.  Required Responsiveness
 
@@ -229,15 +227,12 @@ Table of Contents
    In order to avoid flip-flop of traffic from one path to another, it
    is important that the link-no-longer-overloaded state involves a
    threshold markedly lower than the link-overloaded threshold.
-   Further, reversion of traffic to its original path should be done in
-   careful increments and should be subject to local and network-wide
-   policies.
+   Further, reversion of traffic to its original path should be subject
+   to local and network-wide policies.
 
    Note that switching traffic from one path to another may introduce
    some disruption (for example, out of order packet delivery, or
-   jitter) and even risks delivery failure.  It may be preferable to
-   retain a suboptimal path rather than revert to the original (optimal)
-   path.
+   jitter) and even risks delivery failure.
 
 2.5.  Comparison with Link Failure
 
@@ -257,8 +252,11 @@ Table of Contents
    *  Fast Reroute (FRR) for IP [RFC5741], MPLS-TE [RFC4090], or Segment
       Routing (SR) [RFC9855].
 
-   Solutions for link failure may provide a basis for, or conceptual
-   input to, solutions for link overload.
+   Solutions for link failure can not directly applied to overload
+   scenarios since they switch all the traffic to the backup paths,
+   whereas link overload does not require moving all traffic away.
+   However, it may provide a basis for, or conceptual input to,
+   solutions for link overload.
 
 2.6.  Discussion of Transport-Level Congestion Control
 
