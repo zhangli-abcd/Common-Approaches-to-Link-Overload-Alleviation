@@ -219,7 +219,7 @@ Table of Contents
    It may be assumed that the path originally taken by the traffic was
    preferred because it was shorter, more cost-effective, better
    protected, lower delay, etc.  Thus, in order to alleviate link
-   overload, traffic has been steered onto an equal or less preferred
+   overload, traffic has been steered onto an equally or less preferred
    path.  It follows that, if the link overload situation has been
    alleviated, it may be desirable to revert traffic back to its
    original path.
@@ -228,7 +228,7 @@ Table of Contents
    is important that the link-no-longer-overloaded state involves a
    threshold markedly lower than the link-overloaded threshold.
    Further, reversion of traffic to its original path should be subject
-   to local and network-wide policies.
+   to local and network-wide policies such as delays (hold-off timers).
 
    Note that switching traffic from one path to another may introduce
    some disruption (for example, out of order packet delivery, or
@@ -252,11 +252,11 @@ Table of Contents
    *  Fast Reroute (FRR) for IP [RFC5741], MPLS-TE [RFC4090], or Segment
       Routing (SR) [RFC9855].
 
-   Solutions for link failure can not directly applied to overload
-   scenarios since they switch all the traffic to the backup paths,
-   whereas link overload does not require moving all traffic away.
-   However, it may provide a basis for, or conceptual input to,
-   solutions for link overload.
+   Solutions for link failure cannot be directly applied to link
+   overload scenarios since they switch all the traffic to the backup
+   paths, whereas link overload does not require moving all of the
+   traffic.  However, it may provide a basis for, or conceptual input
+   to, solutions for link overload.
 
 2.6.  Discussion of Transport-Level Congestion Control
 
