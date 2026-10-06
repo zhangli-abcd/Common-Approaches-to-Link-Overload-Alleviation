@@ -1,0 +1,579 @@
+
+
+
+
+Routing Area Working Group                                      L. Zhang
+Internet-Draft                                                    Huawei
+Intended status: Informational                                 A. Farrel
+Expires: 9 April 2027                                 Old Dog Consulting
+                                                          6 October 2026
+
+
+             Common Approaches to Link Overload Alleviation
+               draft-li-rtgwg-overload-alleviation-latest
+
+Abstract
+
+   Network links may become degraded because of physical conditions or
+   owing to partial link failure: this can result in a reduction of
+   available bandwidth.  Alternatively, traffic volume may increase
+   significantly and unexpectedly.  These circumstances may result in
+   links becoming overloaded which can result in dropped packets or
+   degraded delivery such as increased delay.
+
+   Traffic Engineering (TE) techniques can be applied to alleviate these
+   link-overload situations by steering some of the traffic onto other
+   paths that are less loaded and have available bandwidth.
+
+   This document examines the scenarios in which links can become
+   overloaded, the requirements for steering traffic to reduce link-
+   overload, and the TE techniques that can be applied to alleviate
+   overloaded links.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-li-rtgwg-overload-
+   alleviation/.
+
+   Discussion of this document takes place on the Routing Area Working
+   Group Working Group mailing list (mailto:rtgwg@ietf.org), which is
+   archived at https://mailarchive.ietf.org/arch/browse/rtgwg/.
+   Subscribe at https://www.ietf.org/mailman/listinfo/rtgwg/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/zhangli-abcd/Common-Approaches-to-Link-Overload-
+   Alleviation.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 9 April 2027.
+
+Copyright Notice
+
+   Copyright (c) 2026 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Problem Description
+     2.1.  Definition of Link Overload
+     2.2.  Link Overload Alleviation and Incremental Alleviation
+     2.3.  Required Responsiveness
+     2.4.  Traffic Reversion
+     2.5.  Comparison with Link Failure
+     2.6.  Discussion of Transport-Level Congestion Control
+   3.  Use Cases and Scenarios
+   4.  Functional Model
+     4.1.  Functional Actions
+     4.2.  Key Action Points
+   5.  General Approaches
+     5.1.  Distributed Congestion Mitigation
+     5.2.  Elastic Bandwidth-aware Routing
+     5.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+     5.4.  Local Congestion Management
+   6.  Applicability to Different Scenarios
+     6.1.  Scenario 1
+     6.2.  Scenario 2
+   7.  Combined Approaches
+   8.  Deployment and Implementation Experience
+   9.  Security Considerations
+   10. Operational Considerations
+   11. IANA Considerations
+   12. Informative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   Network links may become degraded because of physical conditions or
+   owing to partial link failure.  For example, a microwave link can see
+   a reduction in available bandwidth during inclement weather
+   conditions.  Alternatively, a link comprising a bundle of parallel
+   links (often referred to as an a link aggregation group) may suffer
+   the failure of a component link resulting in a decrease in the
+   available bandwidth on the composite link.  This may result in the
+   traffic volume on the link exceeding the available bandwidth.
+
+   At the same time, traffic volume may increase significantly and
+   unexpectedly above predicted levels such that traffic volume on the
+   link exceeding the available bandwidth.
+
+   Any of these circumstances may result in links becoming overloaded
+   which can result in dropped packets or degraded delivery such as
+   increased delay.
+
+   Traffic Engineering (TE) techniques [RFC9522] can be applied to
+   alleviate these link-overload situations by steering traffic onto
+   other paths (that is, using other links) that are less loaded and
+   have available bandwidth.
+
+   This document examines the scenarios in which links can become
+   overloaded, the requirements for steering some of the traffic to
+   reduce link-overload, and the TE techniques that can be applied to
+   alleviate overloaded links.
+
+2.  Problem Description
+
+   Links may become overloaded when more traffic is dispatched to the
+   link than can be transmitted on the link, or when more traffic
+   arrives at the egress end of the link than can be processed
+   immediately or buffered without the buffers/queue becoming full.  If
+   a link is overloaded, traffic (that is packets) will be discarded,
+   and even those packets that are not discarded may be delayed by
+   unacceptable amounts.
+
+   Link overload may arise when traffic flows that comprise together
+   more bits per second than the link has capacity for are routed or
+   steered onto a link.  This may happen because of normal shortest path
+   routing, errors in traffic engineering planning, flexible bandwidth
+   mechanisms, poor policing of flows at the network edge, or recovery
+   from network failure conditions.  Such overload may be short-term
+   (for example, quick bursts of traffic) or may be longer-lasting.
+   Short-term overload may be detected, notified, and rectified by
+   congestion notification and mitigation mechanisms (see Section 2.6),
+   but more permanent overload situations need more strategic solutions.
+
+   Various solutions (see Section 5) provide mechanisms to detect and
+   alleviate link overload.  The objectives are to determine when
+   traffic load reaches a threshold, to notify the situation, and to
+   steer traffic so that it takes acceptable paths (that is, not
+   excessive path cost, delay, etc.) but balances the traffic load in
+   the network so that no link is overloaded and that traffic load
+   remains below thresholds on all links where that is possible.
+
+   Ideally, when the traffic load on any previously overloaded link
+   drops below a second threshold, traffic will revert to the originally
+   preferred path.
+
+2.1.  Definition of Link Overload
+
+   A link is considered to be overloaded when the amount of traffic
+   (measured in bits per second) has reached a configured threshold on
+   the link.  The traffic is usually measured over a sample period that
+   allows short bursts.  The threshold can be set as a percentage of the
+   capacity of the link or as an absolute value.  In the absence of a
+   configured threshold, a link will be considered overloaded when the
+   link is full, i.e., when the amount of traffic is equal to the
+   capacity of the link.  When a link is full it is likely that traffic
+   will be dropped, and that transmitted traffic may be delayed.
+
+   By setting the configured threshold appropriately, a router may
+   detect an increase in traffic levels before the link is full and may
+   take action to alleviate the link overload thus preventing any impact
+   on the traffic.
+
+   Except when referring to congestion as defined in Section 2.6, this
+   document uses the term "link overload".  Note that "Distributed
+   Congestion Management" (DCM) discussed in {sec-approach-DCM} is a
+   prior term, but is described in this document in terms of link
+   overload.
+
+2.2.  Link Overload Alleviation and Incremental Alleviation
+
+   Link overload alleviation involves redirecting (steering) traffic so
+   that it takes another path that avoids the overloaded link.  While a
+   single steering operation may alleviate link overload, in
+   manipulating live networks it is often best to make incremental
+   changes.
+
+2.3.  Required Responsiveness
+
+   While, "As soon as possible," is always a good target for alleviating
+   network overload, the situation is not regarded as highly urgent
+   partly because the threshold triggering action can be set to rectify
+   the situation before serious congestion occurs or because only "best-
+   effort" traffic will be affected.
+
+   Link overload alleviation can be considered as a TE planning or
+   optimization activity, and the target response times are in the order
+   of thirty seconds.  This should be factored into how the overload
+   threshold is configured so that there is no immediate urgency to
+   alleviating the overload.
+
+2.4.  Traffic Reversion
+
+   It may be assumed that the path originally taken by the traffic was
+   preferred because it was shorter, more cost-effective, better
+   protected, lower delay, etc.  Thus, in order to alleviate link
+   overload, traffic has been steered onto an equal or less preferred
+   path.  It follows that, if the link overload situation has been
+   alleviated, it may be desirable to revert traffic back to its
+   original path.
+
+   In order to avoid flip-flop of traffic from one path to another, it
+   is important that the link-no-longer-overloaded state involves a
+   threshold markedly lower than the link-overloaded threshold.
+   Further, reversion of traffic to its original path should be done in
+   careful increments and should be subject to local and network-wide
+   policies.
+
+   Note that switching traffic from one path to another may introduce
+   some disruption (for example, out of order packet delivery, or
+   jitter) and even risks delivery failure.  It may be preferable to
+   retain a suboptimal path rather than revert to the original (optimal)
+   path.
+
+2.5.  Comparison with Link Failure
+
+   It is worth noting that link failures are an extreme version of link
+   overload.  When a link fails, it is equivalent to the link suddenly
+   having no available bandwidth.
+
+   There are plenty of available techniques for mitigating link failure.
+   These include:
+
+   *  IGP routing convergence [RFC4750], [RFC5340], [ISO10589]
+
+   *  End-to-end protection in MPLS-TE networks [RFC4427]
+
+   *  Segment protection in MPLS-TE networks [RFC4427]
+
+   *  Fast Reroute (FRR) for IP [RFC5741], MPLS-TE [RFC4090], or Segment
+      Routing (SR) [RFC9855].
+
+   Solutions for link failure may provide a basis for, or conceptual
+   input to, solutions for link overload.
+
+2.6.  Discussion of Transport-Level Congestion Control
+
+   Congestion detection, reporting, control, and mitigation have been
+   the subject of RFCs since the earliest days of the IETF.  In general,
+   congestion notification aims to be very responsive or even take place
+   in advance of the congestion actually becoming a problem.  Early
+   Congestion Notification (ECN) [RFC3180] aims to provide information
+   to the head end of network flows so that they can moderate the rate
+   at which traffic is presented to the network and so avoid congestion
+   harming traffic flows.  The assumption is that notified traffic
+   sources will behave reasonably in their own best interests (reduced
+   throughput is preferable to recovering from dropped packets) and in
+   the best interests of the network as a whole (i.e., not deciding that
+   other sources will back off and increasing traffic to use the
+   capacity they make available).
+
+   Over the years, many other TCP/IP congestion notification and
+   remedial techniques have been proposed and some have been
+   standardised.  These predominately operate at the transport level,
+   moderating the rate at which traffic is delivered to the network in
+   order to avoid or mitigate congestion.  Response time can be as short
+   as detection time plus notification time, plus time for in-transit
+   packets to reach the point of congestion: effectively the detection
+   time plus the round-trip time.
+
+   Active Queue Management (AQM) [BCP197] is a method that allows
+   network devices to control the queue length or the mean time that a
+   packet spends in a queue.  By carefully calibrating queuing
+   behaviors, network nodes are able to mitigate high traffic levels (in
+   particular traffic bursts) and so reduce the effects.
+
+   The problems discussed in this document (see Section 2) are similar
+   to those that have been addressed previously (i.e., link overload is
+   equivalent to congestion on that link).  The use cases (see
+   Section 3) are somewhat similar, but the requirements and espescially
+   the responsiveness (see Section 2.3) are different.
+
+3.  Use Cases and Scenarios
+
+4.  Functional Model
+
+4.1.  Functional Actions
+
+4.2.  Key Action Points
+
+5.  General Approaches
+
+5.1.  Distributed Congestion Mitigation
+
+   Distributed Congestion Mitigation (DCM) described in
+   [I-D.psenak-lsr-igp-dcm] is a distributed and integrated IGP
+   mechanism to mitigate link overlaod.  Its primary objective is to
+   dynamically offload traffic from local overloaded links onto less
+   loaded alternate paths in Offloading Flex Algo (OFA) topologies.
+
+   In DCM, each router continuously monitors local link utilization.
+   When link utilization exceeds the configured "Congestion Threshold",
+   the router advertises "Congestion Affinity" via IGP link attributes,
+   which causes the overloaded link to be excluded from a dedicated OFA
+   topology.  Additionally, the router also performs traffic offloading
+   to divert the traffic onto the shortest path that avoids any
+   overloaded links.  A separate IGP link attribute, "High Utilization
+   Affinity" signals routers participating in the IGP to stop sending
+   new offloaded traffic to the link without impacting existing
+   offloaded traffic.  DCM leverages Unequal Cost Multipath (UCMP) to
+   divert traffic from the primary to the offload path (i.e., to offload
+   traffic) in progressively periodic iterations.  When link utilization
+   on the overloaded link falls below a configured "Restore Threshold",
+   traffic is gradually moved back (reverted) to the original primary
+   path.
+
+   DCM depends on IGP (IS-IS or OSPF) for affinity advertisement, and
+   IGP Flexible Algorithm ([RFC9350]) to construct the OFA topology.
+   Participating nodes must implement threshold based link state
+   signaling and obey IGP LSP/LSA update throttling rules.
+
+5.2.  Elastic Bandwidth-aware Routing
+
+   Elastic Bandwidth aware Routing (EBR) specified in
+   [I-D.czz-rtgwg-elastic-bandwidth-routing], is a distributed dynamic
+   mechanism to alleviate link overload that responds rapidly to
+   unexpectedly overloaded links in the network before centralized TE
+   completes global re-optimization.  Its core goal is to mitigate in a
+   timely way link overload that was triggered by unexpected reasons by
+   distributing traffic among the shortest paths and load-balancing
+   alternate paths through Segment Routing Traffic Engineering (SR-TE)
+   [RFC9256].
+
+   In EBR, each router monitors local link bandwidth usage and
+   advertises available bandwidth and utilization metrics via extensions
+   to IGP-TE when specific conditions and thresholds are met.  Then,
+   each router pre-computes loop-free, preferably disjoint, load-
+   balancing alternate paths for each destination.  When the link
+   utilization exceeds the configured "Congestion Threshold", the router
+   uses UCMP to divert specific flows to alternate paths.  The diverted
+   traffic is encapsulated using an SR-TE strict path for loop-free
+   forwarding.  Path weights are derived from the bottleneck link on
+   each alternate path.  Traffic fallback (reversion) is performed when
+   bandwidth utilization on the originally overloaded link drops below a
+   dynamic "Restore Threshold" to restore flows to primary paths.
+
+   EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions
+   ([RFC8570] for IS-IS, [RFC7471] for OSPF) for bandwidth information
+   dissemination.  SR-TE data plane capability is mandatory for steering
+   offloaded traffic.
+
+5.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+
+   Tactical Traffic Engineering (TTE) is a distributed real-time
+   mechanism to mitigate link overload defined in [I-D.li-rtgwg-tte].
+   It works in conjunction with previous bandwidth-oriented traffic
+   engineering techniques to mitigate transient link overload while
+   optimal traffic assignment is being recomputed.  TTE dynamically
+   distributes load if link overload is anticipated, shifts traffic load
+   away from overloaded links, and reverts traffic back to original
+   paths once link overload abates.
+
+   TTE leverages pre-computed backup paths such as Loop-Free Alternates
+   (LFAs) [RFC5286] or Topology Independent Loop-Free Alternates (TI-
+   LFAs) [RFC9855].  When utilization on a link exceeds a configured
+   threshold, the corresponding router converts these standby backup
+   paths into active parallel paths alongside primary paths to form
+   Equal Cost Multipath (ECMP) multipath groups.  TTE manipulates
+   Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to
+   achieve flow-level load distribution.
+
+   TTE builds upon existing loop-free backup path computation
+   capabilities such as LFA and TI-LFA.  Forwarding planes must support
+   FIB/LFIB modification for dynamic multipath group adjustment.
+
+5.4.  Local Congestion Management
+
+   Local Congestion Mitigation (LCM) specified in [LCM] is a controller-
+   based tactical solution to mitigate link overload, designed to handle
+   short-lived transient link overload while complementing capacity
+   planning.  LCM mitigates link overload by diverting the minimal
+   necessary amount of traffic away from the overloaded interface to
+   bring it out of overload state.  LCM acts as a tactical complement to
+   capacity planning and network engineering.  It supports monitor-only
+   and human-in-the-loop workflows for operational safety.
+
+   LCM operates as a closed-loop controller-driven workflow.  Crosswork
+   Data Gateway (CDG) collects interface-level statistics from network
+   elements.  The controller maintains real-time network state and
+   detects when a link is overloaded when measured utilization exceeds
+   user configured thresholds.  It computes how much optimizable traffic
+   volume needs to be offloaded to relieve the link overload.  A Segment
+   Routing Path Computation Element (SR PCE) calculates suitable
+   alternate paths and deploys temporary tactical SR-TE policies on
+   headend nodes.  ECMP splits traffic across multiple parallel tactical
+   SR-TE policies to achieve the target offloaded volume.  After the
+   link has become less loaded and once hold-margin conditions are
+   satisfied, the controller removes temporary tactical policies and
+   reverts traffic back to native IGP forwarding to avoid persistent
+   policy churn.
+
+   LCM relies on BGP-LS [RFC9552] or the active IGP to collect real-time
+   topology information.  PCEP [RFC5440] is required between the SR PCE
+   and PCC routers for installation and removal of PCE-initiated SR-TE
+   policies. gRPC or SNMP is used for statistics telemetry collection.
+   Headend routers must support PCE-initiated SR-TE policies with
+   autoroute steering and ECMP over multiple parallel SR-TE policies.
+
+6.  Applicability to Different Scenarios
+
+6.1.  Scenario 1
+
+6.2.  Scenario 2
+
+7.  Combined Approaches
+
+   I am not sure whether this section is necessary, maybe we can leave
+   it blank for now.
+
+8.  Deployment and Implementation Experience
+
+9.  Security Considerations
+
+10.  Operational Considerations
+
+11.  IANA Considerations
+
+   This document makes no requests for IANA action.
+
+12.  Informative References
+
+   [BCP197]   Best Current Practice 197,
+              <https://www.rfc-editor.org/info/bcp197>.
+              At the time of writing, this BCP comprises the following:
+
+              Baker, F., Ed. and G. Fairhurst, Ed., "IETF
+              Recommendations Regarding Active Queue Management",
+              BCP 197, RFC 7567, DOI 10.17487/RFC7567, July 2015,
+              <https://www.rfc-editor.org/info/rfc7567>.
+
+   [I-D.czz-rtgwg-elastic-bandwidth-routing]
+              Cheng, W., KaZhang, Zhang, L., Contreras, L. M., and J.
+              Dong, "Elastic Bandwidth-aware Routing Framework", Work in
+              Progress, Internet-Draft, draft-czz-rtgwg-elastic-
+              bandwidth-routing-00, 6 July 2026,
+              <https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-
+              elastic-bandwidth-routing-00>.
+
+   [I-D.li-rtgwg-tte]
+              Barth, C., Li, T., Smith, A., Wen, B., and L. Jalil,
+              "Tactical Traffic Engineering (TTE)", Work in Progress,
+              Internet-Draft, draft-li-rtgwg-tte-02, 3 December 2024,
+              <https://datatracker.ietf.org/doc/html/draft-li-rtgwg-tte-
+              02>.
+
+   [I-D.psenak-lsr-igp-dcm]
+              Psenak, P., Horn, J., Decraene, B., and G. Gryszata,
+              "Distributed Congestion Mitigation", Work in Progress,
+              Internet-Draft, draft-psenak-lsr-igp-dcm-00, 6 May 2026,
+              <https://datatracker.ietf.org/doc/html/draft-psenak-lsr-
+              igp-dcm-00>.
+
+   [ISO10589] International Organization for Standardization,
+              "Intermediate system to Intermediate system intra-domain
+              routeing information exchange protocol for use in
+              conjunction with the protocol for providing the
+              connectionless-mode Network Service (ISO 8473), ISO/IEC
+              10589:2002, Second Edition.
+              <https://www.iso.org/standard/30932.html>", 2002.
+
+   [LCM]      Cisco Systems Inc., "Local Congestion Mitigation.
+              <https://www.cisco.com/c/en/us/products/collateral/cloud-
+              systems-management/crosswork-network-automation/local-
+              congestion-mitigation-wp.html>", 2021.
+
+   [RFC3180]  Meyer, D. and P. Lothberg, "GLOP Addressing in 233/8",
+              BCP 53, RFC 3180, DOI 10.17487/RFC3180, September 2001,
+              <https://www.rfc-editor.org/rfc/rfc3180>.
+
+   [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
+              Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
+              DOI 10.17487/RFC4090, May 2005,
+              <https://www.rfc-editor.org/rfc/rfc4090>.
+
+   [RFC4427]  Mannie, E., Ed. and D. Papadimitriou, Ed., "Recovery
+              (Protection and Restoration) Terminology for Generalized
+              Multi-Protocol Label Switching (GMPLS)", RFC 4427,
+              DOI 10.17487/RFC4427, March 2006,
+              <https://www.rfc-editor.org/rfc/rfc4427>.
+
+   [RFC4750]  Joyal, D., Ed., Galecki, P., Ed., and S. Giacalone, Ed.,
+              "OSPF Version 2 Management Information Base", RFC 4750,
+              DOI 10.17487/RFC4750, December 2006,
+              <https://www.rfc-editor.org/rfc/rfc4750>.
+
+   [RFC5286]  Atlas, A., Ed. and A. Zinin, Ed., "Basic Specification for
+              IP Fast Reroute: Loop-Free Alternates", RFC 5286,
+              DOI 10.17487/RFC5286, September 2008,
+              <https://www.rfc-editor.org/rfc/rfc5286>.
+
+   [RFC5340]  Coltun, R., Ferguson, D., Moy, J., and A. Lindem, "OSPF
+              for IPv6", RFC 5340, DOI 10.17487/RFC5340, July 2008,
+              <https://www.rfc-editor.org/rfc/rfc5340>.
+
+   [RFC5440]  Vasseur, JP., Ed. and JL. Le Roux, Ed., "Path Computation
+              Element (PCE) Communication Protocol (PCEP)", RFC 5440,
+              DOI 10.17487/RFC5440, March 2009,
+              <https://www.rfc-editor.org/rfc/rfc5440>.
+
+   [RFC5741]  Daigle, L., Ed., Kolkman, O., Ed., and IAB, "RFC Streams,
+              Headers, and Boilerplates", RFC 5741,
+              DOI 10.17487/RFC5741, December 2009,
+              <https://www.rfc-editor.org/rfc/rfc5741>.
+
+   [RFC7471]  Giacalone, S., Ward, D., Drake, J., Atlas, A., and S.
+              Previdi, "OSPF Traffic Engineering (TE) Metric
+              Extensions", RFC 7471, DOI 10.17487/RFC7471, March 2015,
+              <https://www.rfc-editor.org/rfc/rfc7471>.
+
+   [RFC8570]  Ginsberg, L., Ed., Previdi, S., Ed., Giacalone, S., Ward,
+              D., Drake, J., and Q. Wu, "IS-IS Traffic Engineering (TE)
+              Metric Extensions", RFC 8570, DOI 10.17487/RFC8570, March
+              2019, <https://www.rfc-editor.org/rfc/rfc8570>.
+
+   [RFC9256]  Filsfils, C., Talaulikar, K., Ed., Voyer, D., Bogdanov,
+              A., and P. Mattes, "Segment Routing Policy Architecture",
+              RFC 9256, DOI 10.17487/RFC9256, July 2022,
+              <https://www.rfc-editor.org/rfc/rfc9256>.
+
+   [RFC9350]  Psenak, P., Ed., Hegde, S., Filsfils, C., Talaulikar, K.,
+              and A. Gulko, "IGP Flexible Algorithm", RFC 9350,
+              DOI 10.17487/RFC9350, February 2023,
+              <https://www.rfc-editor.org/rfc/rfc9350>.
+
+   [RFC9522]  Farrel, A., Ed., "Overview and Principles of Internet
+              Traffic Engineering", RFC 9522, DOI 10.17487/RFC9522,
+              January 2024, <https://www.rfc-editor.org/rfc/rfc9522>.
+
+   [RFC9552]  Talaulikar, K., Ed., "Distribution of Link-State and
+              Traffic Engineering Information Using BGP", RFC 9552,
+              DOI 10.17487/RFC9552, December 2023,
+              <https://www.rfc-editor.org/rfc/rfc9552>.
+
+   [RFC9855]  Bashandy, A., Litkowski, S., Filsfils, C., Francois, P.,
+              Decraene, B., and D. Voyer, "Topology Independent Fast
+              Reroute Using Segment Routing", RFC 9855,
+              DOI 10.17487/RFC9855, October 2025,
+              <https://www.rfc-editor.org/rfc/rfc9855>.
+
+Acknowledgments
+
+Authors' Addresses
+
+   Li Zhang
+   Huawei
+   China
+   Email: zhangli344@huawei.com
+
+
+   Adrian Farrel
+   Old Dog Consulting
+   Email: adrian@olddog.co.uk
