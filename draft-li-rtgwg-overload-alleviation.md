@@ -95,11 +95,11 @@ A link is considered to be overloaded when the amount of traffic (measured in bi
 
 By setting the configured threshold appropriately, a router may detect an increase in traffic levels before the link is full and may take action to alleviate the link overload thus preventing any impact on the traffic.
 
-Except when referring to congestion as defined in {{sec-congestion}}, this document uses the term "link overload". Note that "Distributed Congestion Management" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.
+Except when referring to congestion as defined in {{sec-congestion}}, this document uses the term "link overload". Note that "Distributed Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.
 
-## Link Overload Alleviation and Incremental Alleviation {#sec-alleviate}
+## Link Overload Alleviation {#sec-alleviate}
 
-Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. While a single steering operation may alleviate link overload, in manipulating live networks it is often best to make incremental changes.
+Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. It should be careful for the secondary overload in links of other paths.
 
 ## Required Responsiveness {#sec-required}
 
@@ -111,9 +111,9 @@ Link overload alleviation can be considered as a TE planning or optimization act
 
 It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equal or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.
 
-In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be done in careful increments and should be subject to local and network-wide policies.
+In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be subject to local and network-wide policies.
 
-Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure. It may be preferable to retain a suboptimal path rather than revert to the original (optimal) path.
+Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure.
 
 ## Comparison with Link Failure {#sec-failure}
 
@@ -126,7 +126,7 @@ There are plenty of available techniques for mitigating link failure. These incl
 - Segment protection in MPLS-TE networks {{?RFC4427}}
 - Fast Reroute (FRR) for IP {{?RFC5741}}, MPLS-TE {{?RFC4090}}, or Segment Routing (SR) {{?RFC9855}}.
 
-Solutions for link failure may provide a basis for, or conceptual input to, solutions for link overload.
+Solutions for link failure can not directly applied to overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all traffic away. However, it may provide a basis for, or conceptual input to, solutions for link overload.
 
 ## Discussion of Transport-Level Congestion Control {#sec-congestion}
 
