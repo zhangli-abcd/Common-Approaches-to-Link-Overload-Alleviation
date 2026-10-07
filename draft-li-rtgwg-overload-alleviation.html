@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang &amp; Farrel</td>
-<td class="center">Expires 9 April 2027</td>
+<td class="center">Expires 10 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-06" class="published">6 October 2026</time>
+<time datetime="2026-10-07" class="published">7 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-09">9 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-10">10 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 10 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1357,11 +1357,37 @@ svg {
       <h2 id="name-functional-model">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-functional-model" class="section-name selfRef">Functional Model</a>
       </h2>
+<p id="section-4-1">The functional model is split into abstract functional actions, and key action points that realise those actions. It may be observed that the different approaches described in <a href="#sec-approaches" class="auto internal xref">Section 5</a> may take link overload alleviation measures at different places in the network and so might not require all of the functional actions to be performed.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="sec-funct-acts">
 <section id="section-4.1">
         <h3 id="name-functional-actions">
 <a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-functional-actions" class="section-name selfRef">Functional Actions</a>
-      </h3>
+        </h3>
+<span class="break"></span><dl class="dlParallel" id="section-4.1-1">
+          <dt id="section-4.1-1.1">Configuration:</dt>
+          <dd style="margin-left: 1.5em" id="section-4.1-1.2">
+            <p id="section-4.1-1.2.1">The capacity of each link may be known a priori or configured at the link ends.<a href="#section-4.1-1.2.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-4.1-1.3">Capacity-Aware Topology Database Construction:</dt>
+          <dd style="margin-left: 1.5em" id="section-4.1-1.4">
+            <p id="section-4.1-1.4.1">The network topology is supplemented by the capacities of all of the links. This may be distributed across the network in the TE-enhanced IGP or collected to a centralised controller using management protocols.<a href="#section-4.1-1.4.1" class="pilcrow">¶</a></p>
+</dd>
+          <dd class="break"></dd>
+<dt id="section-4.1-1.5">Measurement:</dt>
+          <dd style="margin-left: 1.5em" id="section-4.1-1.6">
+            <p id="section-4.1-1.6.1">In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.<a href="#section-4.1-1.6.1" class="pilcrow">¶</a></p>
+</dd>
+        <dd class="break"></dd>
+</dl>
+<p id="section-4.1-2">Capacity-Aware TE Database Construction:
+:<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">Overload Trigger:
+:<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">Overload Notification:
+:<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-5">Traffic Steering:
+:<a href="#section-4.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-funct-points">

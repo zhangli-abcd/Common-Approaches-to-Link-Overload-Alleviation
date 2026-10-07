@@ -5,8 +5,8 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 9 April 2027                                 Old Dog Consulting
-                                                          6 October 2026
+Expires: 10 April 2027                                Old Dog Consulting
+                                                          7 October 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 April 2027.
+   This Internet-Draft will expire on 10 April 2027.
 
 Copyright Notice
 
@@ -299,7 +299,33 @@ Table of Contents
 
 4.  Functional Model
 
+   The functional model is split into abstract functional actions, and
+   key action points that realise those actions.  It may be observed
+   that the different approaches described in Section 5 may take link
+   overload alleviation measures at different places in the network and
+   so might not require all of the functional actions to be performed.
+
 4.1.  Functional Actions
+
+   Configuration:  The capacity of each link may be known a priori or
+      configured at the link ends.
+
+   Capacity-Aware Topology Database Construction:  The network topology
+      is supplemented by the capacities of all of the links.  This may
+      be distributed across the network in the TE-enhanced IGP or
+      collected to a centralised controller using management protocols.
+
+   Measurement:  In order to determine the load on any link, the link
+      ends measure the traffic over a period of time designed to dampen
+      any peaks caused by short bursts of traffic.
+
+   Capacity-Aware TE Database Construction: :
+
+   Overload Trigger: :
+
+   Overload Notification: :
+
+   Traffic Steering: :
 
 4.2.  Key Action Points
 
