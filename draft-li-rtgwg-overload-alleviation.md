@@ -169,6 +169,31 @@ Traffic Steering:
 
 ## Key Action Points {#sec-funct-points}
 
+The functional actions described in the previous section can be enacted at key points in the network.
+
+Traffic source:
+: This is where traffic for a particular flow or set of flows enters the network. Flows are routed or steered from the traffic source to the traffic sink.
+
+Traffic sink:
+: This is where traffic for a particular flow or set of flows leaves the network.
+
+Link head end:
+: In the direction of traffic flow, the link head end is where traffic enters the link. In the context of IP networks, the link head end is a router or a host.
+
+Link tail end:
+: In the direction of traffic flow, the link tail end is where traffic exits the link. In the context of IP networks, the link tail end is a router or a host.
+
+Point of local alleviation:
+: A point of local alleviation is a router that steers traffic onto an alternate path to avoid an overloaded link. Such a router is (of course) on the path of the traffic that will be steered. Further, the router is upstream of the overloaded link.
+: Where tunnelling is used to steer the traffic onto the alternate path, the point of local alleviation is the head end of the tunnel.
+
+Merge point:
+: The merge point is a router or host where traffic that has been steered to avoid the overloaded link re-joins the original path. 
+: Where tunneling is used to steer the traffic onto the alternate path, the merge point is the tail end of the tunnel.
+
+Central controller:
+: A central controller, such as a Path Computation Element (PCE) {{?RFC4655}}, responsible for determining optimal paths for traffic within the network. Where traffic is to be steered onto alternate paths to alleviate link overload, the central controller may be used to compute those alternate paths.
+
 # General Approaches {#sec-approaches}
 
 This section outlines four approaches to link overload alleviation that have been proposed and experimentally implemented. While the overall objectives are the same in each case, the approaches vary somewhat.
