@@ -136,7 +136,7 @@ Over the years, many other TCP/IP congestion notification and remedial technique
 
 Active Queue Management (AQM) {{?BCP197}} is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.
 
-The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-usecase}}) are somewhat similar, but the requirements and espescially the responsiveness (see {{sec-required}}) are different.
+The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-applicability}}) are somewhat similar, but the requirements and espescially the responsiveness (see {{sec-required}}) are different.
 
 # Functional Model {#sec-functional-model}
 
