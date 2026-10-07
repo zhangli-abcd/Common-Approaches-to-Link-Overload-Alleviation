@@ -186,7 +186,7 @@ Point of local alleviation:
 : Where tunnelling is used to steer the traffic onto the alternate path, the point of local alleviation is the head end of the tunnel.
 
 Merge point:
-: The merge point is a router or host where traffic that has been steered to avoid the overloaded link re-joins the original path. 
+: The merge point is a router or host where traffic that has been steered to avoid the overloaded link re-joins the original path.
 : Where tunneling is used to steer the traffic onto the alternate path, the merge point is the tail end of the tunnel.
 
 Central controller:
