@@ -171,6 +171,8 @@ Traffic Steering:
 
 # General Approaches {#sec-approaches}
 
+This section outlines four approaches to link overload alleviation that have been proposed and experimentally implemented. While the overall objectives are the same in each case, the approaches vary somewhat.
+
 ## Distributed Congestion Mitigation {#sec-approach-DCM}
 
 Distributed Congestion Mitigation (DCM) described in {{?I-D.psenak-lsr-igp-dcm}} is a distributed and integrated IGP mechanism to mitigate link overlaod. Its primary objective is to dynamically offload traffic from local overloaded links onto less loaded alternate paths in Offloading Flex Algo (OFA) topologies.
