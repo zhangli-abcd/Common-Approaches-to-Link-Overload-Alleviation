@@ -242,9 +242,22 @@ I am not sure whether this section is necessary, maybe we can leave it blank for
 
 # Deployment and Implementation Experience {#sec-deployment}
 
+TBD
+
 # Security Considerations {#sec-security}
 
+TBD
+- attack thresholds to cause flapping
+- introduce burst flows to cause steering
+- steering diverts traffic to where it can be exfiltrated
+
 # Operational Considerations {#sec-operational}
+
+TBD
+- configuration of thresholds
+- monitoring traffic flows (where is my packet?)
+- reporting traffic steering
+- complexity and instability versus alleviating overload
 
 # IANA Considerations {#sec-iana}
 
@@ -254,3 +267,5 @@ This document makes no requests for IANA action.
 
 # Acknowledgments
 {:numbered="false"}
+
+The authors would like to thank Daniel King for input to this document.
