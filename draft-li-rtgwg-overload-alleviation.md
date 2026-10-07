@@ -1,7 +1,7 @@
 ---
 title: "Common Approaches to Link Overload Alleviation"
 abbrev: "Overload Alleviation"
-docname: draft-li-rtgwg-overload-alleviation-00
+docname: draft-li-rtgwg-overload-alleviation
 
 stand_alone: true
 ipr: trust200902
