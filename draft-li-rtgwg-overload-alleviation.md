@@ -142,7 +142,30 @@ The problems discussed in this document (see {{sec-problem}}) are similar to tho
 
 # Functional Model {#sec-functional-model}
 
+The functional model is split into abstract functional actions, and key action points that realise those actions. It may be observed that the different approaches described in {{sec-approaches}} may take link overload alleviation measures at different places in the network and so might not require all of the functional actions to be performed.
+
 ## Functional Actions {#sec-funct-acts}
+
+Configuration:
+: The capacity of each link may be known a priori or configured at the link ends.
+
+Capacity-Aware Topology Database Construction:
+: The network topology is supplemented by the capacities of all of the links. This may be distributed across the network in the TE-enhanced IGP or collected to a centralised controller using management protocols.
+
+Measurement:
+: In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.
+
+Capacity-Aware TE Database Construction:
+:
+
+Overload Trigger:
+:
+
+Overload Notification:
+:
+
+Traffic Steering:
+:
 
 ## Key Action Points {#sec-funct-points}
 
