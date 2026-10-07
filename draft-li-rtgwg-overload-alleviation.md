@@ -138,8 +138,6 @@ Active Queue Management (AQM) {{?BCP197}} is a method that allows network device
 
 The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-usecase}}) are somewhat similar, but the requirements and espescially the responsiveness (see {{sec-required}}) are different.
 
-# Use Cases and Scenarios {#sec-usecase}
-
 # Functional Model {#sec-functional-model}
 
 The functional model is split into abstract functional actions, and key action points that realise those actions. It may be observed that the different approaches described in {{sec-approaches}} may take link overload alleviation measures at different places in the network and so might not require all of the functional actions to be performed.
