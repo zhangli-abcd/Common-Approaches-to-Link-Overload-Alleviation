@@ -156,16 +156,16 @@ Measurement:
 : In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.
 
 Capacity-Aware TE Database Construction:
-:
+: To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, or through reporting to a central controller.
 
 Overload Trigger:
-:
+: The overload condition is triggered when when the load on a link crosses a configured threshold. This may be an absolute value or a percentage of the link capacity.
 
 Overload Notification:
-:
+: Depending on where the overload alleviation is to be performed and where the overload condition is triggered, it may be necessary to send an overload notification so that remedial action can be taken.
 
 Traffic Steering:
-:
+: To alleviate link overload, traffic is steered away from the overloaded link onto links that have less load. This is achieved by using tunnelling techniques that place the traffic onto a path that it would not normally follow. Only a part of the total traffic is steered onto an alternate path so as to keep the overloaded link in use while reducing the load it carries.
 
 ## Key Action Points {#sec-funct-points}
 
