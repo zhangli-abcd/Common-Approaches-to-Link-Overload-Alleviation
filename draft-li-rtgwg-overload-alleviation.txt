@@ -351,6 +351,11 @@ Table of Contents
 
 5.  General Approaches
 
+   This section outlines four approaches to link overload alleviation
+   that have been proposed and experimentally implemented.  While the
+   overall objectives are the same in each case, the approaches vary
+   somewhat.
+
 5.1.  Distributed Congestion Mitigation
 
    Distributed Congestion Mitigation (DCM) described in
