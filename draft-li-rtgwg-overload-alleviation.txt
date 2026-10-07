@@ -88,24 +88,23 @@ Table of Contents
      2.4.  Traffic Reversion
      2.5.  Comparison with Link Failure
      2.6.  Discussion of Transport-Level Congestion Control
-   3.  Use Cases and Scenarios
-   4.  Functional Model
-     4.1.  Functional Actions
-     4.2.  Key Action Points
-   5.  General Approaches
-     5.1.  Distributed Congestion Mitigation
-     5.2.  Elastic Bandwidth-aware Routing
-     5.3.  Tactical Traffic Engineering{#sec-approach-TTE}
-     5.4.  Local Congestion Management
-   6.  Applicability to Different Scenarios
-     6.1.  Scenario 1
-     6.2.  Scenario 2
-   7.  Combined Approaches
-   8.  Deployment and Implementation Experience
-   9.  Security Considerations
-   10. Operational Considerations
-   11. IANA Considerations
-   12. Informative References
+   3.  Functional Model
+     3.1.  Functional Actions
+     3.2.  Key Action Points
+   4.  General Approaches
+     4.1.  Distributed Congestion Mitigation
+     4.2.  Elastic Bandwidth-aware Routing
+     4.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+     4.4.  Local Congestion Management
+   5.  Applicability to Different Scenarios
+     5.1.  Scenario 1
+     5.2.  Scenario 2
+   6.  Combined Approaches
+   7.  Deployment and Implementation Experience
+   8.  Security Considerations
+   9.  Operational Considerations
+   10. IANA Considerations
+   11. Informative References
    Acknowledgments
    Authors' Addresses
 
@@ -159,7 +158,7 @@ Table of Contents
    congestion notification and mitigation mechanisms (see Section 2.6),
    but more permanent overload situations need more strategic solutions.
 
-   Various solutions (see Section 5) provide mechanisms to detect and
+   Various solutions (see Section 4) provide mechanisms to detect and
    alleviate link overload.  The objectives are to determine when
    traffic load reaches a threshold, to notify the situation, and to
    steer traffic so that it takes acceptable paths (that is, not
@@ -249,7 +248,7 @@ Table of Contents
 
    *  Segment protection in MPLS-TE networks [RFC4427]
 
-   *  Fast Reroute (FRR) for IP [RFC5741], MPLS-TE [RFC4090], or Segment
+   *  Fast Reroute (FRR) for IP [RFC7841], MPLS-TE [RFC4090], or Segment
       Routing (SR) [RFC9855].
 
    Solutions for link failure cannot be directly applied to link
@@ -292,20 +291,18 @@ Table of Contents
    The problems discussed in this document (see Section 2) are similar
    to those that have been addressed previously (i.e., link overload is
    equivalent to congestion on that link).  The use cases (see
-   Section 3) are somewhat similar, but the requirements and espescially
+   Section 5) are somewhat similar, but the requirements and espescially
    the responsiveness (see Section 2.3) are different.
 
-3.  Use Cases and Scenarios
-
-4.  Functional Model
+3.  Functional Model
 
    The functional model is split into abstract functional actions, and
    key action points that realise those actions.  It may be observed
-   that the different approaches described in Section 5 may take link
+   that the different approaches described in Section 4 may take link
    overload alleviation measures at different places in the network and
    so might not require all of the functional actions to be performed.
 
-4.1.  Functional Actions
+3.1.  Functional Actions
 
    Configuration:  The capacity of each link may be known a priori or
       configured at the link ends.
@@ -347,16 +344,57 @@ Table of Contents
       to keep the overloaded link in use while reducing the load it
       carries.
 
-4.2.  Key Action Points
+3.2.  Key Action Points
 
-5.  General Approaches
+   The functional actions described in the previous section can be
+   enacted at key points in the network.
+
+   Traffic source:  This is where traffic for a particular flow or set
+      of flows enters the network.  Flows are routed or steered from the
+      traffic source to the traffic sink.
+
+   Traffic sink:  This is where traffic for a particular flow or set of
+      flows leaves the network.
+
+   Link head end:  In the direction of traffic flow, the link head end
+      is where traffic enters the link.  In the context of IP networks,
+      the link head end is a router or a host.
+
+   Link tail end:  In the direction of traffic flow, the link tail end
+      is where traffic exits the link.  In the context of IP networks,
+      the link tail end is a router or a host.
+
+   Point of local alleviation:  A point of local alleviation is a router
+      that steers traffic onto an alternate path to avoid an overloaded
+      link.  Such a router is (of course) on the path of the traffic
+      that will be steered.  Further, the router is upstream of the
+      overloaded link.
+
+      Where tunnelling is used to steer the traffic onto the alternate
+      path, the point of local alleviation is the head end of the
+      tunnel.
+
+   Merge point:  The merge point is a router or host where traffic that
+      has been steered to avoid the overloaded link re-joins the
+      original path.
+
+      Where tunneling is used to steer the traffic onto the alternate
+      path, the merge point is the tail end of the tunnel.
+
+   Central controller:  A central controller, such as a Path Computation
+      Element (PCE) [RFC4655], responsible for determining optimal paths
+      for traffic within the network.  Where traffic is to be steered
+      onto alternate paths to alleviate link overload, the central
+      controller may be used to compute those alternate paths.
+
+4.  General Approaches
 
    This section outlines four approaches to link overload alleviation
    that have been proposed and experimentally implemented.  While the
    overall objectives are the same in each case, the approaches vary
    somewhat.
 
-5.1.  Distributed Congestion Mitigation
+4.1.  Distributed Congestion Mitigation
 
    Distributed Congestion Mitigation (DCM) described in
    [I-D.psenak-lsr-igp-dcm] is a distributed and integrated IGP
@@ -385,7 +423,7 @@ Table of Contents
    Participating nodes must implement threshold based link state
    signaling and obey IGP LSP/LSA update throttling rules.
 
-5.2.  Elastic Bandwidth-aware Routing
+4.2.  Elastic Bandwidth-aware Routing
 
    Elastic Bandwidth aware Routing (EBR) specified in
    [I-D.czz-rtgwg-elastic-bandwidth-routing], is a distributed dynamic
@@ -415,7 +453,7 @@ Table of Contents
    dissemination.  SR-TE data plane capability is mandatory for steering
    offloaded traffic.
 
-5.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+4.3.  Tactical Traffic Engineering{#sec-approach-TTE}
 
    Tactical Traffic Engineering (TTE) is a distributed real-time
    mechanism to mitigate link overload defined in [I-D.li-rtgwg-tte].
@@ -439,7 +477,7 @@ Table of Contents
    capabilities such as LFA and TI-LFA.  Forwarding planes must support
    FIB/LFIB modification for dynamic multipath group adjustment.
 
-5.4.  Local Congestion Management
+4.4.  Local Congestion Management
 
    Local Congestion Mitigation (LCM) specified in [LCM] is a controller-
    based tactical solution to mitigate link overload, designed to handle
@@ -472,28 +510,38 @@ Table of Contents
    Headend routers must support PCE-initiated SR-TE policies with
    autoroute steering and ECMP over multiple parallel SR-TE policies.
 
-6.  Applicability to Different Scenarios
+5.  Applicability to Different Scenarios
 
-6.1.  Scenario 1
+5.1.  Scenario 1
 
-6.2.  Scenario 2
+5.2.  Scenario 2
 
-7.  Combined Approaches
+6.  Combined Approaches
 
    I am not sure whether this section is necessary, maybe we can leave
    it blank for now.
 
-8.  Deployment and Implementation Experience
+7.  Deployment and Implementation Experience
 
-9.  Security Considerations
+   TBD
 
-10.  Operational Considerations
+8.  Security Considerations
 
-11.  IANA Considerations
+   TBD - attack thresholds to cause flapping - introduce burst flows to
+   cause steering - steering diverts traffic to where it can be
+   exfiltrated
+
+9.  Operational Considerations
+
+   TBD - configuration of thresholds - monitoring traffic flows (where
+   is my packet?) - reporting traffic steering - complexity and
+   instability versus alleviating overload
+
+10.  IANA Considerations
 
    This document makes no requests for IANA action.
 
-12.  Informative References
+11.  Informative References
 
    [BCP197]   Best Current Practice 197,
               <https://www.rfc-editor.org/info/bcp197>.
@@ -554,6 +602,11 @@ Table of Contents
               DOI 10.17487/RFC4427, March 2006,
               <https://www.rfc-editor.org/rfc/rfc4427>.
 
+   [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
+              Computation Element (PCE)-Based Architecture", RFC 4655,
+              DOI 10.17487/RFC4655, August 2006,
+              <https://www.rfc-editor.org/rfc/rfc4655>.
+
    [RFC4750]  Joyal, D., Ed., Galecki, P., Ed., and S. Giacalone, Ed.,
               "OSPF Version 2 Management Information Base", RFC 4750,
               DOI 10.17487/RFC4750, December 2006,
@@ -573,15 +626,15 @@ Table of Contents
               DOI 10.17487/RFC5440, March 2009,
               <https://www.rfc-editor.org/rfc/rfc5440>.
 
-   [RFC5741]  Daigle, L., Ed., Kolkman, O., Ed., and IAB, "RFC Streams,
-              Headers, and Boilerplates", RFC 5741,
-              DOI 10.17487/RFC5741, December 2009,
-              <https://www.rfc-editor.org/rfc/rfc5741>.
-
    [RFC7471]  Giacalone, S., Ward, D., Drake, J., Atlas, A., and S.
               Previdi, "OSPF Traffic Engineering (TE) Metric
               Extensions", RFC 7471, DOI 10.17487/RFC7471, March 2015,
               <https://www.rfc-editor.org/rfc/rfc7471>.
+
+   [RFC7841]  Halpern, J., Ed., Daigle, L., Ed., and O. Kolkman, Ed.,
+              "RFC Streams, Headers, and Boilerplates", RFC 7841,
+              DOI 10.17487/RFC7841, May 2016,
+              <https://www.rfc-editor.org/rfc/rfc7841>.
 
    [RFC8570]  Ginsberg, L., Ed., Previdi, S., Ed., Giacalone, S., Ward,
               D., Drake, J., and Q. Wu, "IS-IS Traffic Engineering (TE)
@@ -614,6 +667,9 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc9855>.
 
 Acknowledgments
+
+   The authors would like to thank Daniel King for input to this
+   document.
 
 Authors' Addresses
 
