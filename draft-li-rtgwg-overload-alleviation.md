@@ -244,7 +244,7 @@ TBD
 
 # Security Considerations {#sec-security}
 
-There are two main security exposures introduced by link overload alleviation. 
+There are two main security exposures introduced by link overload alleviation.
 
 Firstly, the network can be destabilised causing traffic to be steered off the optimal path resulting in degradation of traffic delivery and potential packet loss. For example, if the configuration of overload and reversion thresholds can be compromised, then traffic steering can be induced. Further, a flip-flop with reversion can be forced by setting the reversion threshold higher than the overload threshold, resulting in interruption of traffic flows.
 
