@@ -244,10 +244,15 @@ TBD
 
 # Security Considerations {#sec-security}
 
-TBD
-- attack thresholds to cause flapping
-- introduce burst flows to cause steering
-- steering diverts traffic to where it can be exfiltrated
+There are two main security exposures introduced by link overload alleviation. 
+
+Firstly, the network can be destabilised causing traffic to be steered off the optimal path resulting in degradation of traffic delivery and potential packet loss. For example, if the configuration of overload and reversion thresholds can be compromised, then traffic steering can be induced. Further, a flip-flop with reversion can be forced by setting the reversion threshold higher than the overload threshold, resulting in interruption of traffic flows.
+
+A more complex attack may cause traffic be sent to an authorised network exit where it can be exfiltrated. This attack requires a tunnel to be set up to that exit point, and then overload steering to be triggered so that traffic is placed on the tunnel.
+
+The most important protection against these attacks is security applied to the configuration/management protocols.
+
+It may be possible to force link overload alleviation by introducing bogus, high-volume traffic flows to the network. Such an attack, however, is actually mitigated by link overload alleviation because otherwise it would simply result in overload with delay or loss on other, legitimate traffic flows. In any case, this sort of attack should be adequately protected against by appropriate traffic policing at the network edge.
 
 # Operational Considerations {#sec-operational}
 
