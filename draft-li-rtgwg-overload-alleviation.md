@@ -85,7 +85,7 @@ Links may become overloaded when more traffic is dispatched to the link than can
 
 Link overload may arise when traffic flows that comprise together more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see {{sec-congestion}}), but more permanent overload situations need more strategic solutions.
 
-Various solutions (see {{sec-approaches}}) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes acceptable paths (that  is, not excessive path cost, delay, etc.) but balances the traffic load in the network so that no link is overloaded and that traffic load remains below thresholds on all links where that is possible.
+Various solutions (see {{sec-approaches}}) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes acceptable paths (that is, not excessive path cost, delay, etc.) but balances the traffic load in the network so that no link is overloaded and that traffic load remains below thresholds on all links where that is possible.
 
 Ideally, when the traffic load on any previously overloaded link drops below a second threshold, traffic will revert to the originally preferred path.
 
@@ -109,9 +109,9 @@ Link overload alleviation can be considered as a TE planning or optimization act
 
 ## Traffic Reversion {#sec-reversion}
 
-It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equal or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.
+It may be assumed that the path originally taken by the traffic was preferred because it was shorter, more cost-effective, better protected, lower delay, etc. Thus, in order to alleviate link overload, traffic has been steered onto an equally or less preferred path. It follows that, if the link overload situation has been alleviated, it may be desirable to revert traffic back to its original path.
 
-In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be subject to local and network-wide policies.
+In order to avoid flip-flop of traffic from one path to another, it is important that the link-no-longer-overloaded state involves a threshold markedly lower than the link-overloaded threshold. Further, reversion of traffic to its original path should be subject to local and network-wide policies such as delays (hold-off timers).
 
 Note that switching traffic from one path to another may introduce some disruption (for example, out of order packet delivery, or jitter) and even risks delivery failure.
 
@@ -124,9 +124,9 @@ There are plenty of available techniques for mitigating link failure. These incl
 - IGP routing convergence {{?RFC4750}}, {{?RFC5340}}, {{ISO10589}}
 - End-to-end protection in MPLS-TE networks {{?RFC4427}}
 - Segment protection in MPLS-TE networks {{?RFC4427}}
-- Fast Reroute (FRR) for IP {{?RFC5741}}, MPLS-TE {{?RFC4090}}, or Segment Routing (SR) {{?RFC9855}}.
+- Fast Reroute (FRR) for IP {{?RFC7841}}, MPLS-TE {{?RFC4090}}, or Segment Routing (SR) {{?RFC9855}}.
 
-Solutions for link failure can not directly applied to overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all traffic away. However, it may provide a basis for, or conceptual input to, solutions for link overload.
+Solutions for link failure cannot be directly applied to link overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all of the traffic. However, it may provide a basis for, or conceptual input to, solutions for link overload.
 
 ## Discussion of Transport-Level Congestion Control {#sec-congestion}
 
@@ -136,17 +136,65 @@ Over the years, many other TCP/IP congestion notification and remedial technique
 
 Active Queue Management (AQM) {{?BCP197}} is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.
 
-The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-usecase}}) are somewhat similar, but the requirements and espescially the responsiveness (see {{sec-required}}) are different.
-
-# Use Cases and Scenarios {#sec-usecase}
+The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-applicability}}) are somewhat similar, but the requirements and espescially the responsiveness (see {{sec-required}}) are different.
 
 # Functional Model {#sec-functional-model}
 
+The functional model is split into abstract functional actions, and key action points that realise those actions. It may be observed that the different approaches described in {{sec-approaches}} may take link overload alleviation measures at different places in the network and so might not require all of the functional actions to be performed.
+
 ## Functional Actions {#sec-funct-acts}
+
+Configuration:
+: The capacity of each link may be known a priori or configured at the link ends.
+
+Capacity-Aware Topology Database Construction:
+: The network topology is supplemented by the capacities of all of the links. This may be distributed across the network in the TE-enhanced IGP or collected to a centralised controller using management protocols.
+
+Measurement:
+: In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.
+
+Capacity-Aware TE Database Construction:
+: To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, or through reporting to a central controller.
+
+Overload Trigger:
+: The overload condition is triggered when when the load on a link crosses a configured threshold. This may be an absolute value or a percentage of the link capacity.
+
+Overload Notification:
+: Depending on where the overload alleviation is to be performed and where the overload condition is triggered, it may be necessary to send an overload notification so that remedial action can be taken.
+
+Traffic Steering:
+: To alleviate link overload, traffic is steered away from the overloaded link onto links that have less load. This is achieved by using tunnelling techniques that place the traffic onto a path that it would not normally follow. Only a part of the total traffic is steered onto an alternate path so as to keep the overloaded link in use while reducing the load it carries.
 
 ## Key Action Points {#sec-funct-points}
 
+The functional actions described in the previous section can be enacted at key points in the network.
+
+Traffic source:
+: This is where traffic for a particular flow or set of flows enters the network. Flows are routed or steered from the traffic source to the traffic sink.
+
+Traffic sink:
+: This is where traffic for a particular flow or set of flows leaves the network.
+
+Link head end:
+: In the direction of traffic flow, the link head end is where traffic enters the link. In the context of IP networks, the link head end is a router or a host.
+
+Link tail end:
+: In the direction of traffic flow, the link tail end is where traffic exits the link. In the context of IP networks, the link tail end is a router or a host.
+
+Point of local alleviation:
+: A point of local alleviation is a router that steers traffic onto an alternate path to avoid an overloaded link. Such a router is (of course) on the path of the traffic that will be steered. Further, the router is upstream of the overloaded link.
+: Where tunnelling is used to steer the traffic onto the alternate path, the point of local alleviation is the head end of the tunnel.
+
+Merge point:
+: The merge point is a router or host where traffic that has been steered to avoid the overloaded link re-joins the original path.
+: Where tunneling is used to steer the traffic onto the alternate path, the merge point is the tail end of the tunnel.
+
+Central controller:
+: A central controller, such as a Path Computation Element (PCE) {{?RFC4655}}, responsible for determining optimal paths for traffic within the network. Where traffic is to be steered onto alternate paths to alleviate link overload, the central controller may be used to compute those alternate paths.
+
 # General Approaches {#sec-approaches}
+
+This section outlines four approaches to link overload alleviation that have been proposed and experimentally implemented. While the overall objectives are the same in each case, the approaches vary somewhat.
 
 ## Distributed Congestion Mitigation {#sec-approach-DCM}
 
@@ -192,9 +240,27 @@ I am not sure whether this section is necessary, maybe we can leave it blank for
 
 # Deployment and Implementation Experience {#sec-deployment}
 
+TBD
+
 # Security Considerations {#sec-security}
 
+There are two main security exposures introduced by link overload alleviation.
+
+Firstly, the network can be destabilised causing traffic to be steered off the optimal path resulting in degradation of traffic delivery and potential packet loss. For example, if the configuration of overload and reversion thresholds can be compromised, then traffic steering can be induced. Further, a flip-flop with reversion can be forced by setting the reversion threshold higher than the overload threshold, resulting in interruption of traffic flows.
+
+A more complex attack may cause traffic be sent to an authorised network exit where it can be exfiltrated. This attack requires a tunnel to be set up to that exit point, and then overload steering to be triggered so that traffic is placed on the tunnel.
+
+The most important protection against these attacks is security applied to the configuration/management protocols.
+
+It may be possible to force link overload alleviation by introducing bogus, high-volume traffic flows to the network. Such an attack, however, is actually mitigated by link overload alleviation because otherwise it would simply result in overload with delay or loss on other, legitimate traffic flows. In any case, this sort of attack should be adequately protected against by appropriate traffic policing at the network edge.
+
 # Operational Considerations {#sec-operational}
+
+TBD
+- configuration of thresholds
+- monitoring traffic flows (where is my packet?)
+- reporting traffic steering
+- complexity and instability versus alleviating overload
 
 # IANA Considerations {#sec-iana}
 
@@ -204,3 +270,5 @@ This document makes no requests for IANA action.
 
 # Acknowledgments
 {:numbered="false"}
+
+The authors would like to thank Daniel King for input to this document.
