@@ -221,6 +221,7 @@ TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{?R
 
 TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.
 -->
+
 ## Local Congestion Management {#sec-approach-LCM}
 
 Local Congestion Mitigation (LCM) specified in {{LCM}} is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.
