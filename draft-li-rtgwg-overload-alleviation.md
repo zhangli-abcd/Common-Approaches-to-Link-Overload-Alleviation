@@ -221,7 +221,7 @@ TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{?R
 
 TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.
 -->
-## Local Congestion Management  {#sec-approach-LCM}
+## Local Congestion Management {#sec-approach-LCM}
 
 Local Congestion Mitigation (LCM) specified in {{LCM}} is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.
 
@@ -239,7 +239,7 @@ Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with F
 
 Applicable approach: Distributed Congestion Mitigation (DCM) {{sec-approach-DCM}}.
 
-DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC 9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.
+DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.
 
 The approach is unsuitable for micro-burst or extremely short-lived congestion: DCM explicitly states that it is not designed to deal with micro-bursts or short-lived congestion. Its progressive offloading in periodic iterations (e.g., 5% per step) introduces convergence latency that is acceptable for long-term overload.
 
@@ -252,7 +252,7 @@ Key deployment considerations:
 
 ## Scenario 2: Distributed Alleviation with SR-TE Capability{#sec-scenario-ebr}
 
-Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already deployed or easily enabled.The operator requires a fully distributed solution that does not depend on a central controller. 
+Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already deployed or easily enabled.The operator requires a fully distributed solution that does not depend on a central controller.
 
 Applicable approach: Elastic Bandwidth-aware Routing (EBR) {{sec-approach-EBR}}.
 
