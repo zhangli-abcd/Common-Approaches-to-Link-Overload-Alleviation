@@ -13,6 +13,7 @@ keyword:
  - bandwidth
  - link capacity
  - traffic steering
+ - segment routing
 
 category: info
 submissiontype: IETF
@@ -212,7 +213,7 @@ In EBR, each router monitors local link bandwidth usage and advertises available
 
 EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC8570}} for IS-IS, {{?RFC7471}} for OSPF) for bandwidth information dissemination. SR-TE data plane capability is mandatory for steering offloaded traffic.
 
-## Tactical Traffic Engineering{#sec-approach-TTE}
+## Tactical Traffic Engineering {#sec-approach-TTE}
 
 Tactical Traffic Engineering (TTE) is a distributed real-time mechanism to mitigate link overload defined in {{?I-D.li-rtgwg-tte}}. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient link overload while optimal traffic assignment is being recomputed. TTE dynamically distributes load if link overload is anticipated, shifts traffic load away from overloaded links, and reverts traffic back to original paths once link overload abates.
 
@@ -238,13 +239,64 @@ LCM relies on BGP-LS {{?RFC9552}} or the active IGP to collect real-time topolog
 
 # Applicability to Different Scenarios {#sec-applicability}
 
-## Scenario 1
+The approaches described in {{sec-approaches}} share the common objective of alleviating link overload, but they differ significantly in their architectural assumptions, deployment requirements, and operational characteristics. This section identifies the scenarios in which each approach is most applicable.
 
-## Scenario 2
+## Scenario 1: Distributed Alleviation with Flex-Algo Support {#sec-scenario-dcm}
 
-# Combined Approaches {#sec-symbiosis}
+Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Flexible Algorithm capabilities already deployed or easily enabled. The operator requires a fully distributed solution that does not depend on a central controller or external TE policy management.  The network can tolerate the overhead of a dedicated offload topology.
 
-I am not sure whether this section is necessary, maybe we can leave it blank for now.
+Applicable approach: Distributed Congestion Mitigation (DCM) {{sec-approach-DCM}}.
+
+DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.
+
+The approach is unsuitable for micro-burst or extremely short-lived congestion: DCM explicitly states that it is not designed to deal with micro-bursts or short-lived congestion. Its progressive offloading in periodic iterations (e.g., 5% per step) introduces convergence latency that is acceptable for long-term overload.
+
+Key deployment considerations:
+
+- Requires IGP-wide support for Flex-Algo and extended administrative groups.
+
+- The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.
+
+
+## Scenario 2: Distributed Alleviation with SR-TE Capability {#sec-scenario-ebr}
+
+Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already deployed or easily enabled.The operator requires a fully distributed solution that does not depend on a central controller.
+
+Applicable approach: Elastic Bandwidth-aware Routing (EBR) {{sec-approach-EBR}}.
+
+EBR is designed for scenarios where the operator needs bandwidth-aware load balancing across pre-computed alternate paths. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly to overload. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.
+
+Key deployment considerations:
+
+- SR-TE data plane capability is mandatory for steering offloaded traffic.
+
+- The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.
+
+## Scenario 3: Controller-Based Alleviation with Human Oversight {#sec-scenario-lcm}
+
+Characteristics: The network is managed by a central controller and the operator requires visibility, auditability, and control over any traffic steering actions. Regulatory or operational policy requires human-in-the-loop approval for traffic engineering changes. The overload events are transient and localized, and the operator wants to offload the minimal necessary traffic volume to restore the link to acceptable utilization. Existing SR-TE policy infrastructure is already deployed or can be deployed.
+
+Applicable approach: Local Congestion Mitigation (LCM) {{sec-approach-LCM}}.
+
+LCM is the appropriate choice when operational safety and human oversight are paramount. It operates as a closed-loop controller-driven workflow: the controller collects interface statistics, detects overload against user-configured thresholds, computes the minimal offload volume, deploys temporary SR-TE policies, and later removes them once hold-margin conditions are satisfied. The monitor-only and human-in-the-loop workflows allow operators to preview recommendations before committing them.
+
+LCM is less suitable for scenarios requiring sub-second reaction times or for networks without controller infrastructure. The closed-loop nature introduces latency from telemetry collection, path computation, and policy deployment, which may be acceptable for the long term overload but not for micro-burst.
+
+Key deployment considerations:
+
+- Requires BGP-LS or IGP for topology collection;
+
+- Requires SR-TE policies and ECMP over multiple parallel policies.
+
+## Summary {#sec-scenario-summary}
+
+| Scenario | Primary Criterion | Recommended Approach| Key Prerequisite|
+|----------|-------------------|---------------------|-----------------|
+| Scenario1 | Distributed, Flex-Algo available | DCM | Flex-Algo + extended admin groups |
+| Scenario2 | Distributed, SR-TE available | EBR	| SR-TE data plane + IGP TE metrics(bandwidth related metrics) |
+| Scenario3 | Controller-based, human oversight required | LCM |	Controller + SR-TE policy support |
+
+These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator‘s existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
 
 # Deployment and Implementation Experience {#sec-deployment}
 
