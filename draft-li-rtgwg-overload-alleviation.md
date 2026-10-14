@@ -13,6 +13,7 @@ keyword:
  - bandwidth
  - link capacity
  - traffic steering
+ - segment routing
 
 category: info
 submissiontype: IETF
