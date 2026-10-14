@@ -636,8 +636,8 @@ Table of Contents
     |           |                   |             | metrics(bandwidth |
     |           |                   |             | related metrics)  |
     +-----------+-------------------+-------------+-------------------+
-    | Scenario  | Controller-based, | LCM         | Controller + SR-  |
-    | 3         | human oversight   |             | TE policy support |
+    | Scenario3 | Controller-based, | LCM         | Controller + SR-  |
+    |           | human oversight   |             | TE policy support |
     |           | required          |             |                   |
     +-----------+-------------------+-------------+-------------------+
 
