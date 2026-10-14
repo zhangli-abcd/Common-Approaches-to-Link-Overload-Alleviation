@@ -309,6 +309,7 @@ It may be possible to force link overload alleviation by introducing bogus, high
 # Operational Considerations {#sec-operational}
 
 TBD
+
 - configuration of thresholds
 - monitoring traffic flows (where is my packet?)
 - reporting traffic steering
