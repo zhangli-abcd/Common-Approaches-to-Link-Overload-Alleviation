@@ -5,8 +5,8 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 16 April 2027                                Old Dog Consulting
-                                                         13 October 2026
+Expires: 17 April 2027                                Old Dog Consulting
+                                                         14 October 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 April 2027.
+   This Internet-Draft will expire on 17 April 2027.
 
 Copyright Notice
 
@@ -94,7 +94,8 @@ Table of Contents
    4.  General Approaches
      4.1.  Distributed Congestion Mitigation
      4.2.  Elastic Bandwidth-aware Routing
-     4.3.  Local Congestion Management
+     4.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+     4.4.  Local Congestion Management
    5.  Applicability to Different Scenarios
      5.1.  Scenario 1: Distributed Alleviation with Flex-Algo
            Support{#sec-scenario-dcm}
@@ -456,7 +457,31 @@ Table of Contents
    dissemination.  SR-TE data plane capability is mandatory for steering
    offloaded traffic.
 
-4.3.  Local Congestion Management
+4.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+
+   Tactical Traffic Engineering (TTE) is a distributed real-time
+   mechanism to mitigate link overload defined in [I-D.li-rtgwg-tte].
+   It works in conjunction with previous bandwidth-oriented traffic
+   engineering techniques to mitigate transient link overload while
+   optimal traffic assignment is being recomputed.  TTE dynamically
+   distributes load if link overload is anticipated, shifts traffic load
+   away from overloaded links, and reverts traffic back to original
+   paths once link overload abates.
+
+   TTE leverages pre-computed backup paths such as Loop-Free Alternates
+   (LFAs) [RFC5286] or Topology Independent Loop-Free Alternates (TI-
+   LFAs) [RFC9855].  When utilization on a link exceeds a configured
+   threshold, the corresponding router converts these standby backup
+   paths into active parallel paths alongside primary paths to form
+   Equal Cost Multipath (ECMP) multipath groups.  TTE manipulates
+   Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to
+   achieve flow-level load distribution.
+
+   TTE builds upon existing loop-free backup path computation
+   capabilities such as LFA and TI-LFA.  Forwarding planes must support
+   FIB/LFIB modification for dynamic multipath group adjustment.
+
+4.4.  Local Congestion Management
 
    Local Congestion Mitigation (LCM) specified in [LCM] is a controller-
    based tactical solution to mitigate link overload, designed to handle
@@ -573,7 +598,7 @@ Table of Contents
    to acceptable utilization.  Existing SR-TE policy infrastructure is
    already deployed or can be deployed.
 
-   Applicable approach: Local Congestion Mitigation (LCM) Section 4.3.
+   Applicable approach: Local Congestion Mitigation (LCM) Section 4.4.
 
    LCM is the appropriate choice when operational safety and human
    oversight are paramount.  It operates as a closed-loop controller-

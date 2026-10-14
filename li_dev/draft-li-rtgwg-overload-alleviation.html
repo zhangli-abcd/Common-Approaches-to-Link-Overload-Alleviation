@@ -1052,7 +1052,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang &amp; Farrel</td>
-<td class="center">Expires 16 April 2027</td>
+<td class="center">Expires 17 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1065,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-13" class="published">13 October 2026</time>
+<time datetime="2026-10-14" class="published">14 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-16">16 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-17">17 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1125,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 16 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 17 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1201,7 +1201,10 @@ svg {
                 <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-elastic-bandwidth-aware-rou" class="internal xref">Elastic Bandwidth-aware Routing</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
-                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-local-congestion-management" class="internal xref">Local Congestion Management</a></p>
+                <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-tactical-traffic-engineerin" class="internal xref">Tactical Traffic Engineering{#sec-approach-TTE}</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-local-congestion-management" class="internal xref">Local Congestion Management</a></p>
 </li>
             </ul>
 </li>
@@ -1475,14 +1478,24 @@ svg {
 <p id="section-4.2-3">EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions (<span>[<a href="#RFC8570" class="cite xref">RFC8570</a>]</span> for IS-IS, <span>[<a href="#RFC7471" class="cite xref">RFC7471</a>]</span> for OSPF) for bandwidth information dissemination. SR-TE data plane capability is mandatory for steering offloaded traffic.<a href="#section-4.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-approach-LCM">
+<div id="tactical-traffic-engineeringsec-approach-tte">
 <section id="section-4.3">
-        <h3 id="name-local-congestion-management">
-<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-local-congestion-management" class="section-name selfRef">Local Congestion Management</a>
+        <h3 id="name-tactical-traffic-engineerin">
+<a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-tactical-traffic-engineerin" class="section-name selfRef">Tactical Traffic Engineering{#sec-approach-TTE}</a>
         </h3>
-<p id="section-4.3-1">Local Congestion Mitigation (LCM) specified in <span>[<a href="#LCM" class="cite xref">LCM</a>]</span> is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">LCM operates as a closed-loop controller-driven workflow. Crosswork Data Gateway (CDG) collects interface-level statistics from network elements. The controller maintains real-time network state and detects when a link is overloaded when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve the link overload. A Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR-TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR-TE policies to achieve the target offloaded volume. After the link has become less loaded and once hold-margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3">LCM relies on BGP-LS <span>[<a href="#RFC9552" class="cite xref">RFC9552</a>]</span> or the active IGP to collect real-time topology information. PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> is required between the SR PCE and PCC routers for installation and removal of PCE-initiated SR-TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR-TE policies.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">Tactical Traffic Engineering (TTE) is a distributed real-time mechanism to mitigate link overload defined in <span>[<a href="#I-D.li-rtgwg-tte" class="cite xref">I-D.li-rtgwg-tte</a>]</span>. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient link overload while optimal traffic assignment is being recomputed. TTE dynamically distributes load if link overload is anticipated, shifts traffic load away from overloaded links, and reverts traffic back to original paths once link overload abates.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) <span>[<a href="#RFC5286" class="cite xref">RFC5286</a>]</span> or Topology Independent Loop-Free Alternates (TI-LFAs) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>. When utilization on a link exceeds a configured threshold, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form Equal Cost Multipath (ECMP) multipath groups. TTE manipulates Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to achieve flow-level load distribution.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.3-3">TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-approach-LCM">
+<section id="section-4.4">
+        <h3 id="name-local-congestion-management">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-local-congestion-management" class="section-name selfRef">Local Congestion Management</a>
+        </h3>
+<p id="section-4.4-1">Local Congestion Mitigation (LCM) specified in <span>[<a href="#LCM" class="cite xref">LCM</a>]</span> is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">LCM operates as a closed-loop controller-driven workflow. Crosswork Data Gateway (CDG) collects interface-level statistics from network elements. The controller maintains real-time network state and detects when a link is overloaded when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve the link overload. A Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR-TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR-TE policies to achieve the target offloaded volume. After the link has become less loaded and once hold-margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-3">LCM relies on BGP-LS <span>[<a href="#RFC9552" class="cite xref">RFC9552</a>]</span> or the active IGP to collect real-time topology information. PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> is required between the SR PCE and PCC routers for installation and removal of PCE-initiated SR-TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR-TE policies.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1536,7 +1549,7 @@ svg {
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-scenario-3-controller-based" class="section-name selfRef">Scenario 3: Controller-Based Alleviation with Human Oversight</a>
         </h3>
 <p id="section-5.3-1">Characteristics: The network is managed by a central controller and the operator requires visibility, auditability, and control over any traffic steering actions. Regulatory or operational policy requires human-in-the-loop approval for traffic engineering changes. The overload events are transient and localized, and the operator wants to offload the minimal necessary traffic volume to restore the link to acceptable utilization. Existing SR-TE policy infrastructure is already deployed or can be deployed.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Applicable approach: Local Congestion Mitigation (LCM) <a href="#sec-approach-LCM" class="auto internal xref">Section 4.3</a>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Applicable approach: Local Congestion Mitigation (LCM) <a href="#sec-approach-LCM" class="auto internal xref">Section 4.4</a>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3-3">LCM is the appropriate choice when operational safety and human oversight are paramount. It operates as a closed-loop controller-driven workflow: the controller collects interface statistics, detects overload against user-configured thresholds, computes the minimal offload volume, deploys temporary SR-TE policies, and later removes them once hold-margin conditions are satisfied. The monitor-only and human-in-the-loop workflows allow operators to preview recommendations before committing them.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.3-4">LCM is less suitable for scenarios requiring sub-second reaction times or for networks without controller infrastructure. The closed-loop nature introduces latency from telemetry collection, path computation, and policy deployment, which may be acceptable for the long term overload but not for micro-burst.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <p id="section-5.3-5">Key deployment considerations:<a href="#section-5.3-5" class="pilcrow">¶</a></p>
