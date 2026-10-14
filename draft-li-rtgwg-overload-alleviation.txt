@@ -682,9 +682,15 @@ Table of Contents
 
 8.  Operational Considerations
 
-   TBD - configuration of thresholds - monitoring traffic flows (where
-   is my packet?) - reporting traffic steering - complexity and
-   instability versus alleviating overload
+   TBD
+
+   *  configuration of thresholds
+
+   *  monitoring traffic flows (where is my packet?)
+
+   *  reporting traffic steering
+
+   *  complexity and instability versus alleviating overload
 
 9.  IANA Considerations
 
