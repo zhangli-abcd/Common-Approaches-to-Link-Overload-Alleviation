@@ -212,7 +212,6 @@ In EBR, each router monitors local link bandwidth usage and advertises available
 
 EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC8570}} for IS-IS, {{?RFC7471}} for OSPF) for bandwidth information dissemination. SR-TE data plane capability is mandatory for steering offloaded traffic.
 
-<!--
 ## Tactical Traffic Engineering{#sec-approach-TTE}
 
 Tactical Traffic Engineering (TTE) is a distributed real-time mechanism to mitigate link overload defined in {{?I-D.li-rtgwg-tte}}. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient link overload while optimal traffic assignment is being recomputed. TTE dynamically distributes load if link overload is anticipated, shifts traffic load away from overloaded links, and reverts traffic back to original paths once link overload abates.
@@ -220,7 +219,6 @@ Tactical Traffic Engineering (TTE) is a distributed real-time mechanism to mitig
 TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{?RFC5286}} or Topology Independent Loop-Free Alternates (TI-LFAs) {{?RFC9855}}. When utilization on a link exceeds a configured threshold, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form Equal Cost Multipath (ECMP) multipath groups. TTE manipulates Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to achieve flow-level load distribution.
 
 TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.
--->
 
 ## Local Congestion Management {#sec-approach-LCM}
 
