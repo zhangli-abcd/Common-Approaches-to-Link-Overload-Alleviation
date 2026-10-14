@@ -212,7 +212,7 @@ In EBR, each router monitors local link bandwidth usage and advertises available
 
 EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC8570}} for IS-IS, {{?RFC7471}} for OSPF) for bandwidth information dissemination. SR-TE data plane capability is mandatory for steering offloaded traffic.
 
-## Tactical Traffic Engineering{#sec-approach-TTE}
+## Tactical Traffic Engineering {#sec-approach-TTE}
 
 Tactical Traffic Engineering (TTE) is a distributed real-time mechanism to mitigate link overload defined in {{?I-D.li-rtgwg-tte}}. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient link overload while optimal traffic assignment is being recomputed. TTE dynamically distributes load if link overload is anticipated, shifts traffic load away from overloaded links, and reverts traffic back to original paths once link overload abates.
 
@@ -232,7 +232,7 @@ LCM relies on BGP-LS {{?RFC9552}} or the active IGP to collect real-time topolog
 
 The approaches described in {{sec-approaches}} share the common objective of alleviating link overload, but they differ significantly in their architectural assumptions, deployment requirements, and operational characteristics. This section identifies the scenarios in which each approach is most applicable.
 
-## Scenario 1: Distributed Alleviation with Flex-Algo Support{#sec-scenario-dcm}
+## Scenario 1: Distributed Alleviation with Flex-Algo Support {#sec-scenario-dcm}
 
 Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Flexible Algorithm capabilities already deployed or easily enabled. The operator requires a fully distributed solution that does not depend on a central controller or external TE policy management.  The network can tolerate the overhead of a dedicated offload topology.
 
@@ -249,7 +249,7 @@ Key deployment considerations:
 - The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.
 
 
-## Scenario 2: Distributed Alleviation with SR-TE Capability{#sec-scenario-ebr}
+## Scenario 2: Distributed Alleviation with SR-TE Capability {#sec-scenario-ebr}
 
 Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already deployed or easily enabled.The operator requires a fully distributed solution that does not depend on a central controller.
 
