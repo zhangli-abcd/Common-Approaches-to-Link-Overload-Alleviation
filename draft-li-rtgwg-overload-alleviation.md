@@ -261,7 +261,7 @@ Key deployment considerations:
 
 - SR-TE data plane capability is mandatory for steering offloaded traffic.
 
--The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.
+- The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.
 
 ## Scenario 3: Controller-Based Alleviation with Human Oversight {#sec-scenario-lcm}
 
