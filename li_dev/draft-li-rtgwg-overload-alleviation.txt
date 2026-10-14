@@ -94,13 +94,11 @@ Table of Contents
    4.  General Approaches
      4.1.  Distributed Congestion Mitigation
      4.2.  Elastic Bandwidth-aware Routing
-     4.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+     4.3.  Tactical Traffic Engineering
      4.4.  Local Congestion Management
    5.  Applicability to Different Scenarios
-     5.1.  Scenario 1: Distributed Alleviation with Flex-Algo
-           Support{#sec-scenario-dcm}
-     5.2.  Scenario 2: Distributed Alleviation with SR-TE
-           Capability{#sec-scenario-ebr}
+     5.1.  Scenario 1: Distributed Alleviation with Flex-Algo Support
+     5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability
      5.3.  Scenario 3: Controller-Based Alleviation with Human
            Oversight
      5.4.  Summary
@@ -457,7 +455,7 @@ Table of Contents
    dissemination.  SR-TE data plane capability is mandatory for steering
    offloaded traffic.
 
-4.3.  Tactical Traffic Engineering{#sec-approach-TTE}
+4.3.  Tactical Traffic Engineering
 
    Tactical Traffic Engineering (TTE) is a distributed real-time
    mechanism to mitigate link overload defined in [I-D.li-rtgwg-tte].
@@ -522,8 +520,7 @@ Table of Contents
    characteristics.  This section identifies the scenarios in which each
    approach is most applicable.
 
-5.1.  Scenario 1: Distributed Alleviation with Flex-Algo Support{#sec-
-      scenario-dcm}
+5.1.  Scenario 1: Distributed Alleviation with Flex-Algo Support
 
    Characteristics: The network operates a single IGP domain (IS-IS or
    OSPF) with Flexible Algorithm capabilities already deployed or easily
@@ -558,8 +555,7 @@ Table of Contents
       may be a concern if many distinct Flex-Algo typologies already
       exist.
 
-5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability{#sec-
-      scenario-ebr}
+5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability
 
    Characteristics: The network operates a single IGP domain (IS-IS or
    OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already
