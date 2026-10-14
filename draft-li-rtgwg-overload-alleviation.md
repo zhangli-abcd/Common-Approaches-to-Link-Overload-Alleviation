@@ -222,9 +222,9 @@ TTE builds upon existing loop-free backup path computation capabilities such as 
 
 ## Congestion Avoidance using Segment Routing {#sec-CA-SR}
 
-While many approaches to overload alleviation may make use of Segment Routing to tunnel traffic around overloaded links, {?I-D.he-rtgwg-sr-ca} specifically utilizes this mechanism and is applicable only in an SR-enabled network.
+While many approaches to overload alleviation may make use of Segment Routing to tunnel traffic around overloaded links, {{?I-D.he-rtgwg-sr-ca}} specifically utilizes this mechanism and is applicable only in an SR-enabled network.
 
-Based on the concept of Topology Independent Loop-Free Alternate (TI- LFA) Fast Reroute (FRR) (see {sec-failure}), the traffic can be steered away from an overloaded link while avoiding the formation of micro-loops by moving the traffic to the bypass paths that have been predetermined for link-failure protection.
+Based on the concept of Topology Independent Loop-Free Alternate (TI-LFA) Fast Reroute (FRR) (see {{sec-failure}}), the traffic can be steered away from an overloaded link while avoiding the formation of micro-loops by moving the traffic to the bypass paths that have been predetermined for link-failure protection.
 
 This approach requires no new protocol extensions, and switches traffic based on its destination address so that it is possible that large amounts of traffic are steered away from an overloaded link in one action. As with normal FRR procedures, this mechanism is applicable both to immediate adjacency overload and to remote adjacency overload.
 
