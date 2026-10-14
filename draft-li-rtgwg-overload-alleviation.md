@@ -288,7 +288,7 @@ Key deployment considerations:
 | Scenario2 | Distributed, SR-TE available | EBR	| SR-TE data plane + IGP TE metrics(bandwidth related metrics) |
 | Scenario3 | Controller-based, human oversight required | LCM |	Controller + SR-TE policy support |
 
-These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator‘s existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
+These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator's existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
 
 # Deployment and Implementation Experience {#sec-deployment}
 
