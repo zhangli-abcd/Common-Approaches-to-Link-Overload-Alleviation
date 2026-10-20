@@ -5,8 +5,8 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 17 April 2027                                Old Dog Consulting
-                                                         14 October 2026
+Expires: 23 April 2027                                Old Dog Consulting
+                                                         20 October 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -62,7 +62,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 April 2027.
+   This Internet-Draft will expire on 23 April 2027.
 
 Copyright Notice
 
@@ -95,7 +95,8 @@ Table of Contents
      4.1.  Distributed Congestion Mitigation
      4.2.  Elastic Bandwidth-aware Routing
      4.3.  Tactical Traffic Engineering
-     4.4.  Local Congestion Management
+     4.4.  Congestion Avoidance using Segment Routing
+     4.5.  Local Congestion Management
    5.  Applicability to Different Scenarios
      5.1.  Scenario 1: Distributed Alleviation with Flex-Algo Support
      5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability
@@ -479,7 +480,27 @@ Table of Contents
    capabilities such as LFA and TI-LFA.  Forwarding planes must support
    FIB/LFIB modification for dynamic multipath group adjustment.
 
-4.4.  Local Congestion Management
+4.4.  Congestion Avoidance using Segment Routing
+
+   While many approaches to overload alleviation may make use of Segment
+   Routing to tunnel traffic around overloaded links,
+   [I-D.he-rtgwg-sr-ca] specifically utilizes this mechanism and is
+   applicable only in an SR-enabled network.
+
+   Based on the concept of Topology Independent Loop-Free Alternate (TI-
+   LFA) Fast Reroute (FRR) (see Section 2.5), the traffic can be steered
+   away from an overloaded link while avoiding the formation of micro-
+   loops by moving the traffic to the bypass paths that have been
+   predetermined for link-failure protection.
+
+   This approach requires no new protocol extensions, and switches
+   traffic based on its destination address so that it is possible that
+   large amounts of traffic are steered away from an overloaded link in
+   one action.  As with normal FRR procedures, this mechanism is
+   applicable both to immediate adjacency overload and to remote
+   adjacency overload.
+
+4.5.  Local Congestion Management
 
    Local Congestion Mitigation (LCM) specified in [LCM] is a controller-
    based tactical solution to mitigate link overload, designed to handle
@@ -580,8 +601,8 @@ Table of Contents
    *  SR-TE data plane capability is mandatory for steering offloaded
       traffic.
 
-   -The accuracy of bandwidth information (depends on advertisement
-   frequency) and the pressure on the control plane are a trade-off.
+   *  The accuracy of bandwidth information (depends on advertisement
+      frequency) and the pressure on the control plane are a trade-off.
 
 5.3.  Scenario 3: Controller-Based Alleviation with Human Oversight
 
@@ -594,7 +615,7 @@ Table of Contents
    to acceptable utilization.  Existing SR-TE policy infrastructure is
    already deployed or can be deployed.
 
-   Applicable approach: Local Congestion Mitigation (LCM) Section 4.4.
+   Applicable approach: Local Congestion Mitigation (LCM) Section 4.5.
 
    LCM is the appropriate choice when operational safety and human
    oversight are paramount.  It operates as a closed-loop controller-
@@ -632,8 +653,8 @@ Table of Contents
     |           |                   |             | metrics(bandwidth |
     |           |                   |             | related metrics)  |
     +-----------+-------------------+-------------+-------------------+
-    | Scenario  | Controller-based, | LCM         | Controller + SR-  |
-    | 3         | human oversight   |             | TE policy support |
+    | Scenario3 | Controller-based, | LCM         | Controller + SR-  |
+    |           | human oversight   |             | TE policy support |
     |           | required          |             |                   |
     +-----------+-------------------+-------------+-------------------+
 
@@ -642,7 +663,7 @@ Table of Contents
    These scenarios are not mutually exclusive.  A network may deploy LCM
    for policy-controlled offload while also relying on DCM or EBR for
    autonomous distributed reaction to sudden events.  The choice of
-   approach should be guided by the operator‘s existing infrastructure,
+   approach should be guided by the operator's existing infrastructure,
    operational model, and the specific characteristics of the overload
    events that need to be mitigated.
 
@@ -682,9 +703,15 @@ Table of Contents
 
 8.  Operational Considerations
 
-   TBD - configuration of thresholds - monitoring traffic flows (where
-   is my packet?) - reporting traffic steering - complexity and
-   instability versus alleviating overload
+   TBD
+
+   *  configuration of thresholds
+
+   *  monitoring traffic flows (where is my packet?)
+
+   *  reporting traffic steering
+
+   *  complexity and instability versus alleviating overload
 
 9.  IANA Considerations
 
@@ -708,6 +735,13 @@ Table of Contents
               bandwidth-routing-00, 6 July 2026,
               <https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-
               elastic-bandwidth-routing-00>.
+
+   [I-D.he-rtgwg-sr-ca]
+              hexiaoming, X. and L. Deng, "Congestion Avoidance Using
+              Segment Routing", Work in Progress, Internet-Draft, draft-
+              he-rtgwg-sr-ca-00, 13 October 2026,
+              <https://datatracker.ietf.org/doc/html/draft-he-rtgwg-sr-
+              ca-00>.
 
    [I-D.li-rtgwg-tte]
               Barth, C., Li, T., Smith, A., Wen, B., and L. Jalil,

@@ -18,6 +18,7 @@
 <meta content="bandwidth" name="keyword">
 <meta content="link capacity" name="keyword">
 <meta content="traffic steering" name="keyword">
+<meta content="segment routing" name="keyword">
 <meta content="draft-li-rtgwg-overload-alleviation-latest" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.34.1
@@ -28,11 +29,11 @@
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.12.2
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.9.1
+    wcwidth 0.9.2
 -->
 <link href="draft-li-rtgwg-overload-alleviation.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1052,7 +1053,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang &amp; Farrel</td>
-<td class="center">Expires 17 April 2027</td>
+<td class="center">Expires 23 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1065,12 +1066,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-14" class="published">14 October 2026</time>
+<time datetime="2026-10-20" class="published">20 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-17">17 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-23">23 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1126,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 23 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1204,7 +1205,10 @@ svg {
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-tactical-traffic-engineerin" class="internal xref">Tactical Traffic Engineering</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.4">
-                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-local-congestion-management" class="internal xref">Local Congestion Management</a></p>
+                <p id="section-toc.1-1.4.2.4.1"><a href="#section-4.4" class="auto internal xref">4.4</a>.  <a href="#name-congestion-avoidance-using-" class="internal xref">Congestion Avoidance using Segment Routing</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.5">
+                <p id="section-toc.1-1.4.2.5.1"><a href="#section-4.5" class="auto internal xref">4.5</a>.  <a href="#name-local-congestion-management" class="internal xref">Local Congestion Management</a></p>
 </li>
             </ul>
 </li>
@@ -1488,14 +1492,24 @@ svg {
 <p id="section-4.3-3">TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-approach-LCM">
+<div id="sec-CA-SR">
 <section id="section-4.4">
-        <h3 id="name-local-congestion-management">
-<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-local-congestion-management" class="section-name selfRef">Local Congestion Management</a>
+        <h3 id="name-congestion-avoidance-using-">
+<a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-congestion-avoidance-using-" class="section-name selfRef">Congestion Avoidance using Segment Routing</a>
         </h3>
-<p id="section-4.4-1">Local Congestion Mitigation (LCM) specified in <span>[<a href="#LCM" class="cite xref">LCM</a>]</span> is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
-<p id="section-4.4-2">LCM operates as a closed-loop controller-driven workflow. Crosswork Data Gateway (CDG) collects interface-level statistics from network elements. The controller maintains real-time network state and detects when a link is overloaded when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve the link overload. A Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR-TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR-TE policies to achieve the target offloaded volume. After the link has become less loaded and once hold-margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
-<p id="section-4.4-3">LCM relies on BGP-LS <span>[<a href="#RFC9552" class="cite xref">RFC9552</a>]</span> or the active IGP to collect real-time topology information. PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> is required between the SR PCE and PCC routers for installation and removal of PCE-initiated SR-TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR-TE policies.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
+<p id="section-4.4-1">While many approaches to overload alleviation may make use of Segment Routing to tunnel traffic around overloaded links, <span>[<a href="#I-D.he-rtgwg-sr-ca" class="cite xref">I-D.he-rtgwg-sr-ca</a>]</span> specifically utilizes this mechanism and is applicable only in an SR-enabled network.<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-2">Based on the concept of Topology Independent Loop-Free Alternate (TI-LFA) Fast Reroute (FRR) (see <a href="#sec-failure" class="auto internal xref">Section 2.5</a>), the traffic can be steered away from an overloaded link while avoiding the formation of micro-loops by moving the traffic to the bypass paths that have been predetermined for link-failure protection.<a href="#section-4.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.4-3">This approach requires no new protocol extensions, and switches traffic based on its destination address so that it is possible that large amounts of traffic are steered away from an overloaded link in one action. As with normal FRR procedures, this mechanism is applicable both to immediate adjacency overload and to remote adjacency overload.<a href="#section-4.4-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-approach-LCM">
+<section id="section-4.5">
+        <h3 id="name-local-congestion-management">
+<a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-local-congestion-management" class="section-name selfRef">Local Congestion Management</a>
+        </h3>
+<p id="section-4.5-1">Local Congestion Mitigation (LCM) specified in <span>[<a href="#LCM" class="cite xref">LCM</a>]</span> is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-2">LCM operates as a closed-loop controller-driven workflow. Crosswork Data Gateway (CDG) collects interface-level statistics from network elements. The controller maintains real-time network state and detects when a link is overloaded when measured utilization exceeds user configured thresholds. It computes how much optimizable traffic volume needs to be offloaded to relieve the link overload. A Segment Routing Path Computation Element (SR PCE) calculates suitable alternate paths and deploys temporary tactical SR-TE policies on headend nodes. ECMP splits traffic across multiple parallel tactical SR-TE policies to achieve the target offloaded volume. After the link has become less loaded and once hold-margin conditions are satisfied, the controller removes temporary tactical policies and reverts traffic back to native IGP forwarding to avoid persistent policy churn.<a href="#section-4.5-2" class="pilcrow">¶</a></p>
+<p id="section-4.5-3">LCM relies on BGP-LS <span>[<a href="#RFC9552" class="cite xref">RFC9552</a>]</span> or the active IGP to collect real-time topology information. PCEP <span>[<a href="#RFC5440" class="cite xref">RFC5440</a>]</span> is required between the SR PCE and PCC routers for installation and removal of PCE-initiated SR-TE policies. gRPC or SNMP is used for statistics telemetry collection. Headend routers must support PCE-initiated SR-TE policies with autoroute steering and ECMP over multiple parallel SR-TE policies.<a href="#section-4.5-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1539,8 +1553,10 @@ svg {
 <li class="normal" id="section-5.2-5.1">
             <p id="section-5.2-5.1.1">SR-TE data plane capability is mandatory for steering offloaded traffic.<a href="#section-5.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
+          <li class="normal" id="section-5.2-5.2">
+            <p id="section-5.2-5.2.1">The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.<a href="#section-5.2-5.2.1" class="pilcrow">¶</a></p>
+</li>
         </ul>
-<p id="section-5.2-6">-The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.<a href="#section-5.2-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-scenario-lcm">
@@ -1549,7 +1565,7 @@ svg {
 <a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-scenario-3-controller-based" class="section-name selfRef">Scenario 3: Controller-Based Alleviation with Human Oversight</a>
         </h3>
 <p id="section-5.3-1">Characteristics: The network is managed by a central controller and the operator requires visibility, auditability, and control over any traffic steering actions. Regulatory or operational policy requires human-in-the-loop approval for traffic engineering changes. The overload events are transient and localized, and the operator wants to offload the minimal necessary traffic volume to restore the link to acceptable utilization. Existing SR-TE policy infrastructure is already deployed or can be deployed.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">Applicable approach: Local Congestion Mitigation (LCM) <a href="#sec-approach-LCM" class="auto internal xref">Section 4.4</a>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">Applicable approach: Local Congestion Mitigation (LCM) <a href="#sec-approach-LCM" class="auto internal xref">Section 4.5</a>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3-3">LCM is the appropriate choice when operational safety and human oversight are paramount. It operates as a closed-loop controller-driven workflow: the controller collects interface statistics, detects overload against user-configured thresholds, computes the minimal offload volume, deploys temporary SR-TE policies, and later removes them once hold-margin conditions are satisfied. The monitor-only and human-in-the-loop workflows allow operators to preview recommendations before committing them.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
 <p id="section-5.3-4">LCM is less suitable for scenarios requiring sub-second reaction times or for networks without controller infrastructure. The closed-loop nature introduces latency from telemetry collection, path computation, and policy deployment, which may be acceptable for the long term overload but not for micro-burst.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <p id="section-5.3-5">Key deployment considerations:<a href="#section-5.3-5" class="pilcrow">¶</a></p>
@@ -1592,14 +1608,14 @@ svg {
               <td class="text-left" rowspan="1" colspan="1">SR-TE data plane + IGP TE metrics(bandwidth related metrics)</td>
             </tr>
             <tr>
-              <td class="text-left" rowspan="1" colspan="1">Scenario 3</td>
+              <td class="text-left" rowspan="1" colspan="1">Scenario3</td>
               <td class="text-left" rowspan="1" colspan="1">Controller-based, human oversight required</td>
               <td class="text-left" rowspan="1" colspan="1">LCM</td>
               <td class="text-left" rowspan="1" colspan="1">Controller + SR-TE policy support</td>
             </tr>
           </tbody>
         </table>
-<p id="section-5.4-2">These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator‘s existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator's existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1629,11 +1645,21 @@ svg {
       <h2 id="name-operational-considerations">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-operational-considerations" class="section-name selfRef">Operational Considerations</a>
       </h2>
-<p id="section-8-1">TBD
-- configuration of thresholds
-- monitoring traffic flows (where is my packet?)
-- reporting traffic steering
-- complexity and instability versus alleviating overload<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">TBD<a href="#section-8-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8-2.1">
+          <p id="section-8-2.1.1">configuration of thresholds<a href="#section-8-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-2.2">
+          <p id="section-8-2.2.1">monitoring traffic flows (where is my packet?)<a href="#section-8-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-2.3">
+          <p id="section-8-2.3.1">reporting traffic steering<a href="#section-8-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-2.4">
+          <p id="section-8-2.4.1">complexity and instability versus alleviating overload<a href="#section-8-2.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="sec-iana">
@@ -1661,6 +1687,10 @@ svg {
 <dt id="I-D.czz-rtgwg-elastic-bandwidth-routing">[I-D.czz-rtgwg-elastic-bandwidth-routing]</dt>
       <dd>
 <span class="refAuthor">Cheng, W.</span>, <span class="refAuthor">KaZhang</span>, <span class="refAuthor">Zhang, L.</span>, <span class="refAuthor">Contreras, L. M.</span>, and <span class="refAuthor">J. Dong</span>, <span class="refTitle">"Elastic Bandwidth-aware Routing Framework"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-czz-rtgwg-elastic-bandwidth-routing-00</span>, <time datetime="2026-07-06" class="refDate">6 July 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-elastic-bandwidth-routing-00">https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-elastic-bandwidth-routing-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.he-rtgwg-sr-ca">[I-D.he-rtgwg-sr-ca]</dt>
+      <dd>
+<span class="refAuthor">hexiaoming, X.</span> and <span class="refAuthor">L. Deng</span>, <span class="refTitle">"Congestion Avoidance Using Segment Routing"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-he-rtgwg-sr-ca-00</span>, <time datetime="2026-10-13" class="refDate">13 October 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-he-rtgwg-sr-ca-00">https://datatracker.ietf.org/doc/html/draft-he-rtgwg-sr-ca-00</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="I-D.li-rtgwg-tte">[I-D.li-rtgwg-tte]</dt>
       <dd>
