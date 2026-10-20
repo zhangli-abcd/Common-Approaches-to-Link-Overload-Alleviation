@@ -149,7 +149,7 @@ Configuration:
 : The capacity of each link may be known a priori or configured at the link ends.
 
 Capacity-Aware Topology Database Construction:
-: The network topology is supplemented by the capacities of all of the links. This may be distributed across the network in the TE-enhanced IGP or collected to a centralised controller using management protocols.
+: The network topology is supplemented by the capacities of all of the links. This may be distributed across the network in the TE-enhanced IGP or collected to a centralized controller using management protocols.
 
 Measurement:
 : In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.
@@ -161,10 +161,10 @@ Overload Trigger:
 : The overload condition is triggered when when the load on a link crosses a configured threshold. This may be an absolute value or a percentage of the link capacity.
 
 Overload Notification:
-: Depending on where the overload alleviation is to be performed and where the overload condition is triggered, it may be necessary to send an overload notification so that remedial action can be taken.
+: Depending on where the overload alleviation is to be performed and where the overload condition is triggered, it may be necessary to send an overload notification so that remedial action can be taken. For example, in controller-based overload alleviation scenario, the centralized controller performs the alleviation process. In this case, the node with an overloaded link needs to send an overload notification to the controller.
 
 Traffic Steering:
-: To alleviate link overload, traffic is steered away from the overloaded link onto links that have less load. This is achieved by using tunnelling techniques that place the traffic onto a path that it would not normally follow. Only a part of the total traffic is steered onto an alternate path so as to keep the overloaded link in use while reducing the load it carries.
+: To alleviate link overload, traffic is steered away from the overloaded link onto links that have less load. This is achieved by using tunneling techniques that place the traffic onto a path that it would not normally follow. Only a part of the total traffic is steered onto an alternate path so as to keep the overloaded link in use while reducing the load it carries.
 
 ## Key Action Points {#sec-funct-points}
 
