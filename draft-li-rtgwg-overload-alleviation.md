@@ -13,6 +13,7 @@ keyword:
  - bandwidth
  - link capacity
  - traffic steering
+ - segment routing
 
 category: info
 submissiontype: IETF
@@ -220,6 +221,14 @@ TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{?R
 
 TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.
 
+## Congestion Avoidance using Segment Routing {#sec-CA-SR}
+
+While many approaches to overload alleviation may make use of Segment Routing to tunnel traffic around overloaded links, {{?I-D.he-rtgwg-sr-ca}} specifically utilizes this mechanism and is applicable only in an SR-enabled network.
+
+Based on the concept of Topology Independent Loop-Free Alternate (TI-LFA) Fast Reroute (FRR) (see {{sec-failure}}), the traffic can be steered away from an overloaded link while avoiding the formation of micro-loops by moving the traffic to the bypass paths that have been predetermined for link-failure protection.
+
+This approach requires no new protocol extensions, and switches traffic based on its destination address so that it is possible that large amounts of traffic are steered away from an overloaded link in one action. As with normal FRR procedures, this mechanism is applicable both to immediate adjacency overload and to remote adjacency overload.
+
 ## Local Congestion Management {#sec-approach-LCM}
 
 Local Congestion Mitigation (LCM) specified in {{LCM}} is a controller-based tactical solution to mitigate link overload, designed to handle short-lived transient link overload while complementing capacity planning. LCM mitigates link overload by diverting the minimal necessary amount of traffic away from the overloaded interface to bring it out of overload state. LCM acts as a tactical complement to capacity planning and network engineering. It supports monitor-only and human-in-the-loop workflows for operational safety.
@@ -261,7 +270,7 @@ Key deployment considerations:
 
 - SR-TE data plane capability is mandatory for steering offloaded traffic.
 
--The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.
+- The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.
 
 ## Scenario 3: Controller-Based Alleviation with Human Oversight {#sec-scenario-lcm}
 
@@ -283,11 +292,11 @@ Key deployment considerations:
 
 | Scenario | Primary Criterion | Recommended Approach| Key Prerequisite|
 |----------|-------------------|---------------------|-----------------|
-|Scenario1 |Distributed, Flex-Algo available| DCM |Flex-Algo + extended admin groups|
-|Scenario2 |Distributed, SR-TE available | EBR	| SR-TE data plane + IGP TE metrics(bandwidth related metrics)|
-|Scenario 3 |Controller-based, human oversight required|LCM|	Controller + SR-TE policy support|
+| Scenario1 | Distributed, Flex-Algo available | DCM | Flex-Algo + extended admin groups |
+| Scenario2 | Distributed, SR-TE available | EBR	| SR-TE data plane + IGP TE metrics(bandwidth related metrics) |
+| Scenario3 | Controller-based, human oversight required | LCM |	Controller + SR-TE policy support |
 
-These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator‘s existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
+These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator's existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
 
 # Deployment and Implementation Experience {#sec-deployment}
 
@@ -308,6 +317,7 @@ It may be possible to force link overload alleviation by introducing bogus, high
 # Operational Considerations {#sec-operational}
 
 TBD
+
 - configuration of thresholds
 - monitoring traffic flows (where is my packet?)
 - reporting traffic steering
