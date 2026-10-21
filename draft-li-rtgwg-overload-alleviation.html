@@ -7,10 +7,11 @@
 <title>Common Approaches to Link Overload Alleviation</title>
 <meta content="Li Zhang" name="author">
 <meta content="Adrian Farrel" name="author">
+<meta content="Peter Psenak" name="author">
 <meta content="
        Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay. 
-       Traffic Engineering (TE) techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth. 
-       This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links. 
+       Several traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth. 
+       This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links. 
     " name="description">
 <meta content="xml2rfc 3.34.1" name="generator">
 <meta content="congestion" name="keyword">
@@ -1052,7 +1053,7 @@ svg {
 <td class="right">October 2026</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Zhang &amp; Farrel</td>
+<td class="left">Zhang, et al.</td>
 <td class="center">Expires 24 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
@@ -1082,6 +1083,10 @@ svg {
       <div class="author-name">A. Farrel</div>
 <div class="org">Old Dog Consulting</div>
 </div>
+<div class="author">
+      <div class="author-name">P. Psenak</div>
+<div class="org">Cisco Systems</div>
+</div>
 </dd>
 </dl>
 </div>
@@ -1089,8 +1094,8 @@ svg {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
-<p id="section-abstract-2">Traffic Engineering (TE) techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
+<p id="section-abstract-2">Several traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1262,8 +1267,8 @@ svg {
 <p id="section-1-1">Network links may become degraded because of physical conditions or owing to partial link failure. For example, a microwave link can see a reduction in available bandwidth during inclement weather conditions. Alternatively, a link comprising a bundle of parallel links (often referred to as an a link aggregation group) may suffer the failure of a component link resulting in a decrease in the available bandwidth on the composite link. This may result in the traffic volume on the link exceeding the available bandwidth.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">At the same time, traffic volume may increase significantly and unexpectedly above predicted levels such that traffic volume on the link exceeding the available bandwidth.<a href="#section-1-2" class="pilcrow">¶</a></p>
 <p id="section-1-3">Any of these circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">Traffic Engineering (TE) techniques <span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span> can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.<a href="#section-1-4" class="pilcrow">¶</a></p>
-<p id="section-1-5">This document examines the scenarios in which links can become overloaded, the requirements for steering some of the traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links.<a href="#section-1-5" class="pilcrow">¶</a></p>
+<p id="section-1-4">Several traffic adjustment techniques (such as Traffic Engineering<span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span>, Flex-Algo<span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>, and LFA<span>[<a href="#RFC5286" class="cite xref">RFC5286</a>]</span>) can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-5">This document examines the scenarios in which links can become overloaded, the requirements for steering some of the traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-problem">
@@ -1299,7 +1304,7 @@ svg {
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-required-responsiveness" class="section-name selfRef">Required Responsiveness</a>
         </h3>
 <p id="section-2.3-1">While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
-<p id="section-2.3-2">Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
+<p id="section-2.3-2">Link overload alleviation can be considered as a traffic planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-reversion">
@@ -1376,9 +1381,9 @@ svg {
             <p id="section-3.1-1.6.1">In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.<a href="#section-3.1-1.6.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
-<dt id="section-3.1-1.7">Capacity-Aware TE Database Construction:</dt>
+<dt id="section-3.1-1.7">Capacity-Aware topology Database Construction:</dt>
           <dd style="margin-left: 1.5em" id="section-3.1-1.8">
-            <p id="section-3.1-1.8.1">To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, or through reporting to a central controller.<a href="#section-3.1-1.8.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-1.8.1">To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, link affinities of Flex-Algo, or through reporting to a central controller.<a href="#section-3.1-1.8.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-1.9">Overload Trigger:</dt>
@@ -1801,6 +1806,14 @@ svg {
 <div class="email">
 <span>Email:</span>
 <a href="mailto:adrian@olddog.co.uk" class="email">adrian@olddog.co.uk</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Peter Psenak</span></div>
+<div dir="auto" class="left"><span class="org">Cisco Systems</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:ppsenak@cisco.com" class="email">ppsenak@cisco.com</a>
 </div>
 </address>
 </section>
