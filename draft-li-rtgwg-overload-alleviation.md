@@ -68,7 +68,7 @@ informative:
 
 Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
 
-Several traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.
+Traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.
 
 This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.
 
@@ -82,7 +82,7 @@ At the same time, traffic volume may increase significantly and unexpectedly abo
 
 Any of these circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
 
-Several traffic adjustment techniques (such as Traffic Engineering{{?RFC9522}}, Flex-Algo{{?RFC9350}}, and LFA{{?RFC5286}}) can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.
+Traffic adjustment techniques (such as Traffic Engineering{{?RFC9522}}, Flex-Algo{{?RFC9350}}, and LFA{{?RFC5286}}) can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.
 
 This document examines the scenarios in which links can become overloaded, the requirements for steering some of the traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.
 
