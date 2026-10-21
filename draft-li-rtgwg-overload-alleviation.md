@@ -249,8 +249,6 @@ Applicable approach: Distributed Congestion Mitigation (DCM) {{sec-approach-DCM}
 
 DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.
 
-The approach is unsuitable for micro-burst or extremely short-lived congestion: DCM explicitly states that it is not designed to deal with micro-bursts or short-lived congestion. Its progressive offloading in periodic iterations (e.g., 5% per step) introduces convergence latency that is acceptable for long-term overload.
-
 Key deployment considerations:
 
 - Requires IGP-wide support for Flex-Algo and extended administrative groups.
@@ -264,7 +262,7 @@ Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with S
 
 Applicable approach: Elastic Bandwidth-aware Routing (EBR) {{sec-approach-EBR}}.
 
-EBR is designed for scenarios where the operator needs bandwidth-aware load balancing across pre-computed alternate paths. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly to overload. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.
+EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.
 
 Key deployment considerations:
 
@@ -279,8 +277,6 @@ Characteristics: The network is managed by a central controller and the operator
 Applicable approach: Local Congestion Mitigation (LCM) {{sec-approach-LCM}}.
 
 LCM is the appropriate choice when operational safety and human oversight are paramount. It operates as a closed-loop controller-driven workflow: the controller collects interface statistics, detects overload against user-configured thresholds, computes the minimal offload volume, deploys temporary SR-TE policies, and later removes them once hold-margin conditions are satisfied. The monitor-only and human-in-the-loop workflows allow operators to preview recommendations before committing them.
-
-LCM is less suitable for scenarios requiring sub-second reaction times or for networks without controller infrastructure. The closed-loop nature introduces latency from telemetry collection, path computation, and policy deployment, which may be acceptable for the long term overload but not for micro-burst.
 
 Key deployment considerations:
 
