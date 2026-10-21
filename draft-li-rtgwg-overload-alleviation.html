@@ -9,7 +9,7 @@
 <meta content="Adrian Farrel" name="author">
 <meta content="Peter Psenak" name="author">
 <meta content="
-       Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay. 
+       Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may lead to links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay. 
        Traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth. 
        This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links. 
     " name="description">
@@ -1093,7 +1093,7 @@ svg {
 <h1 id="title">Common Approaches to Link Overload Alleviation</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may lead to links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">Traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
 <p id="section-abstract-3">This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
@@ -1265,9 +1265,9 @@ svg {
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
 <p id="section-1-1">Network links may become degraded because of physical conditions or owing to partial link failure. For example, a microwave link can see a reduction in available bandwidth during inclement weather conditions. Alternatively, a link comprising a bundle of parallel links (often referred to as an a link aggregation group) may suffer the failure of a component link resulting in a decrease in the available bandwidth on the composite link. This may result in the traffic volume on the link exceeding the available bandwidth.<a href="#section-1-1" class="pilcrow">¶</a></p>
-<p id="section-1-2">At the same time, traffic volume may increase significantly and unexpectedly above predicted levels such that traffic volume on the link exceeding the available bandwidth.<a href="#section-1-2" class="pilcrow">¶</a></p>
-<p id="section-1-3">Any of these circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.<a href="#section-1-3" class="pilcrow">¶</a></p>
-<p id="section-1-4">Traffic adjustment techniques (such as Traffic Engineering<span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span>, Flex-Algo<span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>, and LFA<span>[<a href="#RFC5286" class="cite xref">RFC5286</a>]</span>) can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.<a href="#section-1-4" class="pilcrow">¶</a></p>
+<p id="section-1-2">At the same time, traffic volume may increase significantly and unexpectedly above predicted levels such that traffic volume on the link exceeds the available bandwidth.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Any of these circumstances may lead to links becoming overloaded which can result in dropped packets or degraded delivery, such as increased delay.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">Traffic adjustment techniques (such as Traffic Engineering <span>[<a href="#RFC9522" class="cite xref">RFC9522</a>]</span>, Flex-Algo <span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>, and LFA <span>[<a href="#RFC5286" class="cite xref">RFC5286</a>]</span>) can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.<a href="#section-1-4" class="pilcrow">¶</a></p>
 <p id="section-1-5">This document examines the scenarios in which links can become overloaded, the requirements for steering some of the traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.<a href="#section-1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1276,17 +1276,17 @@ svg {
       <h2 id="name-problem-description">
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-problem-description" class="section-name selfRef">Problem Description</a>
       </h2>
-<p id="section-2-1">Links may become overloaded when more traffic is dispatched to the link than can be transmitted on the link, or when more traffic arrives at the egress end of the link than can be processed immediately or buffered without the buffers/queue becoming full. If a link is overloaded, traffic (that is packets) will be discarded, and even those packets that are not discarded may be delayed by unacceptable amounts.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">Link overload may arise when traffic flows that comprise together more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>), but more permanent overload situations need more strategic solutions.<a href="#section-2-2" class="pilcrow">¶</a></p>
-<p id="section-2-3">Various solutions (see <a href="#sec-approaches" class="auto internal xref">Section 4</a>) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes acceptable paths (that is, not excessive path cost, delay, etc.) but balances the traffic load in the network so that no link is overloaded and that traffic load remains below thresholds on all links where that is possible.<a href="#section-2-3" class="pilcrow">¶</a></p>
+<p id="section-2-1">Links may become overloaded when more traffic is dispatched to the link than can be transmitted on the link, or when more traffic arrives at the egress end of the link than can be processed immediately or buffered without the buffers/queues becoming full. If a link is overloaded, traffic (that is packets) will be discarded, and even those packets that are not discarded may be delayed by unacceptable amounts.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Link overload may arise when traffic flows that comprise more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>), but more permanent overload situations need more strategic solutions.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-3">Various solutions (see <a href="#sec-approaches" class="auto internal xref">Section 4</a>) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes other acceptable paths (that is, not resulting in excessive path cost, delay, etc.), but balances the traffic load in the network so that no link is overloaded and that traffic load remains below loading thresholds on all links where that is possible.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">Ideally, when the traffic load on any previously overloaded link drops below a second threshold, traffic will revert to the originally preferred path.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <div id="sec-overload">
 <section id="section-2.1">
         <h3 id="name-definition-of-link-overload">
 <a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-definition-of-link-overload" class="section-name selfRef">Definition of Link Overload</a>
         </h3>
-<p id="section-2.1-1">A link is considered to be overloaded when the amount of traffic (measured in bits per second) has reached a configured threshold on the link. The traffic is usually measured over a sample period that allows short bursts. The threshold can be set as a percentage of the capacity of the link or as an absolute value. In the absence of a configured threshold, a link will be considered overloaded when the link is full, i.e., when the amount of traffic is equal to the capacity of the link. When a link is full it is likely that traffic will be dropped, and that transmitted traffic may be delayed.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
-<p id="section-2.1-2">By setting the configured threshold appropriately, a router may detect an increase in traffic levels before the link is full and may take action to alleviate the link overload thus preventing any impact on the traffic.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
+<p id="section-2.1-1">A link is considered to be overloaded when the amount of traffic (measured in bits per second) has reached a configured threshold on the link. The traffic is usually measured over a sample period that allows short bursts to not trigger the link to be considered as overloaded. The threshold can be set as a percentage of the capacity of the link or as an absolute value. In the absence of a configured threshold, a link will be considered overloaded when the link is full, i.e., when the amount of traffic is equal to the capacity of the link. When a link is full it is likely that traffic will be dropped, and that transmitted traffic may be delayed.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-2.1-2">By setting the configured threshold appropriately, a router may detect an increase in traffic levels before the link is full and may take action to alleviate the link overload, thus preventing any impact on the traffic.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
 <p id="section-2.1-3">Except when referring to congestion as defined in <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>, this document uses the term "link overload". Note that "Distributed Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1295,7 +1295,7 @@ svg {
         <h3 id="name-link-overload-alleviation">
 <a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-link-overload-alleviation" class="section-name selfRef">Link Overload Alleviation</a>
         </h3>
-<p id="section-2.2-1">Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. It should be careful for the secondary overload in links of other paths.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-2.2-1">Link overload alleviation involves redirecting (steering) traffic so that it takes another path that avoids the overloaded link. It should be careful to not cause secondary overload on links of the other paths.<a href="#section-2.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-required">
@@ -1303,7 +1303,7 @@ svg {
         <h3 id="name-required-responsiveness">
 <a href="#section-2.3" class="section-number selfRef">2.3. </a><a href="#name-required-responsiveness" class="section-name selfRef">Required Responsiveness</a>
         </h3>
-<p id="section-2.3-1">While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
+<p id="section-2.3-1">While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious situations occur, and because it can be that only "best-effort" traffic will be affected.<a href="#section-2.3-1" class="pilcrow">¶</a></p>
 <p id="section-2.3-2">Link overload alleviation can be considered as a traffic planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.<a href="#section-2.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1338,7 +1338,7 @@ svg {
             <p id="section-2.5-3.4.1">Fast Reroute (FRR) for IP <span>[<a href="#RFC7841" class="cite xref">RFC7841</a>]</span>, MPLS-TE <span>[<a href="#RFC4090" class="cite xref">RFC4090</a>]</span>, or Segment Routing (SR) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>.<a href="#section-2.5-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-2.5-4">Solutions for link failure cannot be directly applied to link overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not require moving all of the traffic. However, it may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
+<p id="section-2.5-4">Solutions for link failure cannot be directly applied to link overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not generally require redirecting all of the traffic. However, it may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-congestion">
@@ -1346,10 +1346,10 @@ svg {
         <h3 id="name-discussion-of-transport-lev">
 <a href="#section-2.6" class="section-number selfRef">2.6. </a><a href="#name-discussion-of-transport-lev" class="section-name selfRef">Discussion of Transport-Level Congestion Control</a>
         </h3>
-<p id="section-2.6-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive or even take place in advance of the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.6-1" class="pilcrow">¶</a></p>
+<p id="section-2.6-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive to, or even take place in advance of, the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming those traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.6-1" class="pilcrow">¶</a></p>
 <p id="section-2.6-2">Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time.<a href="#section-2.6-2" class="pilcrow">¶</a></p>
 <p id="section-2.6-3">Active Queue Management (AQM) <span>[<a href="#BCP197" class="cite xref">BCP197</a>]</span> is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.<a href="#section-2.6-3" class="pilcrow">¶</a></p>
-<p id="section-2.6-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-applicability" class="auto internal xref">Section 5</a>) are somewhat similar, but the requirements and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.3</a>) are different.<a href="#section-2.6-4" class="pilcrow">¶</a></p>
+<p id="section-2.6-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-applicability" class="auto internal xref">Section 5</a>) are somewhat similar, but the requirements, solutions, and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.3</a>) are different.<a href="#section-2.6-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1359,7 +1359,7 @@ svg {
       <h2 id="name-functional-model">
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-functional-model" class="section-name selfRef">Functional Model</a>
       </h2>
-<p id="section-3-1">The functional model is split into abstract functional actions, and key action points that realise those actions. It may be observed that the different approaches described in <a href="#sec-approaches" class="auto internal xref">Section 4</a> may take link overload alleviation measures at different places in the network and so might not require all of the functional actions to be performed.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-1">The functional model is split into abstract functional actions and key action points that realise those actions. It may be observed that the different approaches described in <a href="#sec-approaches" class="auto internal xref">Section 4</a> take link overload alleviation measures at different places in the network and so might not require all of the functional actions to be performed.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="sec-funct-acts">
 <section id="section-3.1">
         <h3 id="name-functional-actions">
@@ -1368,7 +1368,7 @@ svg {
 <span class="break"></span><dl class="dlParallel" id="section-3.1-1">
           <dt id="section-3.1-1.1">Configuration:</dt>
           <dd style="margin-left: 1.5em" id="section-3.1-1.2">
-            <p id="section-3.1-1.2.1">The capacity of each link may be known a priori or configured at the link ends.<a href="#section-3.1-1.2.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-1.2.1">The capacity of each link may be known a priori or configured at the link ends. The overload and reversion thresholds need to be configured to the link ends.<a href="#section-3.1-1.2.1" class="pilcrow">¶</a></p>
 </dd>
           <dd class="break"></dd>
 <dt id="section-3.1-1.3">Capacity-Aware Topology Database Construction:</dt>
@@ -1398,7 +1398,7 @@ svg {
           <dd class="break"></dd>
 <dt id="section-3.1-1.13">Traffic Steering:</dt>
           <dd style="margin-left: 1.5em" id="section-3.1-1.14">
-            <p id="section-3.1-1.14.1">To alleviate link overload, traffic is steered away from the overloaded link onto links that have less load. This is achieved by using tunneling techniques that place the traffic onto a path that it would not normally follow. Only a part of the total traffic is steered onto an alternate path so as to keep the overloaded link in use while reducing the load it carries.<a href="#section-3.1-1.14.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-1.14.1">To alleviate link overload, traffic is steered away from the overloaded link onto links that have less load. This is achieved by using tunnelling techniques that place the traffic onto a path that it would not normally follow or by modifying the next hop routing/forwarding decisions. Only a part of the total traffic is steered onto an alternate path so as to keep the overloaded link in use while reducing the load it carries.<a href="#section-3.1-1.14.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1453,7 +1453,7 @@ svg {
           <dd class="break"></dd>
 <dt id="section-3.2-2.17">Central controller:</dt>
           <dd style="margin-left: 1.5em" id="section-3.2-2.18">
-            <p id="section-3.2-2.18.1">A central controller, such as a Path Computation Element (PCE) <span>[<a href="#RFC4655" class="cite xref">RFC4655</a>]</span>, responsible for determining optimal paths for traffic within the network. Where traffic is to be steered onto alternate paths to alleviate link overload, the central controller may be used to compute those alternate paths.<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-2.18.1">A central controller, such as a Path Computation Element (PCE) <span>[<a href="#RFC4655" class="cite xref">RFC4655</a>]</span>, is responsible for determining optimal paths for traffic within the network. Where traffic is to be steered onto alternate paths to alleviate link overload, the central controller may be used to compute those alternate paths.<a href="#section-3.2-2.18.1" class="pilcrow">¶</a></p>
 </dd>
         <dd class="break"></dd>
 </dl>
@@ -1466,7 +1466,7 @@ svg {
       <h2 id="name-general-approaches">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-general-approaches" class="section-name selfRef">General Approaches</a>
       </h2>
-<p id="section-4-1">This section outlines four approaches to link overload alleviation that have been proposed and experimentally implemented. While the overall objectives are the same in each case, the approaches vary somewhat.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">This section outlines five approaches to link overload alleviation that have been proposed and experimentally implemented. While the overall objectives are the same in each case, the approaches vary somewhat.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="sec-approach-DCM">
 <section id="section-4.1">
         <h3 id="name-distributed-congestion-miti">
@@ -1533,15 +1533,8 @@ svg {
 <p id="section-5.1-1">Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Flexible Algorithm capabilities already deployed or easily enabled. The operator requires a fully distributed solution that does not depend on a central controller or external TE policy management.  The network can tolerate the overhead of a dedicated offload topology.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Applicable approach: Distributed Congestion Mitigation (DCM) <a href="#sec-approach-DCM" class="auto internal xref">Section 4.1</a>.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">DCM is the natural fit when the network has already adopted IGP Flexible Algorithm <span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">Key deployment considerations:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.1-5.1">
-            <p id="section-5.1-5.1.1">Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.1-5.2">
-            <p id="section-5.1-5.2.1">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-5.2.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
+<p id="section-5.1-4">Key deployment considerations: Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<p id="section-5.1-5">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-scenario-ebr">
@@ -1608,7 +1601,7 @@ svg {
               <td class="text-left" rowspan="1" colspan="1">Scenario2</td>
               <td class="text-left" rowspan="1" colspan="1">Distributed, SR-TE available</td>
               <td class="text-left" rowspan="1" colspan="1">EBR</td>
-              <td class="text-left" rowspan="1" colspan="1">SR-TE data plane + IGP TE metrics(bandwidth related metrics)</td>
+              <td class="text-left" rowspan="1" colspan="1">SR-TE data plane + IGP TE metrics (bandwidth related metrics)</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">Scenario3</td>
@@ -1640,7 +1633,7 @@ svg {
 <p id="section-7-2">Firstly, the network can be destabilised causing traffic to be steered off the optimal path resulting in degradation of traffic delivery and potential packet loss. For example, if the configuration of overload and reversion thresholds can be compromised, then traffic steering can be induced. Further, a flip-flop with reversion can be forced by setting the reversion threshold higher than the overload threshold, resulting in interruption of traffic flows.<a href="#section-7-2" class="pilcrow">¶</a></p>
 <p id="section-7-3">A more complex attack may cause traffic be sent to an authorised network exit where it can be exfiltrated. This attack requires a tunnel to be set up to that exit point, and then overload steering to be triggered so that traffic is placed on the tunnel.<a href="#section-7-3" class="pilcrow">¶</a></p>
 <p id="section-7-4">The most important protection against these attacks is security applied to the configuration/management protocols.<a href="#section-7-4" class="pilcrow">¶</a></p>
-<p id="section-7-5">It may be possible to force link overload alleviation by introducing bogus, high-volume traffic flows to the network. Such an attack, however, is actually mitigated by link overload alleviation because otherwise it would simply result in overload with delay or loss on other, legitimate traffic flows. In any case, this sort of attack should be adequately protected against by appropriate traffic policing at the network edge.<a href="#section-7-5" class="pilcrow">¶</a></p>
+<p id="section-7-5">It may be possible to force link overload alleviation by introducing bogus, high-volume traffic flows to the network. Such an attack, however, is actually mitigated by link overload alleviation because otherwise it would simply result in overload with delay to or loss of other, legitimate traffic flows. In any case, this sort of attack should be adequately protected against by appropriate traffic policing at the network edge.<a href="#section-7-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-operational">
