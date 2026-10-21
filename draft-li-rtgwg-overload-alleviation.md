@@ -46,7 +46,7 @@ author:
   ins: P. Psenak
   name: Peter Psenak
   org: Cisco Systems
-  email: ppsenak@cisco.com  
+  email: ppsenak@cisco.com
 
 informative:
 
