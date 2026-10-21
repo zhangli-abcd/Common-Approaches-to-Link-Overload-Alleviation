@@ -29,11 +29,11 @@
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.12.2
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.9.1
+    wcwidth 0.9.2
 -->
 <link href="draft-li-rtgwg-overload-alleviation.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1053,7 +1053,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang &amp; Farrel</td>
-<td class="center">Expires 17 April 2027</td>
+<td class="center">Expires 24 April 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1066,12 +1066,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-14" class="published">14 October 2026</time>
+<time datetime="2026-10-21" class="published">21 October 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-04-17">17 April 2027</time></dd>
+<dd class="expires"><time datetime="2027-04-24">24 April 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1126,7 +1126,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 24 April 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1528,14 +1528,13 @@ svg {
 <p id="section-5.1-1">Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Flexible Algorithm capabilities already deployed or easily enabled. The operator requires a fully distributed solution that does not depend on a central controller or external TE policy management.  The network can tolerate the overhead of a dedicated offload topology.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Applicable approach: Distributed Congestion Mitigation (DCM) <a href="#sec-approach-DCM" class="auto internal xref">Section 4.1</a>.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <p id="section-5.1-3">DCM is the natural fit when the network has already adopted IGP Flexible Algorithm <span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">The approach is unsuitable for micro-burst or extremely short-lived congestion: DCM explicitly states that it is not designed to deal with micro-bursts or short-lived congestion. Its progressive offloading in periodic iterations (e.g., 5% per step) introduces convergence latency that is acceptable for long-term overload.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">Key deployment considerations:<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Key deployment considerations:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.1-6.1">
-            <p id="section-5.1-6.1.1">Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.1-5.1">
+            <p id="section-5.1-5.1.1">Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.1-6.2">
-            <p id="section-5.1-6.2.1">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-6.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-5.2">
+            <p id="section-5.1-5.2.1">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1547,7 +1546,7 @@ svg {
         </h3>
 <p id="section-5.2-1">Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already deployed or easily enabled.The operator requires a fully distributed solution that does not depend on a central controller.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">Applicable approach: Elastic Bandwidth-aware Routing (EBR) <a href="#sec-approach-EBR" class="auto internal xref">Section 4.2</a>.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">EBR is designed for scenarios where the operator needs bandwidth-aware load balancing across pre-computed alternate paths. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly to overload. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">Key deployment considerations:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-5.1">
@@ -1567,14 +1566,13 @@ svg {
 <p id="section-5.3-1">Characteristics: The network is managed by a central controller and the operator requires visibility, auditability, and control over any traffic steering actions. Regulatory or operational policy requires human-in-the-loop approval for traffic engineering changes. The overload events are transient and localized, and the operator wants to offload the minimal necessary traffic volume to restore the link to acceptable utilization. Existing SR-TE policy infrastructure is already deployed or can be deployed.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">Applicable approach: Local Congestion Mitigation (LCM) <a href="#sec-approach-LCM" class="auto internal xref">Section 4.5</a>.<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <p id="section-5.3-3">LCM is the appropriate choice when operational safety and human oversight are paramount. It operates as a closed-loop controller-driven workflow: the controller collects interface statistics, detects overload against user-configured thresholds, computes the minimal offload volume, deploys temporary SR-TE policies, and later removes them once hold-margin conditions are satisfied. The monitor-only and human-in-the-loop workflows allow operators to preview recommendations before committing them.<a href="#section-5.3-3" class="pilcrow">¶</a></p>
-<p id="section-5.3-4">LCM is less suitable for scenarios requiring sub-second reaction times or for networks without controller infrastructure. The closed-loop nature introduces latency from telemetry collection, path computation, and policy deployment, which may be acceptable for the long term overload but not for micro-burst.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
-<p id="section-5.3-5">Key deployment considerations:<a href="#section-5.3-5" class="pilcrow">¶</a></p>
+<p id="section-5.3-4">Key deployment considerations:<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.3-6.1">
-            <p id="section-5.3-6.1.1">Requires BGP-LS or IGP for topology collection;<a href="#section-5.3-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.3-5.1">
+            <p id="section-5.3-5.1.1">Requires BGP-LS or IGP for topology collection;<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-6.2">
-            <p id="section-5.3-6.2.1">Requires SR-TE policies and ECMP over multiple parallel policies.<a href="#section-5.3-6.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.3-5.2">
+            <p id="section-5.3-5.2.1">Requires SR-TE policies and ECMP over multiple parallel policies.<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
