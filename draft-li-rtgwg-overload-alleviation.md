@@ -42,6 +42,12 @@ author:
   org: Old Dog Consulting
   email: adrian@olddog.co.uk
 
+-
+  ins: P. Psenak
+  name: Peter Psenak
+  org: Cisco Systems
+  email: ppsenak@cisco.com
+
 informative:
 
   ISO10589:
@@ -62,9 +68,9 @@ informative:
 
 Network links may become degraded because of physical conditions or owing to partial link failure: this can result in a reduction of available bandwidth. Alternatively, traffic volume may increase significantly and unexpectedly. These circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
 
-Traffic Engineering (TE) techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.
+Several traffic adjustment techniques can be applied to alleviate these link-overload situations by steering some of the traffic onto other paths that are less loaded and have available bandwidth.
 
-This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links.
+This document examines the scenarios in which links can become overloaded, the requirements for steering traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.
 
 --- middle
 
@@ -76,9 +82,9 @@ At the same time, traffic volume may increase significantly and unexpectedly abo
 
 Any of these circumstances may result in links becoming overloaded which can result in dropped packets or degraded delivery such as increased delay.
 
-Traffic Engineering (TE) techniques {{?RFC9522}} can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.
+Several traffic adjustment techniques (such as Traffic Engineering{{?RFC9522}}, Flex-Algo{{?RFC9350}}, and LFA{{?RFC5286}}) can be applied to alleviate these link-overload situations by steering traffic onto other paths (that is, using other links) that are less loaded and have available bandwidth.
 
-This document examines the scenarios in which links can become overloaded, the requirements for steering some of the traffic to reduce link-overload, and the TE techniques that can be applied to alleviate overloaded links.
+This document examines the scenarios in which links can become overloaded, the requirements for steering some of the traffic to reduce link-overload, and the techniques that can be applied to alleviate overloaded links.
 
 # Problem Description {#sec-problem}
 
@@ -106,7 +112,7 @@ Link overload alleviation involves redirecting (steering) traffic so that it tak
 
 While, "As soon as possible," is always a good target for alleviating network overload, the situation is not regarded as highly urgent partly because the threshold triggering action can be set to rectify the situation before serious congestion occurs or because only "best-effort" traffic will be affected.
 
-Link overload alleviation can be considered as a TE planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.
+Link overload alleviation can be considered as a traffic planning or optimization activity, and the target response times are in the order of thirty seconds. This should be factored into how the overload threshold is configured so that there is no immediate urgency to alleviating the overload.
 
 ## Traffic Reversion {#sec-reversion}
 
@@ -154,8 +160,8 @@ Capacity-Aware Topology Database Construction:
 Measurement:
 : In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.
 
-Capacity-Aware TE Database Construction:
-: To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, or through reporting to a central controller.
+Capacity-Aware topology Database Construction:
+: To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, link affinities of Flex-Algo, or through reporting to a central controller.
 
 Overload Trigger:
 : The overload condition is triggered when when the load on a link crosses a configured threshold. This may be an absolute value or a percentage of the link capacity.
