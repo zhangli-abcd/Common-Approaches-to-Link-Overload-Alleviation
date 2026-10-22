@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 24 April 2027                                Old Dog Consulting
+Expires: 25 April 2027                                Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         21 October 2026
+                                                         22 October 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2027.
+   This Internet-Draft will expire on 25 April 2027.
 
 Copyright Notice
 
@@ -118,11 +118,11 @@ Table of Contents
    Network links may become degraded because of physical conditions or
    owing to partial link failure.  For example, a microwave link can see
    a reduction in available bandwidth during inclement weather
-   conditions.  Alternatively, a link comprising a bundle of parallel
-   links (often referred to as an a link aggregation group) may suffer
-   the failure of a component link resulting in a decrease in the
-   available bandwidth on the composite link.  This may result in the
-   traffic volume on the link exceeding the available bandwidth.
+   conditions.  Alternatively, changes in the available network
+   resources may directly result in link overload or could cause traffic
+   to be rerouted within the network leading to links becoming
+   overloaded.  These situations may result in the traffic volume on the
+   link exceeding the available bandwidth.
 
    At the same time, traffic volume may increase significantly and
    unexpectedly above predicted levels such that traffic volume on the
