@@ -76,7 +76,7 @@ This document examines the scenarios in which links can become overloaded, the r
 
 # Introduction {#sec-intro}
 
-Network links may become degraded because of physical conditions or owing to partial link failure. For example, a microwave link can see a reduction in available bandwidth during inclement weather conditions. Alternatively, a link comprising a bundle of parallel links (often referred to as an a link aggregation group) may suffer the failure of a component link resulting in a decrease in the available bandwidth on the composite link. This may result in the traffic volume on the link exceeding the available bandwidth.
+Network links may become degraded because of physical conditions or owing to partial link failure. For example, a microwave link can see a reduction in available bandwidth during inclement weather conditions. Alternatively, changes in the available network resources may directly result in link overload or could cause traffic to be rerouted within the network leading to links becoming overloaded. These situations may result in the traffic volume on the link exceeding the available bandwidth.
 
 At the same time, traffic volume may increase significantly and unexpectedly above predicted levels such that traffic volume on the link exceeds the available bandwidth.
 
