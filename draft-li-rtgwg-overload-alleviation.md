@@ -221,11 +221,11 @@ EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC857
 
 ## Tactical Traffic Engineering {#sec-approach-TTE}
 
-Tactical Traffic Engineering (TTE) is a distributed real-time mechanism to mitigate link overload defined in {{?I-D.li-rtgwg-tte}}. It works in conjunction with previous bandwidth-oriented traffic engineering techniques to mitigate transient link overload while optimal traffic assignment is being recomputed. TTE dynamically distributes load if link overload is anticipated, shifts traffic load away from overloaded links, and reverts traffic back to original paths once link overload abates.
+Tactical Traffic Engineering (TTE), described in {{?I-D.li-rtgwg-tte}}, is a distributed, reactive traffic engineering mechanism designed to rapidly alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to actual link utilization, without requiring immediate changes to the underlying routing topology or traffic engineering paths. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.
 
-TTE leverages pre-computed backup paths such as Loop-Free Alternates (LFAs) {{?RFC5286}} or Topology Independent Loop-Free Alternates (TI-LFAs) {{?RFC9855}}. When utilization on a link exceeds a configured threshold, the corresponding router converts these standby backup paths into active parallel paths alongside primary paths to form Equal Cost Multipath (ECMP) multipath groups. TTE manipulates Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to achieve flow-level load distribution.
+When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. TTE is independent of the underlying traffic engineering architecture, and alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) {{?RFC5286}}, Topology Independent Loop-Free Alternates (TI-LFA) {{?RFC9855}}, RSVP-TE Fast Reroute {{?RFC4090}}, or paths computed by a Path Computation Element (PCE) {{?RFC4655}}. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.
 
-TTE builds upon existing loop-free backup path computation capabilities such as LFA and TI-LFA. Forwarding planes must support FIB/LFIB modification for dynamic multipath group adjustment.
+TTE must avoid overloading alternate paths, to maintain network and forwarding stability. When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding.
 
 ## Congestion Avoidance using Segment Routing {#sec-CA-SR}
 
@@ -287,13 +287,26 @@ Key deployment considerations:
 
 - Requires SR-TE policies and ECMP over multiple parallel policies.
 
+## Scenario 4: Distributed Alleviation with Existing Alternate Paths (TTE) {sec-scenario-tte}
+
+Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize additional control-plane activity and avoid dependence on network-wide routing convergence or centralized path reoptimization for the immediate corrective action. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
+
+Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
+
+TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture.
+
+In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.
+
+Key deployment considerations: Alternate paths must be suitable for carrying additional traffic, and offloading must avoid creating secondary overload. Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability. Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.
+
 ## Summary {#sec-scenario-summary}
 
-| Scenario | Primary Criterion | Recommended Approach| Key Prerequisite|
-|----------|-------------------|---------------------|-----------------|
+| Scenario | Primary Criterion | Recommended Approach | Key Prerequisite |
+|----------|-------------------|----------------------|------------------|
 | Scenario1 | Distributed, Flex-Algo available | DCM | Flex-Algo + extended admin groups |
 | Scenario2 | Distributed, SR-TE available | EBR	| SR-TE data plane + IGP TE metrics (bandwidth related metrics) |
 | Scenario3 | Controller-based, human oversight required | LCM |	Controller + SR-TE policy support |
+| Scenario4 | Distributed Alleviation with Existing Alternate Paths | TTE | Existing bandwidth-engineering and protection mechanisms |
 
 These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator's existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
 
@@ -331,4 +344,4 @@ This document makes no requests for IANA action.
 # Acknowledgments
 {:numbered="false"}
 
-The authors would like to thank Daniel King for input to this document.
+The authors would like to thank Daniel King and Colby Barth for input to this document.
