@@ -291,7 +291,7 @@ Key deployment considerations:
 
 Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize additional control-plane activity and avoid dependence on network-wide routing convergence or centralized path reoptimization for the immediate corrective action. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
 
-Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-tte}}.
+Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
 
 TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture.
 
