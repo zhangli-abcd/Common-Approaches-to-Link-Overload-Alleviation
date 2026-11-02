@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 24 April 2027                                Old Dog Consulting
+Expires: 6 May 2027                                   Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         21 October 2026
+                                                         2 November 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -19,13 +19,13 @@ Abstract
    Network links may become degraded because of physical conditions or
    owing to partial link failure: this can result in a reduction of
    available bandwidth.  Alternatively, traffic volume may increase
-   significantly and unexpectedly.  These circumstances may result in
+   significantly and unexpectedly.  These circumstances may lead to
    links becoming overloaded which can result in dropped packets or
    degraded delivery such as increased delay.
 
-   Several traffic adjustment techniques can be applied to alleviate
-   these link-overload situations by steering some of the traffic onto
-   other paths that are less loaded and have available bandwidth.
+   Traffic adjustment techniques can be applied to alleviate these link-
+   overload situations by steering some of the traffic onto other paths
+   that are less loaded and have available bandwidth.
 
    This document examines the scenarios in which links can become
    overloaded, the requirements for steering traffic to reduce link-
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 24 April 2027.
+   This Internet-Draft will expire on 6 May 2027.
 
 Copyright Notice
 
@@ -104,7 +104,9 @@ Table of Contents
      5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability
      5.3.  Scenario 3: Controller-Based Alleviation with Human
            Oversight
-     5.4.  Summary
+     5.4.  Scenario 4: Distributed Alleviation with Existing Alternate
+           Paths (TTE) {sec-scenario-tte}
+     5.5.  Summary
    6.  Deployment and Implementation Experience
    7.  Security Considerations
    8.  Operational Considerations
@@ -118,25 +120,25 @@ Table of Contents
    Network links may become degraded because of physical conditions or
    owing to partial link failure.  For example, a microwave link can see
    a reduction in available bandwidth during inclement weather
-   conditions.  Alternatively, a link comprising a bundle of parallel
-   links (often referred to as an a link aggregation group) may suffer
-   the failure of a component link resulting in a decrease in the
-   available bandwidth on the composite link.  This may result in the
-   traffic volume on the link exceeding the available bandwidth.
+   conditions.  Alternatively, changes in the available network
+   resources may directly result in link overload or could cause traffic
+   to be rerouted within the network leading to links becoming
+   overloaded.  These situations may result in the traffic volume on the
+   link exceeding the available bandwidth.
 
    At the same time, traffic volume may increase significantly and
    unexpectedly above predicted levels such that traffic volume on the
-   link exceeding the available bandwidth.
+   link exceeds the available bandwidth.
 
-   Any of these circumstances may result in links becoming overloaded
-   which can result in dropped packets or degraded delivery such as
+   Any of these circumstances may lead to links becoming overloaded
+   which can result in dropped packets or degraded delivery, such as
    increased delay.
 
-   Several traffic adjustment techniques (such as Traffic
-   Engineering[RFC9522], Flex-Algo[RFC9350], and LFA[RFC5286]) can be
-   applied to alleviate these link-overload situations by steering
-   traffic onto other paths (that is, using other links) that are less
-   loaded and have available bandwidth.
+   Traffic adjustment techniques (such as Traffic Engineering [RFC9522],
+   Flex-Algo [RFC9350], and LFA [RFC5286]) can be applied to alleviate
+   these link-overload situations by steering traffic onto other paths
+   (that is, using other links) that are less loaded and have available
+   bandwidth.
 
    This document examines the scenarios in which links can become
    overloaded, the requirements for steering some of the traffic to
@@ -148,15 +150,15 @@ Table of Contents
    Links may become overloaded when more traffic is dispatched to the
    link than can be transmitted on the link, or when more traffic
    arrives at the egress end of the link than can be processed
-   immediately or buffered without the buffers/queue becoming full.  If
+   immediately or buffered without the buffers/queues becoming full.  If
    a link is overloaded, traffic (that is packets) will be discarded,
    and even those packets that are not discarded may be delayed by
    unacceptable amounts.
 
-   Link overload may arise when traffic flows that comprise together
-   more bits per second than the link has capacity for are routed or
-   steered onto a link.  This may happen because of normal shortest path
-   routing, errors in traffic engineering planning, flexible bandwidth
+   Link overload may arise when traffic flows that comprise more bits
+   per second than the link has capacity for are routed or steered onto
+   a link.  This may happen because of normal shortest path routing,
+   errors in traffic engineering planning, flexible bandwidth
    mechanisms, poor policing of flows at the network edge, or recovery
    from network failure conditions.  Such overload may be short-term
    (for example, quick bursts of traffic) or may be longer-lasting.
@@ -167,10 +169,11 @@ Table of Contents
    Various solutions (see Section 4) provide mechanisms to detect and
    alleviate link overload.  The objectives are to determine when
    traffic load reaches a threshold, to notify the situation, and to
-   steer traffic so that it takes acceptable paths (that is, not
-   excessive path cost, delay, etc.) but balances the traffic load in
-   the network so that no link is overloaded and that traffic load
-   remains below thresholds on all links where that is possible.
+   steer traffic so that it takes other acceptable paths (that is, not
+   resulting in excessive path cost, delay, etc.), but balances the
+   traffic load in the network so that no link is overloaded and that
+   traffic load remains below loading thresholds on all links where that
+   is possible.
 
    Ideally, when the traffic load on any previously overloaded link
    drops below a second threshold, traffic will revert to the originally
@@ -181,17 +184,18 @@ Table of Contents
    A link is considered to be overloaded when the amount of traffic
    (measured in bits per second) has reached a configured threshold on
    the link.  The traffic is usually measured over a sample period that
-   allows short bursts.  The threshold can be set as a percentage of the
-   capacity of the link or as an absolute value.  In the absence of a
-   configured threshold, a link will be considered overloaded when the
-   link is full, i.e., when the amount of traffic is equal to the
-   capacity of the link.  When a link is full it is likely that traffic
-   will be dropped, and that transmitted traffic may be delayed.
+   allows short bursts to not trigger the link to be considered as
+   overloaded.  The threshold can be set as a percentage of the capacity
+   of the link or as an absolute value.  In the absence of a configured
+   threshold, a link will be considered overloaded when the link is
+   full, i.e., when the amount of traffic is equal to the capacity of
+   the link.  When a link is full it is likely that traffic will be
+   dropped, and that transmitted traffic may be delayed.
 
    By setting the configured threshold appropriately, a router may
    detect an increase in traffic levels before the link is full and may
-   take action to alleviate the link overload thus preventing any impact
-   on the traffic.
+   take action to alleviate the link overload, thus preventing any
+   impact on the traffic.
 
    Except when referring to congestion as defined in Section 2.6, this
    document uses the term "link overload".  Note that "Distributed
@@ -203,15 +207,16 @@ Table of Contents
 
    Link overload alleviation involves redirecting (steering) traffic so
    that it takes another path that avoids the overloaded link.  It
-   should be careful for the secondary overload in links of other paths.
+   should be careful to not cause secondary overload on links of the
+   other paths.
 
 2.3.  Required Responsiveness
 
    While, "As soon as possible," is always a good target for alleviating
    network overload, the situation is not regarded as highly urgent
    partly because the threshold triggering action can be set to rectify
-   the situation before serious congestion occurs or because only "best-
-   effort" traffic will be affected.
+   the situation before serious situations occur, and because it can be
+   that only "best-effort" traffic will be affected.
 
    Link overload alleviation can be considered as a traffic planning or
    optimization activity, and the target response times are in the order
@@ -259,25 +264,25 @@ Table of Contents
 
    Solutions for link failure cannot be directly applied to link
    overload scenarios since they switch all the traffic to the backup
-   paths, whereas link overload does not require moving all of the
-   traffic.  However, it may provide a basis for, or conceptual input
-   to, solutions for link overload.
+   paths, whereas link overload does not generally require redirecting
+   all of the traffic.  However, it may provide a basis for, or
+   conceptual input to, solutions for link overload.
 
 2.6.  Discussion of Transport-Level Congestion Control
 
    Congestion detection, reporting, control, and mitigation have been
    the subject of RFCs since the earliest days of the IETF.  In general,
-   congestion notification aims to be very responsive or even take place
-   in advance of the congestion actually becoming a problem.  Early
-   Congestion Notification (ECN) [RFC3180] aims to provide information
-   to the head end of network flows so that they can moderate the rate
-   at which traffic is presented to the network and so avoid congestion
-   harming traffic flows.  The assumption is that notified traffic
-   sources will behave reasonably in their own best interests (reduced
-   throughput is preferable to recovering from dropped packets) and in
-   the best interests of the network as a whole (i.e., not deciding that
-   other sources will back off and increasing traffic to use the
-   capacity they make available).
+   congestion notification aims to be very responsive to, or even take
+   place in advance of, the congestion actually becoming a problem.
+   Early Congestion Notification (ECN) [RFC3180] aims to provide
+   information to the head end of network flows so that they can
+   moderate the rate at which traffic is presented to the network and so
+   avoid congestion harming those traffic flows.  The assumption is that
+   notified traffic sources will behave reasonably in their own best
+   interests (reduced throughput is preferable to recovering from
+   dropped packets) and in the best interests of the network as a whole
+   (i.e., not deciding that other sources will back off and increasing
+   traffic to use the capacity they make available).
 
    Over the years, many other TCP/IP congestion notification and
    remedial techniques have been proposed and some have been
@@ -297,26 +302,27 @@ Table of Contents
    The problems discussed in this document (see Section 2) are similar
    to those that have been addressed previously (i.e., link overload is
    equivalent to congestion on that link).  The use cases (see
-   Section 5) are somewhat similar, but the requirements and espescially
-   the responsiveness (see Section 2.3) are different.
+   Section 5) are somewhat similar, but the requirements, solutions, and
+   espescially the responsiveness (see Section 2.3) are different.
 
 3.  Functional Model
 
-   The functional model is split into abstract functional actions, and
+   The functional model is split into abstract functional actions and
    key action points that realise those actions.  It may be observed
-   that the different approaches described in Section 4 may take link
+   that the different approaches described in Section 4 take link
    overload alleviation measures at different places in the network and
    so might not require all of the functional actions to be performed.
 
 3.1.  Functional Actions
 
    Configuration:  The capacity of each link may be known a priori or
-      configured at the link ends.
+      configured at the link ends.  The overload and reversion
+      thresholds need to be configured to the link ends.
 
    Capacity-Aware Topology Database Construction:  The network topology
       is supplemented by the capacities of all of the links.  This may
       be distributed across the network in the TE-enhanced IGP or
-      collected to a centralised controller using management protocols.
+      collected to a centralized controller using management protocols.
 
    Measurement:  In order to determine the load on any link, the link
       ends measure the traffic over a period of time designed to dampen
@@ -340,14 +346,19 @@ Table of Contents
    Overload Notification:  Depending on where the overload alleviation
       is to be performed and where the overload condition is triggered,
       it may be necessary to send an overload notification so that
-      remedial action can be taken.
+      remedial action can be taken.  For example, in controller-based
+      overload alleviation scenario, the centralized controller performs
+      the alleviation process.  In this case, the node with an
+      overloaded link needs to send an overload notification to the
+      controller.
 
    Traffic Steering:  To alleviate link overload, traffic is steered
       away from the overloaded link onto links that have less load.
       This is achieved by using tunnelling techniques that place the
-      traffic onto a path that it would not normally follow.  Only a
-      part of the total traffic is steered onto an alternate path so as
-      to keep the overloaded link in use while reducing the load it
+      traffic onto a path that it would not normally follow or by
+      modifying the next hop routing/forwarding decisions.  Only a part
+      of the total traffic is steered onto an alternate path so as to
+      keep the overloaded link in use while reducing the load it
       carries.
 
 3.2.  Key Action Points
@@ -388,14 +399,14 @@ Table of Contents
       path, the merge point is the tail end of the tunnel.
 
    Central controller:  A central controller, such as a Path Computation
-      Element (PCE) [RFC4655], responsible for determining optimal paths
-      for traffic within the network.  Where traffic is to be steered
-      onto alternate paths to alleviate link overload, the central
-      controller may be used to compute those alternate paths.
+      Element (PCE) [RFC4655], is responsible for determining optimal
+      paths for traffic within the network.  Where traffic is to be
+      steered onto alternate paths to alleviate link overload, the
+      central controller may be used to compute those alternate paths.
 
 4.  General Approaches
 
-   This section outlines four approaches to link overload alleviation
+   This section outlines five approaches to link overload alleviation
    that have been proposed and experimentally implemented.  While the
    overall objectives are the same in each case, the approaches vary
    somewhat.
@@ -461,27 +472,35 @@ Table of Contents
 
 4.3.  Tactical Traffic Engineering
 
-   Tactical Traffic Engineering (TTE) is a distributed real-time
-   mechanism to mitigate link overload defined in [I-D.li-rtgwg-tte].
-   It works in conjunction with previous bandwidth-oriented traffic
-   engineering techniques to mitigate transient link overload while
-   optimal traffic assignment is being recomputed.  TTE dynamically
-   distributes load if link overload is anticipated, shifts traffic load
-   away from overloaded links, and reverts traffic back to original
-   paths once link overload abates.
+   Tactical Traffic Engineering (TTE), described in [I-D.li-rtgwg-tte],
+   is a distributed, reactive traffic engineering mechanism designed to
+   rapidly alleviate unexpected link overload.  TTE operates locally,
+   adjusting the forwarding of selected traffic flows in response to
+   actual link utilization, without requiring immediate changes to the
+   underlying routing topology or traffic engineering paths.  It is
+   complementary to conventional bandwidth engineering mechanisms,
+   separating tactical mitigation from strategic optimization to allow
+   networks to react quickly to unforeseen traffic demands without
+   replacing their existing bandwidth management architecture.
 
-   TTE leverages pre-computed backup paths such as Loop-Free Alternates
-   (LFAs) [RFC5286] or Topology Independent Loop-Free Alternates (TI-
-   LFAs) [RFC9855].  When utilization on a link exceeds a configured
-   threshold, the corresponding router converts these standby backup
-   paths into active parallel paths alongside primary paths to form
-   Equal Cost Multipath (ECMP) multipath groups.  TTE manipulates
-   Forwarding Information Base (FIB) or MPLS Label FIB (LFIB) entries to
-   achieve flow-level load distribution.
+   When overload is anticipated or detected, TTE selectively distributes
+   traffic across primary and alternate forwarding paths.  TTE is
+   independent of the underlying traffic engineering architecture, and
+   alternate paths may be derived from existing protection mechanisms,
+   including Loop-Free Alternates (LFA) [RFC5286], Topology Independent
+   Loop-Free Alternates (TI-LFA) [RFC9855], RSVP-TE Fast Reroute
+   [RFC4090], or paths computed by a Path Computation Element (PCE)
+   [RFC4655].  TTE activates these alternatives through modifications to
+   Forwarding Information Base (FIB) or MPLS Label Forwarding
+   Information Base (LFIB) entries, allowing traffic to be redistributed
+   without requiring network-wide routing convergence or global traffic
+   engineering reoptimization.
 
-   TTE builds upon existing loop-free backup path computation
-   capabilities such as LFA and TI-LFA.  Forwarding planes must support
-   FIB/LFIB modification for dynamic multipath group adjustment.
+   TTE must avoid overloading alternate paths, to maintain network and
+   forwarding stability.  When utilization returns to acceptable levels,
+   or when longer-term traffic engineering optimization has corrected
+   the overload condition, TTE can deactivate the alternate paths and
+   restore normal forwarding.
 
 4.4.  Congestion Avoidance using Segment Routing
 
@@ -564,20 +583,11 @@ Table of Contents
    attractive for operators who want to avoid the configuration and
    state overhead of SR-TE policies on every headend.
 
-   The approach is unsuitable for micro-burst or extremely short-lived
-   congestion: DCM explicitly states that it is not designed to deal
-   with micro-bursts or short-lived congestion.  Its progressive
-   offloading in periodic iterations (e.g., 5% per step) introduces
-   convergence latency that is acceptable for long-term overload.
+   Key deployment considerations: Requires IGP-wide support for Flex-
+   Algo and extended administrative groups.
 
-   Key deployment considerations:
-
-   *  Requires IGP-wide support for Flex-Algo and extended
-      administrative groups.
-
-   *  The OFA topology is shared across participating routers; scaling
-      may be a concern if many distinct Flex-Algo typologies already
-      exist.
+   The OFA topology is shared across participating routers; scaling may
+   be a concern if many distinct Flex-Algo typologies already exist.
 
 5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability
 
@@ -589,12 +599,12 @@ Table of Contents
    Applicable approach: Elastic Bandwidth-aware Routing (EBR)
    Section 4.2.
 
-   EBR is designed for scenarios where the operator needs bandwidth-
-   aware load balancing across pre-computed alternate paths.  Unlike
-   DCM, which relies on topology exclusion, EBR computes alternate paths
-   with explicit consideration of available bandwidth on each path,
-   using UCMP weights derived from the bottleneck link on each alternate
-   path.  This makes EBR react quickly to overload.  It leverages
+   EBR is designed for scenarios where the network has already adopted
+   IGP TE extensions and Segment Routing.  Unlike DCM, which relies on
+   topology exclusion, EBR computes alternate paths with explicit
+   consideration of available bandwidth on each path, using UCMP weights
+   derived from the bottleneck link on each alternate path.  This makes
+   EBR react quickly once the overload is detected.  It leverages
    existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF)
    for bandwidth advertisement, meaning it can be deployed incrementally
    as IGP implementations support these extensions.
@@ -629,39 +639,70 @@ Table of Contents
    only and human-in-the-loop workflows allow operators to preview
    recommendations before committing them.
 
-   LCM is less suitable for scenarios requiring sub-second reaction
-   times or for networks without controller infrastructure.  The closed-
-   loop nature introduces latency from telemetry collection, path
-   computation, and policy deployment, which may be acceptable for the
-   long term overload but not for micro-burst.
-
    Key deployment considerations:
 
    *  Requires BGP-LS or IGP for topology collection;
 
    *  Requires SR-TE policies and ECMP over multiple parallel policies.
 
-5.4.  Summary
+5.4.  Scenario 4: Distributed Alleviation with Existing Alternate Paths
+      (TTE) {sec-scenario-tte}
 
-    +===========+===================+=============+===================+
-    | Scenario  | Primary Criterion | Recommended | Key Prerequisite  |
-    |           |                   | Approach    |                   |
-    +===========+===================+=============+===================+
-    | Scenario1 | Distributed,      | DCM         | Flex-Algo +       |
-    |           | Flex-Algo         |             | extended admin    |
-    |           | available         |             | groups            |
-    +-----------+-------------------+-------------+-------------------+
-    | Scenario2 | Distributed, SR-  | EBR         | SR-TE data plane  |
-    |           | TE available      |             | + IGP TE          |
-    |           |                   |             | metrics(bandwidth |
-    |           |                   |             | related metrics)  |
-    +-----------+-------------------+-------------+-------------------+
-    | Scenario3 | Controller-based, | LCM         | Controller + SR-  |
-    |           | human oversight   |             | TE policy support |
-    |           | required          |             |                   |
-    +-----------+-------------------+-------------+-------------------+
+   Characteristics: The network requires rapid, distributed mitigation
+   of unexpected link overload and has suitable alternate forwarding
+   paths available.  The operator wishes to minimize additional control-
+   plane activity and avoid dependence on network-wide routing
+   convergence or centralized path reoptimization for the immediate
+   corrective action.  The network may use conventional IP routing,
+   RSVP-TE, or Segment Routing.
 
-                                  Table 1
+   Applicable approach: Tactical Traffic Engineering (TTE) Section 4.3.
+
+   TTE is particularly applicable when existing loop-free alternate
+   paths and forwarding-plane capabilities can be leveraged to
+   redistribute selected traffic locally.  It provides a tactical
+   response to overload without requiring changes to the underlying
+   routing or traffic engineering architecture.
+
+   In RSVP-TE networks, TTE complements existing bandwidth-engineering
+   mechanisms, including bandwidth reservations, admission control,
+   Auto-Bandwidth, and CSPF-based path selection.  It can provide
+   localized overload relief while these mechanisms perform bandwidth
+   adjustments or global LSP reoptimization.
+
+   Key deployment considerations: Alternate paths must be suitable for
+   carrying additional traffic, and offloading must avoid creating
+   secondary overload.  Forwarding-plane capabilities must support the
+   required traffic distribution, and appropriate hysteresis and
+   reversion policies are necessary to prevent instability.  Where RSVP-
+   TE protection paths are reused, the impact on reserved bandwidth and
+   failure-protection capacity must also be considered.
+
+5.5.  Summary
+
+   +=========+===================+===========+========================+
+   |Scenario | Primary Criterion |Recommended| Key Prerequisite       |
+   |         |                   |Approach   |                        |
+   +=========+===================+===========+========================+
+   |Scenario1| Distributed,      |DCM        | Flex-Algo + extended   |
+   |         | Flex-Algo         |           | admin groups           |
+   |         | available         |           |                        |
+   +---------+-------------------+-----------+------------------------+
+   |Scenario2| Distributed, SR-  |EBR        | SR-TE data plane + IGP |
+   |         | TE available      |           | TE metrics (bandwidth  |
+   |         |                   |           | related metrics)       |
+   +---------+-------------------+-----------+------------------------+
+   |Scenario3| Controller-based, |LCM        | Controller + SR-TE     |
+   |         | human oversight   |           | policy support         |
+   |         | required          |           |                        |
+   +---------+-------------------+-----------+------------------------+
+   |Scenario4| Distributed       |TTE        | Existing bandwidth-    |
+   |         | Alleviation with  |           | engineering and        |
+   |         | Existing          |           | protection mechanisms  |
+   |         | Alternate Paths   |           |                        |
+   +---------+-------------------+-----------+------------------------+
+
+                                 Table 1
 
    These scenarios are not mutually exclusive.  A network may deploy LCM
    for policy-controlled offload while also relying on DCM or EBR for
@@ -699,7 +740,7 @@ Table of Contents
    It may be possible to force link overload alleviation by introducing
    bogus, high-volume traffic flows to the network.  Such an attack,
    however, is actually mitigated by link overload alleviation because
-   otherwise it would simply result in overload with delay or loss on
+   otherwise it would simply result in overload with delay to or loss of
    other, legitimate traffic flows.  In any case, this sort of attack
    should be adequately protected against by appropriate traffic
    policing at the network edge.
@@ -735,9 +776,9 @@ Table of Contents
               Cheng, W., KaZhang, Zhang, L., Contreras, L. M., and J.
               Dong, "Elastic Bandwidth-aware Routing Framework", Work in
               Progress, Internet-Draft, draft-czz-rtgwg-elastic-
-              bandwidth-routing-00, 6 July 2026,
+              bandwidth-routing-01, 27 October 2026,
               <https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-
-              elastic-bandwidth-routing-00>.
+              elastic-bandwidth-routing-01>.
 
    [I-D.he-rtgwg-sr-ca]
               hexiaoming, X. and L. Deng, "Congestion Avoidance Using
@@ -854,8 +895,8 @@ Table of Contents
 
 Acknowledgments
 
-   The authors would like to thank Daniel King for input to this
-   document.
+   The authors would like to thank Daniel King and Colby Barth for input
+   to this document.
 
 Authors' Addresses
 
