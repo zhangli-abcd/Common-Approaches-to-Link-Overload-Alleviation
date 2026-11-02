@@ -221,11 +221,13 @@ EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC857
 
 ## Tactical Traffic Engineering {#sec-approach-TTE}
 
-Tactical Traffic Engineering (TTE), described in {{?I-D.li-rtgwg-tte}}, is a distributed, reactive traffic engineering mechanism designed to rapidly alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to actual link utilization, without requiring immediate changes to the underlying routing topology or traffic engineering paths. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.
+Tactical Traffic Engineering (TTE), described in {{?I-D.li-rtgwg-tte}}, is a distributed, reactive traffic engineering mechanism designed to rapidly alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to loacl link utilization. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.
 
-When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. TTE is independent of the underlying traffic engineering architecture, and alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) {{?RFC5286}}, Topology Independent Loop-Free Alternates (TI-LFA) {{?RFC9855}}, RSVP-TE Fast Reroute {{?RFC4090}}, or paths computed by a Path Computation Element (PCE) {{?RFC4655}}. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.
+When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. The alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) {{?RFC5286}}, Topology Independent Loop-Free Alternates (TI-LFA) {{?RFC9855}}, RSVP-TE Fast Reroute {{?RFC4090}}, or paths computed by a Path Computation Element (PCE) {{?RFC4655}}. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.
 
-TTE must avoid overloading alternate paths, to maintain network and forwarding stability. When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding.
+When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding.
+
+TTE builds upon existing loop-free backup path computation capabilities such as LFA, TI-LFA, RSVP-TE FRR, and PCE. Forwarding planes must support FIB/LFIB modification for dynamic path adjustment. Deployment of TTE must account for the potential for secondary overload on alternate paths, particularly when reusing protection resources.
 
 ## Congestion Avoidance using Segment Routing {#sec-CA-SR}
 
@@ -253,11 +255,13 @@ Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with F
 
 Applicable approach: Distributed Congestion Mitigation (DCM) {{sec-approach-DCM}}.
 
-DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.
+DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend. The affinity advertisement may introduce additional control-plane activity, but it can avoid using overloaded or high-loaded links for offloading to avoid secondary congestion or aggravate congestion on other links.
 
-Key deployment considerations: Requires IGP-wide support for Flex-Algo and extended administrative groups.
+Key deployment considerations:
 
-The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.
+- Requires IGP-wide support for Flex-Algo and extended administrative groups.
+
+- The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.
 
 ## Scenario 2: Distributed Alleviation with SR-TE Capability {#sec-scenario-ebr}
 
@@ -265,7 +269,7 @@ Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with S
 
 Applicable approach: Elastic Bandwidth-aware Routing (EBR) {{sec-approach-EBR}}.
 
-EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.
+EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions. The bandwidth advertisement may introduce additional control-plane activity, but it can avoid using overloaded links for offloading and distributes traffic based on available link bandwidth, thereby preventing secondary congestion on other links.
 
 Key deployment considerations:
 
@@ -287,17 +291,25 @@ Key deployment considerations:
 
 - Requires SR-TE policies and ECMP over multiple parallel policies.
 
-## Scenario 4: Distributed Alleviation with Existing Alternate Paths (TTE) {sec-scenario-tte}
+## Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}
 
-Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize additional control-plane activity and avoid dependence on network-wide routing convergence or centralized path reoptimization for the immediate corrective action. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
+Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
 
 Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
 
-TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture.
+TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. It dose not require additional control-plane activity, which reduces the deployment burden on the devices. This also makes TTE hard to promptly perceive the link utilization of other links in the network, making it more prone to secondary congestion compared to the approaches that requires additional control-plane activity.
 
 In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.
 
-Key deployment considerations: Alternate paths must be suitable for carrying additional traffic, and offloading must avoid creating secondary overload. Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability. Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.
+Key deployment considerations:
+
+- Alternate paths must be suitable for carrying additional traffic.
+
+- Offloading must avoid creating secondary overload.
+
+- Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability.
+
+- Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.
 
 ## Summary {#sec-scenario-summary}
 
