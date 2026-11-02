@@ -1050,11 +1050,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Overload Alleviation</td>
-<td class="right">October 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 4 May 2027</td>
+<td class="center">Expires 6 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-10-31" class="published">31 October 2026</time>
+<time datetime="2026-11-02" class="published">2 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-04">4 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1230,7 +1230,7 @@ svg {
                 <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-scenario-3-controller-based" class="internal xref">Scenario 3: Controller-Based Alleviation with Human Oversight</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
-                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-scenario-4-distributed-alle" class="internal xref">Scenario 4: Distributed Alleviation with Existing Alternate Paths (TTE) {sec-scenario-tte}</a></p>
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-scenario-4-distributed-alle" class="internal xref">Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
                 <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-summary" class="internal xref">Summary</a></p>
@@ -1495,9 +1495,10 @@ svg {
         <h3 id="name-tactical-traffic-engineerin">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-tactical-traffic-engineerin" class="section-name selfRef">Tactical Traffic Engineering</a>
         </h3>
-<p id="section-4.3-1">Tactical Traffic Engineering (TTE), described in <span>[<a href="#I-D.li-rtgwg-tte" class="cite xref">I-D.li-rtgwg-tte</a>]</span>, is a distributed, reactive traffic engineering mechanism designed to rapidly alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to actual link utilization, without requiring immediate changes to the underlying routing topology or traffic engineering paths. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. TTE is independent of the underlying traffic engineering architecture, and alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) <span>[<a href="#RFC5286" class="cite xref">RFC5286</a>]</span>, Topology Independent Loop-Free Alternates (TI-LFA) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>, RSVP-TE Fast Reroute <span>[<a href="#RFC4090" class="cite xref">RFC4090</a>]</span>, or paths computed by a Path Computation Element (PCE) <span>[<a href="#RFC4655" class="cite xref">RFC4655</a>]</span>. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.3-3">TTE must avoid overloading alternate paths, to maintain network and forwarding stability. When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">Tactical Traffic Engineering (TTE), described in <span>[<a href="#I-D.li-rtgwg-tte" class="cite xref">I-D.li-rtgwg-tte</a>]</span>, is a distributed, reactive traffic engineering mechanism designed to rapidly alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to loacl link utilization. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. The alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) <span>[<a href="#RFC5286" class="cite xref">RFC5286</a>]</span>, Topology Independent Loop-Free Alternates (TI-LFA) <span>[<a href="#RFC9855" class="cite xref">RFC9855</a>]</span>, RSVP-TE Fast Reroute <span>[<a href="#RFC4090" class="cite xref">RFC4090</a>]</span>, or paths computed by a Path Computation Element (PCE) <span>[<a href="#RFC4655" class="cite xref">RFC4655</a>]</span>. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.3-3">When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding.<a href="#section-4.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.3-4">TTE builds upon existing loop-free backup path computation capabilities such as LFA, TI-LFA, RSVP-TE FRR, and PCE. Forwarding planes must support FIB/LFIB modification for dynamic path adjustment. Deployment of TTE must account for the potential for secondary overload on alternate paths, particularly when reusing protection resources.<a href="#section-4.3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-CA-SR">
@@ -1535,9 +1536,16 @@ svg {
         </h3>
 <p id="section-5.1-1">Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Flexible Algorithm capabilities already deployed or easily enabled. The operator requires a fully distributed solution that does not depend on a central controller or external TE policy management.  The network can tolerate the overhead of a dedicated offload topology.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <p id="section-5.1-2">Applicable approach: Distributed Congestion Mitigation (DCM) <a href="#sec-approach-DCM" class="auto internal xref">Section 4.1</a>.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">DCM is the natural fit when the network has already adopted IGP Flexible Algorithm <span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">Key deployment considerations: Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
+<p id="section-5.1-3">DCM is the natural fit when the network has already adopted IGP Flexible Algorithm <span>[<a href="#RFC9350" class="cite xref">RFC9350</a>]</span>. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend. The affinity advertisement may introduce additional control-plane activity, but it can avoid using overloaded or high-loaded links for offloading to avoid secondary congestion or aggravate congestion on other links.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">Key deployment considerations:<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.1-5.1">
+            <p id="section-5.1-5.1.1">Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-5.2">
+            <p id="section-5.1-5.2.1">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-5.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="sec-scenario-ebr">
@@ -1547,7 +1555,7 @@ svg {
         </h3>
 <p id="section-5.2-1">Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with Segment Routing (SR-MPLS or SRv6) capabilities already deployed or easily enabled.The operator requires a fully distributed solution that does not depend on a central controller.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
 <p id="section-5.2-2">Applicable approach: Elastic Bandwidth-aware Routing (EBR) <a href="#sec-approach-EBR" class="auto internal xref">Section 4.2</a>.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. Unlike DCM, which relies on topology exclusion, EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions. The bandwidth advertisement may introduce additional control-plane activity, but it can avoid using overloaded links for offloading and distributes traffic based on available link bandwidth, thereby preventing secondary congestion on other links.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">Key deployment considerations:<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.2-5.1">
@@ -1578,16 +1586,30 @@ svg {
         </ul>
 </section>
 </div>
-<div id="scenario-4-distributed-alleviation-with-existing-alternate-paths-tte-sec-scenario-tte">
+<div id="scenario-4-distributed-alleviation-with-existing-alternate-paths-sec-scenario-tte">
 <section id="section-5.4">
         <h3 id="name-scenario-4-distributed-alle">
-<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-scenario-4-distributed-alle" class="section-name selfRef">Scenario 4: Distributed Alleviation with Existing Alternate Paths (TTE) {sec-scenario-tte}</a>
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-scenario-4-distributed-alle" class="section-name selfRef">Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}</a>
         </h3>
-<p id="section-5.4-1">Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize additional control-plane activity and avoid dependence on network-wide routing convergence or centralized path reoptimization for the immediate corrective action. The network may use conventional IP routing, RSVP-TE, or Segment Routing.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">Applicable approach: Tactical Traffic Engineering (TTE) <a href="#sec-approach-TTE" class="auto internal xref">Section 4.3</a>.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. It dose not require additional control-plane activity, which reduces the deployment burden on the devices. This also makes TTE hard to promptly perceive the link utilization of other links in the network, making it more prone to secondary congestion compared to the approaches that requires additional control-plane activity.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
 <p id="section-5.4-4">In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
-<p id="section-5.4-5">Key deployment considerations: Alternate paths must be suitable for carrying additional traffic, and offloading must avoid creating secondary overload. Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability. Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.<a href="#section-5.4-5" class="pilcrow">¶</a></p>
+<p id="section-5.4-5">Key deployment considerations:<a href="#section-5.4-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5.4-6.1">
+            <p id="section-5.4-6.1.1">Alternate paths must be suitable for carrying additional traffic.<a href="#section-5.4-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.4-6.2">
+            <p id="section-5.4-6.2.1">Offloading must avoid creating secondary overload.<a href="#section-5.4-6.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.4-6.3">
+            <p id="section-5.4-6.3.1">Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability.<a href="#section-5.4-6.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.4-6.4">
+            <p id="section-5.4-6.4.1">Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.<a href="#section-5.4-6.4.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
 </section>
 </div>
 <div id="sec-scenario-summary">
@@ -1715,7 +1737,7 @@ svg {
 <dd class="break"></dd>
 <dt id="I-D.psenak-lsr-igp-dcm">[I-D.psenak-lsr-igp-dcm]</dt>
       <dd>
-<span class="refAuthor">Psenak, P.</span>, <span class="refAuthor">Horn, J.</span>, <span class="refAuthor">Decraene, B.</span>, and <span class="refAuthor">G. Gryszata</span>, <span class="refTitle">"Distributed Congestion Mitigation"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-psenak-lsr-igp-dcm-00</span>, <time datetime="2026-05-06" class="refDate">6 May 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-psenak-lsr-igp-dcm-00">https://datatracker.ietf.org/doc/html/draft-psenak-lsr-igp-dcm-00</a>&gt;</span>. </dd>
+<span class="refAuthor">Psenak, P.</span>, <span class="refAuthor">Horn, J.</span>, <span class="refAuthor">Decraene, B.</span>, and <span class="refAuthor">G. Gryszata</span>, <span class="refTitle">"Distributed Congestion Mitigation"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-psenak-lsr-igp-dcm-01</span>, <time datetime="2026-11-02" class="refDate">2 November 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-psenak-lsr-igp-dcm-01">https://datatracker.ietf.org/doc/html/draft-psenak-lsr-igp-dcm-01</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="ISO10589">[ISO10589]</dt>
       <dd>
