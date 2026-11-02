@@ -293,7 +293,7 @@ Key deployment considerations:
 
 ## Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}
 
-Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the control-plane dynamics, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
+Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
 
 Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
 
