@@ -225,9 +225,9 @@ Tactical Traffic Engineering (TTE), described in {{?I-D.li-rtgwg-tte}}, is a dis
 
 When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. The alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) {{?RFC5286}}, Topology Independent Loop-Free Alternates (TI-LFA) {{?RFC9855}}, RSVP-TE Fast Reroute {{?RFC4090}}, or paths computed by a Path Computation Element (PCE) {{?RFC4655}}. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.
 
-When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding. 
+When utilization returns to acceptable levels, or when longer-term traffic engineering optimization has corrected the overload condition, TTE can deactivate the alternate paths and restore normal forwarding.
 
-TTE builds upon existing loop-free backup path computation capabilities such as LFA, TI-LFA, RSVP-TE FRR, and PCE. Forwarding planes must support FIB/LFIB modification for dynamic path adjustment. Deployment of TTE must account for the potential for secondary overload on alternate paths, particularly when reusing protection resources. 
+TTE builds upon existing loop-free backup path computation capabilities such as LFA, TI-LFA, RSVP-TE FRR, and PCE. Forwarding planes must support FIB/LFIB modification for dynamic path adjustment. Deployment of TTE must account for the potential for secondary overload on alternate paths, particularly when reusing protection resources.
 
 ## Congestion Avoidance using Segment Routing {#sec-CA-SR}
 
@@ -301,7 +301,7 @@ TTE is particularly applicable when existing loop-free alternate paths and forwa
 
 In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.
 
-Key deployment considerations: 
+Key deployment considerations:
 
 - Alternate paths must be suitable for carrying additional traffic.
  
