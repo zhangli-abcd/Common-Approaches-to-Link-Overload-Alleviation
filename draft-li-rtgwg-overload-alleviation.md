@@ -213,7 +213,7 @@ DCM depends on IGP (IS-IS or OSPF) for affinity advertisement, and IGP Flexible 
 
 ## Elastic Bandwidth-aware Routing {#sec-approach-EBR}
 
-Elastic Bandwidth aware Routing (EBR) specified in {{?I-D.czz-rtgwg-elastic-bandwidth-routing}}, is a distributed dynamic mechanism to alleviate link overload that responds rapidly to unexpectedly overloaded links in the network before centralized TE completes global re-optimization. Its core goal is to mitigate in a timely way link overload that was triggered by unexpected reasons by distributing traffic among the shortest paths and load-balancing alternate paths through Segment Routing Traffic Engineering (SR-TE) {{?RFC9256}}.
+Elastic Bandwidth aware Routing (EBR) specified in {{?I-D.czz-rtgwg-elastic-bandwidth-routing}}, is a distributed dynamic mechanism to alleviate link overload that responds to unexpectedly overloaded links in the network before centralized TE completes global re-optimization. Its core goal is to mitigate in a timely way link overload that was triggered by unexpected reasons by distributing traffic among the shortest paths and load-balancing alternate paths through Segment Routing Traffic Engineering (SR-TE) {{?RFC9256}}.
 
 In EBR, each router monitors local link bandwidth usage and advertises available bandwidth and utilization metrics via extensions to IGP-TE when specific conditions and thresholds are met. Then, each router pre-computes loop-free, preferably disjoint, load-balancing alternate paths for each destination. When the link utilization exceeds the configured "Congestion Threshold", the router uses UCMP to divert specific flows to alternate paths. The diverted traffic is encapsulated using an SR-TE strict path for loop-free forwarding. Path weights are derived from the bottleneck link on each alternate path. Traffic fallback (reversion) is performed when bandwidth utilization on the originally overloaded link drops below a dynamic "Restore Threshold" to restore flows to primary paths.
 
@@ -221,7 +221,7 @@ EBR depends on IGP (IS-IS or OSPF) with existing TE metric extensions ({{?RFC857
 
 ## Tactical Traffic Engineering {#sec-approach-TTE}
 
-Tactical Traffic Engineering (TTE), described in {{?I-D.li-rtgwg-tte}}, is a distributed, reactive traffic engineering mechanism designed to rapidly alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to loacl link utilization. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.
+Tactical Traffic Engineering (TTE), described in {{?I-D.li-rtgwg-tte}}, is a distributed, reactive traffic engineering mechanism designed to alleviate unexpected link overload. TTE operates locally, adjusting the forwarding of selected traffic flows in response to loacl link utilization. It is complementary to conventional bandwidth engineering mechanisms, separating tactical mitigation from strategic optimization to allow networks to react quickly to unforeseen traffic demands without replacing their existing bandwidth management architecture.
 
 When overload is anticipated or detected, TTE selectively distributes traffic across primary and alternate forwarding paths. The alternate paths may be derived from existing protection mechanisms, including Loop-Free Alternates (LFA) {{?RFC5286}}, Topology Independent Loop-Free Alternates (TI-LFA) {{?RFC9855}}, RSVP-TE Fast Reroute {{?RFC4090}}, or paths computed by a Path Computation Element (PCE) {{?RFC4655}}. TTE activates these alternatives through modifications to Forwarding Information Base (FIB) or MPLS Label Forwarding Information Base (LFIB) entries, allowing traffic to be redistributed without requiring network-wide routing convergence or global traffic engineering reoptimization.
 
@@ -293,7 +293,7 @@ Key deployment considerations:
 
 ## Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}
 
-Characteristics: The network requires rapid, distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
+Characteristics: The network requires distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
 
 Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
 
