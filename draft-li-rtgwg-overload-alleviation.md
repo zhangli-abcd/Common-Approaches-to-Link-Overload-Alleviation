@@ -255,7 +255,7 @@ Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with F
 
 Applicable approach: Distributed Congestion Mitigation (DCM) {{sec-approach-DCM}}.
 
-DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend. The affinity advertisement may introduce additional control-plane activity, but it can avoid using overloaded or high-loaded links for offloading to avoid secondary congestion or aggravate congestion on other links.
+DCM is the natural fit when the network has already adopted IGP Flexible Algorithm {{?RFC9350}}. DCM provisions a dedicated Offloading Flex-Algo (OFA) topology that excludes congested links via affinity advertisements, allowing offloaded traffic to be natively routed around congestion without explicit TE tunnels. This makes DCM attractive for operators who want to avoid the configuration and state overhead of SR-TE policies on every headend. The affinity advertisement may introduce additional control-plane activity, but it avoids using already heavily loaded links for offloading, thereby preventing secondary congestion from occurring as a result of the offloading process.
 
 Key deployment considerations:
 
@@ -269,7 +269,7 @@ Characteristics: The network operates a single IGP domain (IS-IS or OSPF) with S
 
 Applicable approach: Elastic Bandwidth-aware Routing (EBR) {{sec-approach-EBR}}.
 
-EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions. The bandwidth advertisement may introduce additional control-plane activity, but it can avoid using overloaded links for offloading and distributes traffic based on available link bandwidth, thereby preventing secondary congestion on other links.
+EBR is designed for scenarios where the network has already adopted IGP TE extensions and Segment Routing. EBR computes alternate paths with explicit consideration of available bandwidth on each path, using UCMP weights derived from the bottleneck link on each alternate path. This makes EBR react quickly once the overload is detected. It leverages existing IGP TE extensions (RFC 8570 for IS-IS, RFC 7471 for OSPF) for bandwidth advertisement, meaning it can be deployed incrementally as IGP implementations support these extensions. The bandwidth advertisement may introduce additional control-plane activity, but it avoids using overloaded links for offloading and distributes traffic based on available link bandwidth, thereby preventing secondary congestion from occurring on other links.
 
 Key deployment considerations:
 
