@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 6 May 2027                                   Old Dog Consulting
+Expires: 8 May 2027                                   Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         2 November 2026
+                                                         4 November 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 May 2027.
+   This Internet-Draft will expire on 8 May 2027.
 
 Copyright Notice
 
@@ -89,7 +89,8 @@ Table of Contents
      2.3.  Required Responsiveness
      2.4.  Traffic Reversion
      2.5.  Comparison with Link Failure
-     2.6.  Discussion of Transport-Level Congestion Control
+     2.6.  Comparison with Strategic Traffic Optimization
+     2.7.  Discussion of Transport-Level Congestion Control
    3.  Functional Model
      3.1.  Functional Actions
      3.2.  Key Action Points
@@ -163,7 +164,7 @@ Table of Contents
    from network failure conditions.  Such overload may be short-term
    (for example, quick bursts of traffic) or may be longer-lasting.
    Short-term overload may be detected, notified, and rectified by
-   congestion notification and mitigation mechanisms (see Section 2.6),
+   congestion notification and mitigation mechanisms (see Section 2.7),
    but more permanent overload situations need more strategic solutions.
 
    Various solutions (see Section 4) provide mechanisms to detect and
@@ -197,7 +198,7 @@ Table of Contents
    take action to alleviate the link overload, thus preventing any
    impact on the traffic.
 
-   Except when referring to congestion as defined in Section 2.6, this
+   Except when referring to congestion as defined in Section 2.7, this
    document uses the term "link overload".  Note that "Distributed
    Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a
    prior term, but is described in this document in terms of link
@@ -268,7 +269,36 @@ Table of Contents
    all of the traffic.  However, it may provide a basis for, or
    conceptual input to, solutions for link overload.
 
-2.6.  Discussion of Transport-Level Congestion Control
+2.6.  Comparison with Strategic Traffic Optimization
+
+   Traffic Engineering and traffic optimization may be categorized as
+   tactical or strategic [RFC9522].  These two classes of mechanisms are
+   distinct in timescale, scope, and objective.  They are complementary
+   and may coexist within the same network deployment.
+
+   Tactical mechanisms aim to react quickly once overload is detected,
+   on the order of a few seconds, and apply local traffic steering
+   actions.  They can rapidly bring an overloaded link back within
+   acceptable utilization limits by locally adjusting forwarding for
+   selected flows.
+
+   Strategic mechanisms operate over a longer timescale, ranging from
+   minutes to hours.  They perform network-wide traffic re-optimization,
+   typically relying on a global view of topology, traffic demand
+   matrices, and long-term resource constraints.  Strategic optimization
+   addresses persistent overload conditions that cannot be fully
+   resolved by local tactical adjustments, or rebalances traffic after
+   short-term overload events have subsided.
+
+   A network may combine both modes of operation: tactical mechanisms
+   mitigate short-term overload events, while strategic processes run in
+   the background to correct persistent imbalance and restore traffic to
+   its optimal long-term placement.
+
+   All the overload alleviation approaches described in this document
+   can be categorized as tactical mechanisms.
+
+2.7.  Discussion of Transport-Level Congestion Control
 
    Congestion detection, reporting, control, and mitigation have been
    the subject of RFCs since the earliest days of the IETF.  In general,
@@ -444,10 +474,10 @@ Table of Contents
 
    Elastic Bandwidth aware Routing (EBR) specified in
    [I-D.czz-rtgwg-elastic-bandwidth-routing], is a distributed dynamic
-   mechanism to alleviate link overload that responds rapidly to
-   unexpectedly overloaded links in the network before centralized TE
-   completes global re-optimization.  Its core goal is to mitigate in a
-   timely way link overload that was triggered by unexpected reasons by
+   mechanism to alleviate link overload that responds to unexpectedly
+   overloaded links in the network before centralized TE completes
+   global re-optimization.  Its core goal is to mitigate in a timely way
+   link overload that was triggered by unexpected reasons by
    distributing traffic among the shortest paths and load-balancing
    alternate paths through Segment Routing Traffic Engineering (SR-TE)
    [RFC9256].
@@ -474,13 +504,13 @@ Table of Contents
 
    Tactical Traffic Engineering (TTE), described in [I-D.li-rtgwg-tte],
    is a distributed, reactive traffic engineering mechanism designed to
-   rapidly alleviate unexpected link overload.  TTE operates locally,
-   adjusting the forwarding of selected traffic flows in response to
-   loacl link utilization.  It is complementary to conventional
-   bandwidth engineering mechanisms, separating tactical mitigation from
-   strategic optimization to allow networks to react quickly to
-   unforeseen traffic demands without replacing their existing bandwidth
-   management architecture.
+   alleviate unexpected link overload.  TTE operates locally, adjusting
+   the forwarding of selected traffic flows in response to loacl link
+   utilization.  It is complementary to conventional bandwidth
+   engineering mechanisms, separating tactical mitigation from strategic
+   optimization to allow networks to react quickly to unforeseen traffic
+   demands without replacing their existing bandwidth management
+   architecture.
 
    When overload is anticipated or detected, TTE selectively distributes
    traffic across primary and alternate forwarding paths.  The alternate
@@ -587,8 +617,9 @@ Table of Contents
    attractive for operators who want to avoid the configuration and
    state overhead of SR-TE policies on every headend.  The affinity
    advertisement may introduce additional control-plane activity, but it
-   can avoid using overloaded or high-loaded links for offloading to
-   avoid secondary congestion or aggravate congestion on other links.
+   avoids using already heavily loaded links for offloading, thereby
+   preventing secondary congestion from occurring as a result of the
+   offloading process.
 
    Key deployment considerations:
 
@@ -618,9 +649,9 @@ Table of Contents
    for OSPF) for bandwidth advertisement, meaning it can be deployed
    incrementally as IGP implementations support these extensions.  The
    bandwidth advertisement may introduce additional control-plane
-   activity, but it can avoid using overloaded links for offloading and
+   activity, but it avoids using overloaded links for offloading and
    distributes traffic based on available link bandwidth, thereby
-   preventing secondary congestion on other links.
+   preventing secondary congestion from occurring on other links.
 
    Key deployment considerations:
 
@@ -661,13 +692,13 @@ Table of Contents
 5.4.  Scenario 4: Distributed Alleviation with Existing Alternate Paths
       {sec-scenario-tte}
 
-   Characteristics: The network requires rapid, distributed mitigation
-   of unexpected link overload and has suitable alternate forwarding
-   paths available.  The operator wishes to minimize the additional
-   control-plane activity, at the cost of higher risk of secondary
-   congestion, or plans to use other mechanisms to deal with the
-   secondary congestion.  The network may use conventional IP routing,
-   RSVP-TE, or Segment Routing.
+   Characteristics: The network requires distributed mitigation of
+   unexpected link overload and has suitable alternate forwarding paths
+   available.  The operator wishes to minimize the additional control-
+   plane activity, at the cost of higher risk of secondary congestion,
+   or plans to use other mechanisms to deal with the secondary
+   congestion.  The network may use conventional IP routing, RSVP-TE, or
+   Segment Routing.
 
    Applicable approach: Tactical Traffic Engineering (TTE) Section 4.3.
 
