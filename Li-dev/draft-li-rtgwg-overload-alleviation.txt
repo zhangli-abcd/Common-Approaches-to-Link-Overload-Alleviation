@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 7 May 2027                                   Old Dog Consulting
+Expires: 8 May 2027                                   Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         3 November 2026
+                                                         4 November 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 May 2027.
+   This Internet-Draft will expire on 8 May 2027.
 
 Copyright Notice
 
@@ -89,7 +89,8 @@ Table of Contents
      2.3.  Required Responsiveness
      2.4.  Traffic Reversion
      2.5.  Comparison with Link Failure
-     2.6.  Discussion of Transport-Level Congestion Control
+     2.6.  Comparison with Strategic Traffic Optimization
+     2.7.  Discussion of Transport-Level Congestion Control
    3.  Functional Model
      3.1.  Functional Actions
      3.2.  Key Action Points
@@ -163,7 +164,7 @@ Table of Contents
    from network failure conditions.  Such overload may be short-term
    (for example, quick bursts of traffic) or may be longer-lasting.
    Short-term overload may be detected, notified, and rectified by
-   congestion notification and mitigation mechanisms (see Section 2.6),
+   congestion notification and mitigation mechanisms (see Section 2.7),
    but more permanent overload situations need more strategic solutions.
 
    Various solutions (see Section 4) provide mechanisms to detect and
@@ -197,7 +198,7 @@ Table of Contents
    take action to alleviate the link overload, thus preventing any
    impact on the traffic.
 
-   Except when referring to congestion as defined in Section 2.6, this
+   Except when referring to congestion as defined in Section 2.7, this
    document uses the term "link overload".  Note that "Distributed
    Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a
    prior term, but is described in this document in terms of link
@@ -268,7 +269,37 @@ Table of Contents
    all of the traffic.  However, it may provide a basis for, or
    conceptual input to, solutions for link overload.
 
-2.6.  Discussion of Transport-Level Congestion Control
+2.6.  Comparison with Strategic Traffic Optimization
+
+   All the overload alleviation approaches described in this document
+   can be categorized as tactical mechanisms.  There also exist
+   strategic traffic optimization mechanisms, such as global traffic
+   engineering.
+
+   These two classes of mechanisms are distinct in timescale, scope, and
+   objective.  They are complementary and may coexist within the same
+   network deployment.
+
+   Tactical mechanisms aim to react quickly once overload is detected,
+   on the order of a few seconds, and apply local traffic steering
+   actions.  They can rapidly bring an overloaded link back within
+   acceptable utilization limits by locally adjusting forwarding for
+   selected flows.
+
+   Strategic mechanisms operate over a longer timescale, ranging from
+   minutes to hours.  They perform network-wide traffic re-optimization,
+   typically relying on a global view of topology, traffic demand
+   matrices, and long-term resource constraints.  Strategic optimization
+   addresses persistent overload conditions that cannot be fully
+   resolved by local tactical adjustments, or rebalances traffic after
+   short-term overload events have subsided.
+
+   A network may combine both modes of operation: tactical mechanisms
+   mitigate short-term overload events, while strategic processes run in
+   the background to correct persistent imbalance and restore traffic to
+   its optimal long-term placement.
+
+2.7.  Discussion of Transport-Level Congestion Control
 
    Congestion detection, reporting, control, and mitigation have been
    the subject of RFCs since the earliest days of the IETF.  In general,

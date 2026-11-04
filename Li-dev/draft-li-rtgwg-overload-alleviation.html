@@ -1054,7 +1054,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 7 May 2027</td>
+<td class="center">Expires 8 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-03" class="published">3 November 2026</time>
+<time datetime="2026-11-04" class="published">4 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-07">7 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-08">8 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 8 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1182,7 +1182,10 @@ svg {
                 <p id="section-toc.1-1.2.2.5.1"><a href="#section-2.5" class="auto internal xref">2.5</a>.  <a href="#name-comparison-with-link-failur" class="internal xref">Comparison with Link Failure</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.6">
-                <p id="section-toc.1-1.2.2.6.1"><a href="#section-2.6" class="auto internal xref">2.6</a>.  <a href="#name-discussion-of-transport-lev" class="internal xref">Discussion of Transport-Level Congestion Control</a></p>
+                <p id="section-toc.1-1.2.2.6.1"><a href="#section-2.6" class="auto internal xref">2.6</a>.  <a href="#name-comparison-with-strategic-t" class="internal xref">Comparison with Strategic Traffic Optimization</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.7">
+                <p id="section-toc.1-1.2.2.7.1"><a href="#section-2.7" class="auto internal xref">2.7</a>.  <a href="#name-discussion-of-transport-lev" class="internal xref">Discussion of Transport-Level Congestion Control</a></p>
 </li>
             </ul>
 </li>
@@ -1280,7 +1283,7 @@ svg {
 <a href="#section-2" class="section-number selfRef">2. </a><a href="#name-problem-description" class="section-name selfRef">Problem Description</a>
       </h2>
 <p id="section-2-1">Links may become overloaded when more traffic is dispatched to the link than can be transmitted on the link, or when more traffic arrives at the egress end of the link than can be processed immediately or buffered without the buffers/queues becoming full. If a link is overloaded, traffic (that is packets) will be discarded, and even those packets that are not discarded may be delayed by unacceptable amounts.<a href="#section-2-1" class="pilcrow">¶</a></p>
-<p id="section-2-2">Link overload may arise when traffic flows that comprise more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>), but more permanent overload situations need more strategic solutions.<a href="#section-2-2" class="pilcrow">¶</a></p>
+<p id="section-2-2">Link overload may arise when traffic flows that comprise more bits per second than the link has capacity for are routed or steered onto a link. This may happen because of normal shortest path routing, errors in traffic engineering planning, flexible bandwidth mechanisms, poor policing of flows at the network edge, or recovery from network failure conditions. Such overload may be short-term (for example, quick bursts of traffic) or may be longer-lasting. Short-term overload may be detected, notified, and rectified by congestion notification and mitigation mechanisms (see <a href="#sec-congestion" class="auto internal xref">Section 2.7</a>), but more permanent overload situations need more strategic solutions.<a href="#section-2-2" class="pilcrow">¶</a></p>
 <p id="section-2-3">Various solutions (see <a href="#sec-approaches" class="auto internal xref">Section 4</a>) provide mechanisms to detect and alleviate link overload. The objectives are to determine when traffic load reaches a threshold, to notify the situation, and to steer traffic so that it takes other acceptable paths (that is, not resulting in excessive path cost, delay, etc.), but balances the traffic load in the network so that no link is overloaded and that traffic load remains below loading thresholds on all links where that is possible.<a href="#section-2-3" class="pilcrow">¶</a></p>
 <p id="section-2-4">Ideally, when the traffic load on any previously overloaded link drops below a second threshold, traffic will revert to the originally preferred path.<a href="#section-2-4" class="pilcrow">¶</a></p>
 <div id="sec-overload">
@@ -1290,7 +1293,7 @@ svg {
         </h3>
 <p id="section-2.1-1">A link is considered to be overloaded when the amount of traffic (measured in bits per second) has reached a configured threshold on the link. The traffic is usually measured over a sample period that allows short bursts to not trigger the link to be considered as overloaded. The threshold can be set as a percentage of the capacity of the link or as an absolute value. In the absence of a configured threshold, a link will be considered overloaded when the link is full, i.e., when the amount of traffic is equal to the capacity of the link. When a link is full it is likely that traffic will be dropped, and that transmitted traffic may be delayed.<a href="#section-2.1-1" class="pilcrow">¶</a></p>
 <p id="section-2.1-2">By setting the configured threshold appropriately, a router may detect an increase in traffic levels before the link is full and may take action to alleviate the link overload, thus preventing any impact on the traffic.<a href="#section-2.1-2" class="pilcrow">¶</a></p>
-<p id="section-2.1-3">Except when referring to congestion as defined in <a href="#sec-congestion" class="auto internal xref">Section 2.6</a>, this document uses the term "link overload". Note that "Distributed Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
+<p id="section-2.1-3">Except when referring to congestion as defined in <a href="#sec-congestion" class="auto internal xref">Section 2.7</a>, this document uses the term "link overload". Note that "Distributed Congestion Mitigation" (DCM) discussed in {sec-approach-DCM} is a prior term, but is described in this document in terms of link overload.<a href="#section-2.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="sec-alleviate">
@@ -1344,15 +1347,31 @@ svg {
 <p id="section-2.5-4">Solutions for link failure cannot be directly applied to link overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not generally require redirecting all of the traffic. However, it may provide a basis for, or conceptual input to, solutions for link overload.<a href="#section-2.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-congestion">
+<div id="comparison-with-strategic-traffic-optimization">
 <section id="section-2.6">
-        <h3 id="name-discussion-of-transport-lev">
-<a href="#section-2.6" class="section-number selfRef">2.6. </a><a href="#name-discussion-of-transport-lev" class="section-name selfRef">Discussion of Transport-Level Congestion Control</a>
+        <h3 id="name-comparison-with-strategic-t">
+<a href="#section-2.6" class="section-number selfRef">2.6. </a><a href="#name-comparison-with-strategic-t" class="section-name selfRef">Comparison with Strategic Traffic Optimization</a>
         </h3>
-<p id="section-2.6-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive to, or even take place in advance of, the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming those traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.6-1" class="pilcrow">¶</a></p>
-<p id="section-2.6-2">Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time.<a href="#section-2.6-2" class="pilcrow">¶</a></p>
-<p id="section-2.6-3">Active Queue Management (AQM) <span>[<a href="#BCP197" class="cite xref">BCP197</a>]</span> is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.<a href="#section-2.6-3" class="pilcrow">¶</a></p>
-<p id="section-2.6-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-applicability" class="auto internal xref">Section 5</a>) are somewhat similar, but the requirements, solutions, and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.3</a>) are different.<a href="#section-2.6-4" class="pilcrow">¶</a></p>
+<p id="section-2.6-1">All the overload alleviation approaches described in this document can be categorized as tactical mechanisms.
+There also exist strategic traffic optimization mechanisms, such as global traffic engineering.<a href="#section-2.6-1" class="pilcrow">¶</a></p>
+<p id="section-2.6-2">These two classes of mechanisms are distinct in timescale, scope, and objective. They are complementary and may coexist within the same network deployment.<a href="#section-2.6-2" class="pilcrow">¶</a></p>
+<p id="section-2.6-3">Tactical mechanisms aim to react quickly once overload is detected, on the order of a few seconds, and apply local traffic steering actions.
+They can rapidly bring an overloaded link back within acceptable utilization limits by locally adjusting forwarding for selected flows.<a href="#section-2.6-3" class="pilcrow">¶</a></p>
+<p id="section-2.6-4">Strategic mechanisms operate over a longer timescale, ranging from minutes to hours.
+They perform network-wide traffic re-optimization, typically relying on a global view of topology, traffic demand matrices, and long-term resource constraints.
+Strategic optimization addresses persistent overload conditions that cannot be fully resolved by local tactical adjustments, or rebalances traffic after short-term overload events have subsided.<a href="#section-2.6-4" class="pilcrow">¶</a></p>
+<p id="section-2.6-5">A network may combine both modes of operation: tactical mechanisms mitigate short-term overload events, while strategic processes run in the background to correct persistent imbalance and restore traffic to its optimal long-term placement.<a href="#section-2.6-5" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="sec-congestion">
+<section id="section-2.7">
+        <h3 id="name-discussion-of-transport-lev">
+<a href="#section-2.7" class="section-number selfRef">2.7. </a><a href="#name-discussion-of-transport-lev" class="section-name selfRef">Discussion of Transport-Level Congestion Control</a>
+        </h3>
+<p id="section-2.7-1">Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive to, or even take place in advance of, the congestion actually becoming a problem. Early Congestion Notification (ECN) <span>[<a href="#RFC3180" class="cite xref">RFC3180</a>]</span> aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming those traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).<a href="#section-2.7-1" class="pilcrow">¶</a></p>
+<p id="section-2.7-2">Over the years, many other TCP/IP congestion notification and remedial techniques have been proposed and some have been standardised. These predominately operate at the transport level, moderating the rate at which traffic is delivered to the network in order to avoid or mitigate congestion. Response time can be as short as detection time plus notification time, plus time for in-transit packets to reach the point of congestion: effectively the detection time plus the round-trip time.<a href="#section-2.7-2" class="pilcrow">¶</a></p>
+<p id="section-2.7-3">Active Queue Management (AQM) <span>[<a href="#BCP197" class="cite xref">BCP197</a>]</span> is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.<a href="#section-2.7-3" class="pilcrow">¶</a></p>
+<p id="section-2.7-4">The problems discussed in this document (see <a href="#sec-problem" class="auto internal xref">Section 2</a>) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see <a href="#sec-applicability" class="auto internal xref">Section 5</a>) are somewhat similar, but the requirements, solutions, and espescially the responsiveness (see <a href="#sec-required" class="auto internal xref">Section 2.3</a>) are different.<a href="#section-2.7-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
