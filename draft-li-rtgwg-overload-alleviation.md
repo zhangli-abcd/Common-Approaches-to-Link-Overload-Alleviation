@@ -156,7 +156,7 @@ Over the years, many other TCP/IP congestion notification and remedial technique
 
 Active Queue Management (AQM) {{?BCP197}} is a method that allows network devices to control the queue length or the mean time that a packet spends in a queue. By carefully calibrating queuing behaviors, network nodes are able to mitigate high traffic levels (in particular traffic bursts) and so reduce the effects.
 
-The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-applicability}}) are somewhat similar, but the requirements, solutions, and espescially the responsiveness (see {{sec-required}}) are different.
+The problems discussed in this document (see {{sec-problem}}) are similar to those that have been addressed previously (i.e., link overload is equivalent to congestion on that link). The use cases (see {{sec-applicability}}) are somewhat similar, but the requirements, solutions, and especially the responsiveness (see {{sec-required}}) are different.
 
 # Functional Model {#sec-functional-model}
 
@@ -167,9 +167,6 @@ The functional model is split into abstract functional actions and key action po
 Configuration:
 : The capacity of each link may be known a priori or configured at the link ends. The overload and reversion thresholds need to be configured to the link ends.
 
-Capacity-Aware Topology Database Construction:
-: The network topology is supplemented by the capacities of all of the links. This may be distributed across the network in the TE-enhanced IGP or collected to a centralized controller using management protocols.
-
 Measurement:
 : In order to determine the load on any link, the link ends measure the traffic over a period of time designed to dampen any peaks caused by short bursts of traffic.
 
@@ -177,7 +174,7 @@ Capacity-Aware topology Database Construction:
 : To correctly balance traffic and avoid overloading other links, it is important that the load on other links be known across the network. Depending on the solution approach taken, this information may be needed just locally within the network (for example, a router may need to know the loads on links one or two hops away) or may be needed with wider vision to enable network-wide load distribution. As with the construction of the capacity-aware topology database, this may be achieved by leveraging TE-enhanced IGPs, link affinities of Flex-Algo, or through reporting to a central controller.
 
 Overload Trigger:
-: The overload condition is triggered when when the load on a link crosses a configured threshold. This may be an absolute value or a percentage of the link capacity.
+: The overload condition is triggered when the load on a link crosses a configured threshold. This may be an absolute value or a percentage of the link capacity.
 
 Overload Notification:
 : Depending on where the overload alleviation is to be performed and where the overload condition is triggered, it may be necessary to send an overload notification so that remedial action can be taken. For example, in controller-based overload alleviation scenario, the centralized controller performs the alleviation process. In this case, the node with an overloaded link needs to send an overload notification to the controller.
@@ -218,7 +215,7 @@ This section outlines five approaches to link overload alleviation that have bee
 
 ## Distributed Congestion Mitigation {#sec-approach-DCM}
 
-Distributed Congestion Mitigation (DCM) described in {{?I-D.psenak-lsr-igp-dcm}} is a distributed and integrated IGP mechanism to mitigate link overlaod. Its primary objective is to dynamically offload traffic from local overloaded links onto less loaded alternate paths in Offloading Flex Algo (OFA) topologies.
+Distributed Congestion Mitigation (DCM) described in {{?I-D.psenak-lsr-igp-dcm}} is a distributed and integrated IGP mechanism to mitigate link overload. Its primary objective is to dynamically offload traffic from local overloaded links onto less loaded alternate paths in Offloading Flex Algo (OFA) topologies.
 
 In DCM, each router continuously monitors local link utilization. When link utilization exceeds the configured "Congestion Threshold", the router advertises "Congestion Affinity" via IGP link attributes, which causes the overloaded link to be excluded from a dedicated OFA topology. Additionally, the router also performs traffic offloading to divert the traffic onto the shortest path that avoids any overloaded links. A separate IGP link attribute, "High Utilization Affinity" signals routers participating in the IGP to stop sending new offloaded traffic to the link without impacting existing offloaded traffic. DCM leverages Unequal Cost Multipath (UCMP) to divert traffic from the primary to the offload path (i.e., to offload traffic) in progressively periodic iterations. When link utilization on the overloaded link falls below a configured "Restore Threshold", traffic is gradually moved back (reverted) to the original primary path.
 
@@ -310,7 +307,7 @@ Characteristics: The network requires distributed mitigation of unexpected link 
 
 Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
 
-TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. It dose not require additional control-plane activity, which reduces the deployment burden on the devices. This also makes TTE hard to promptly perceive the link utilization of other links in the network, making it more prone to secondary congestion compared to the approaches that requires additional control-plane activity.
+TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. It does not require additional control-plane activity, which reduces the deployment burden on the devices. This also makes TTE hard to promptly perceive the link utilization of other links in the network, making it more prone to secondary congestion compared to the approaches that requires additional control-plane activity.
 
 In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.
 
@@ -335,6 +332,8 @@ Key deployment considerations:
 
 These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator's existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
 
+In some deployments, multiple approaches' prerequisite may be satisfied by one network. When several mechanisms are technically viable, operators can compare them using more objective evaluation dimensions, including but are not limited to: responsiveness, scope of action, bandwidth awareness, compatibility, oscillation avoidance, secondary congestion avoidance, and multi-point congestion. These dimensions help identify which approach best matches the operator’s priorities and risk tolerance.
+
 # Deployment and Implementation Experience {#sec-deployment}
 
 TBD
@@ -345,7 +344,7 @@ There are two main security exposures introduced by link overload alleviation.
 
 Firstly, the network can be destabilised causing traffic to be steered off the optimal path resulting in degradation of traffic delivery and potential packet loss. For example, if the configuration of overload and reversion thresholds can be compromised, then traffic steering can be induced. Further, a flip-flop with reversion can be forced by setting the reversion threshold higher than the overload threshold, resulting in interruption of traffic flows.
 
-A more complex attack may cause traffic be sent to an authorised network exit where it can be exfiltrated. This attack requires a tunnel to be set up to that exit point, and then overload steering to be triggered so that traffic is placed on the tunnel.
+A more complex attack may cause traffic to be sent to an authorised network exit where it can be exfiltrated. This attack requires a tunnel to be set up to that exit point, and then overload steering to be triggered so that traffic is placed on the tunnel.
 
 The most important protection against these attacks is security applied to the configuration/management protocols.
 
