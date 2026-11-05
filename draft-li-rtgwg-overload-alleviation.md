@@ -135,6 +135,19 @@ There are plenty of available techniques for mitigating link failure. These incl
 
 Solutions for link failure cannot be directly applied to link overload scenarios since they switch all the traffic to the backup paths, whereas link overload does not generally require redirecting all of the traffic. However, it may provide a basis for, or conceptual input to, solutions for link overload.
 
+## Comparison with Strategic Traffic Optimization
+
+Traffic Engineering and traffic optimization may be categorized as tactical or strategic {{?RFC9522}}. These two classes of mechanisms are distinct in timescale, scope, and objective. They are complementary and may coexist within the same network deployment.
+
+Tactical mechanisms aim to react quickly once overload is detected, on the order of a few seconds, and apply local traffic steering actions.
+They can rapidly bring an overloaded link back within acceptable utilization limits by locally adjusting forwarding for selected flows.
+
+Strategic mechanisms operate over a longer timescale, ranging from minutes to hours. They perform network-wide traffic re-optimization, typically relying on a global view of topology, traffic demand matrices, and long-term resource constraints. Strategic optimization addresses persistent overload conditions that cannot be fully resolved by local tactical adjustments, or rebalances traffic after short-term overload events have subsided.
+
+A network may combine both modes of operation: tactical mechanisms mitigate short-term overload events, while strategic processes run in the background to correct persistent imbalance and restore traffic to its optimal long-term placement.
+
+All the overload alleviation approaches described in this document can be categorized as tactical mechanisms.
+
 ## Discussion of Transport-Level Congestion Control {#sec-congestion}
 
 Congestion detection, reporting, control, and mitigation have been the subject of RFCs since the earliest days of the IETF. In general, congestion notification aims to be very responsive to, or even take place in advance of, the congestion actually becoming a problem. Early Congestion Notification (ECN) {{?RFC3180}} aims to provide information to the head end of network flows so that they can moderate the rate at which traffic is presented to the network and so avoid congestion harming those traffic flows. The assumption is that notified traffic sources will behave reasonably in their own best interests (reduced throughput is preferable to recovering from dropped packets) and in the best interests of the network as a whole (i.e., not deciding that other sources will back off and increasing traffic to use the capacity they make available).
