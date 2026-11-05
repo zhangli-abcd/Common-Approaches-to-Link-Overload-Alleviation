@@ -332,7 +332,7 @@ Key deployment considerations:
 
 These scenarios are not mutually exclusive. A network may deploy LCM for policy-controlled offload while also relying on DCM or EBR for autonomous distributed reaction to sudden events. The choice of approach should be guided by the operator's existing infrastructure, operational model, and the specific characteristics of the overload events that need to be mitigated.
 
-In some deployments, multiple approaches' prerequisite may be satisfied by one network. When several mechanisms are technically viable, operators can compare them using more objective evaluation dimensions, including but are not limited to: responsiveness, scope of action, bandwidth awareness, compatibility, oscillation avoidance, secondary congestion avoidance, and multi-point congestion. These dimensions help identify which approach best matches the operator’s priorities and risk tolerance.
+In some deployments, multiple approaches' prerequisite may be satisfied by one network. When several mechanisms are technically viable, operators can compare them using more evaluation criteria, including but are not limited to: responsiveness, scope of action, bandwidth awareness, compatibility, oscillation avoidance, secondary congestion avoidance, and multi-point congestion. These criteria help identify which approach best matches the operator’s priorities and risk tolerance.
 
 # Deployment and Implementation Experience {#sec-deployment}
 
