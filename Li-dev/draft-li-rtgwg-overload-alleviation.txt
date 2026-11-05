@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 8 May 2027                                   Old Dog Consulting
+Expires: 9 May 2027                                   Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         4 November 2026
+                                                         5 November 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 8 May 2027.
+   This Internet-Draft will expire on 9 May 2027.
 
 Copyright Notice
 
@@ -271,14 +271,10 @@ Table of Contents
 
 2.6.  Comparison with Strategic Traffic Optimization
 
-   All the overload alleviation approaches described in this document
-   can be categorized as tactical mechanisms.  There also exist
-   strategic traffic optimization mechanisms, such as global traffic
-   engineering.
-
-   These two classes of mechanisms are distinct in timescale, scope, and
-   objective.  They are complementary and may coexist within the same
-   network deployment.
+   Traffic Engineering and traffic optimization may be categorized as
+   tactical or strategic [RFC9522].  These two classes of mechanisms are
+   distinct in timescale, scope, and objective.  They are complementary
+   and may coexist within the same network deployment.
 
    Tactical mechanisms aim to react quickly once overload is detected,
    on the order of a few seconds, and apply local traffic steering
@@ -298,6 +294,9 @@ Table of Contents
    mitigate short-term overload events, while strategic processes run in
    the background to correct persistent imbalance and restore traffic to
    its optimal long-term placement.
+
+   All the overload alleviation approaches described in this document
+   can be categorized as tactical mechanisms.
 
 2.7.  Discussion of Transport-Level Congestion Control
 
