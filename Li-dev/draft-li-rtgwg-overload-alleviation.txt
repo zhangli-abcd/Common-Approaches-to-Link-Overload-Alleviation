@@ -762,12 +762,12 @@ Table of Contents
 
    In some deployments, multiple approaches' prerequisite may be
    satisfied by one network.  When several mechanisms are technically
-   viable, operators can compare them using more objective evaluation
-   dimensions, including but are not limited to: responsiveness, scope
-   of action, bandwidth awareness, compatibility, oscillation avoidance,
-   secondary congestion avoidance, and multi-point congestion.  These
-   dimensions help identify which approach best matches the operator’s
-   priorities and risk tolerance.
+   viable, operators can compare them using more evaluation criteria,
+   including but are not limited to: responsiveness, scope of action,
+   bandwidth awareness, compatibility, oscillation avoidance, secondary
+   congestion avoidance, and multi-point congestion.  These criteria
+   help identify which approach best matches the operator’s priorities
+   and risk tolerance.
 
 6.  Deployment and Implementation Experience
 
