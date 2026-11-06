@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 9 May 2027                                   Old Dog Consulting
+Expires: 10 May 2027                                  Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         5 November 2026
+                                                         6 November 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2027.
+   This Internet-Draft will expire on 10 May 2027.
 
 Copyright Notice
 
@@ -333,7 +333,7 @@ Table of Contents
    to those that have been addressed previously (i.e., link overload is
    equivalent to congestion on that link).  The use cases (see
    Section 5) are somewhat similar, but the requirements, solutions, and
-   espescially the responsiveness (see Section 2.3) are different.
+   especially the responsiveness (see Section 2.3) are different.
 
 3.  Functional Model
 
@@ -348,11 +348,6 @@ Table of Contents
    Configuration:  The capacity of each link may be known a priori or
       configured at the link ends.  The overload and reversion
       thresholds need to be configured to the link ends.
-
-   Capacity-Aware Topology Database Construction:  The network topology
-      is supplemented by the capacities of all of the links.  This may
-      be distributed across the network in the TE-enhanced IGP or
-      collected to a centralized controller using management protocols.
 
    Measurement:  In order to determine the load on any link, the link
       ends measure the traffic over a period of time designed to dampen
@@ -369,9 +364,9 @@ Table of Contents
       be achieved by leveraging TE-enhanced IGPs, link affinities of
       Flex-Algo, or through reporting to a central controller.
 
-   Overload Trigger:  The overload condition is triggered when when the
-      load on a link crosses a configured threshold.  This may be an
-      absolute value or a percentage of the link capacity.
+   Overload Trigger:  The overload condition is triggered when the load
+      on a link crosses a configured threshold.  This may be an absolute
+      value or a percentage of the link capacity.
 
    Overload Notification:  Depending on where the overload alleviation
       is to be performed and where the overload condition is triggered,
@@ -445,7 +440,7 @@ Table of Contents
 
    Distributed Congestion Mitigation (DCM) described in
    [I-D.psenak-lsr-igp-dcm] is a distributed and integrated IGP
-   mechanism to mitigate link overlaod.  Its primary objective is to
+   mechanism to mitigate link overload.  Its primary objective is to
    dynamically offload traffic from local overloaded links onto less
    loaded alternate paths in Offloading Flex Algo (OFA) topologies.
 
@@ -706,7 +701,7 @@ Table of Contents
    paths and forwarding-plane capabilities can be leveraged to
    redistribute selected traffic locally.  It provides a tactical
    response to overload without requiring changes to the underlying
-   routing or traffic engineering architecture.  It dose not require
+   routing or traffic engineering architecture.  It does not require
    additional control-plane activity, which reduces the deployment
    burden on the devices.  This also makes TTE hard to promptly perceive
    the link utilization of other links in the network, making it more
@@ -765,6 +760,15 @@ Table of Contents
    operational model, and the specific characteristics of the overload
    events that need to be mitigated.
 
+   In some deployments, multiple approaches' prerequisite may be
+   satisfied by one network.  When several mechanisms are technically
+   viable, operators can compare them using more evaluation criteria,
+   including but are not limited to: responsiveness, scope of action,
+   bandwidth awareness, compatibility, oscillation avoidance, secondary
+   congestion avoidance, and multi-point congestion.  These criteria
+   help identify which approach best matches the operator’s priorities
+   and risk tolerance.
+
 6.  Deployment and Implementation Experience
 
    TBD
@@ -783,7 +787,7 @@ Table of Contents
    higher than the overload threshold, resulting in interruption of
    traffic flows.
 
-   A more complex attack may cause traffic be sent to an authorised
+   A more complex attack may cause traffic to be sent to an authorised
    network exit where it can be exfiltrated.  This attack requires a
    tunnel to be set up to that exit point, and then overload steering to
    be triggered so that traffic is placed on the tunnel.
