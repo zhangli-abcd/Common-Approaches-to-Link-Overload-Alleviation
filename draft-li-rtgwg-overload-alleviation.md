@@ -259,11 +259,9 @@ LCM relies on BGP-LS {{?RFC9552}} or the active IGP to collect real-time topolog
 
 Telemetry-Driven Stateful PCE Optimization (TSPO) is a centralized closed-loop mechanism to alleviate link overload autonomously, without operator approval for individual steering actions. It applies to RSVP-TE LSPs or SR Policy tunnels delegated to or initiated by a stateful PCE.
 
-In TSPO, the PCE obtains topology and link capacity via BGP-LS or IGP, and near-real-time tunnel-level traffic demand from streaming telemetry, IPFIX{{?RFC7011}} flow collection or PCEP bandwidth-utilization reports. It proactively prefers links that will not push the link past overload thresholds during tunnel path computation; If no path avoids the threshold, the tunnel is placed on a path that satisfies its other TE constraints.
-When a link exceeds its overload threshold, the PCE selects the minimal set of tunnels diverting to alternate paths that are computed with each tunnel's full TE constraint set. TSPO performs local incremental adjustments rather than global re-optimization. Reversion occurs only when the preferred path can safely carry the traffic.
-In the absence of a human in the loop, safety is provided by automated controls: selecting only the tunnels needed, batching, make-before-break sequencing, retry damping, and potentially suspending optimization when telemetry is unavailable or stale.
+Currently, TSPO is a proprietary solution from Nokia, although there is a plan to document it in an Internet-Draft.
 
-TSPO requires a stateful PCE with PCEP {{?RFC5440}} sessions to the headends, delegated or PCE-initiated tunnels, a topology feed, and a telemetry or flow-collection pipeline.
+In TSPO, the PCE obtains topology and link capacity via BGP-LS {{?RFC9552}} or IGP, and near-real-time tunnel-level traffic demand from streaming telemetry, IPFIX {{?RFC7011}} flow collection or PCEP {{?RFC5440}} bandwidth-utilization reports. It proactively prefers links that will not push the link past overload thresholds during tunnel path computation. When a link exceeds its overload threshold, the PCE selects the minimal set of tunnels diverting to alternate paths that are computed with each tunnel's full TE constraint set. 
 
 # Applicability to Different Scenarios {#sec-applicability}
 
