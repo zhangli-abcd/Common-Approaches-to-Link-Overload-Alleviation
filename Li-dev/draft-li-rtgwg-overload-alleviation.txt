@@ -5,10 +5,10 @@
 Routing Area Working Group                                      L. Zhang
 Internet-Draft                                                    Huawei
 Intended status: Informational                                 A. Farrel
-Expires: 9 May 2027                                   Old Dog Consulting
+Expires: 13 May 2027                                  Old Dog Consulting
                                                                P. Psenak
                                                            Cisco Systems
-                                                         5 November 2026
+                                                         9 November 2026
 
 
              Common Approaches to Link Overload Alleviation
@@ -64,7 +64,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2027.
+   This Internet-Draft will expire on 13 May 2027.
 
 Copyright Notice
 
@@ -100,14 +100,16 @@ Table of Contents
      4.3.  Tactical Traffic Engineering
      4.4.  Congestion Avoidance using Segment Routing
      4.5.  Local Congestion Management
+     4.6.  Telemetry-Driven Stateful PCE Optimization
    5.  Applicability to Different Scenarios
      5.1.  Scenario 1: Distributed Alleviation with Flex-Algo Support
      5.2.  Scenario 2: Distributed Alleviation with SR-TE Capability
-     5.3.  Scenario 3: Controller-Based Alleviation with Human
-           Oversight
-     5.4.  Scenario 4: Distributed Alleviation with Existing Alternate
+     5.3.  Scenario 3: Distributed Alleviation with Existing Alternate
            Paths {sec-scenario-tte}
-     5.5.  Summary
+     5.4.  Scenario 4: Controller-Based Alleviation with Human
+           Oversight
+     5.5.  Scenario 5: Autonomous Controller-Based Optimization
+     5.6.  Summary
    6.  Deployment and Implementation Experience
    7.  Security Considerations
    8.  Operational Considerations
@@ -584,6 +586,35 @@ Table of Contents
    Headend routers must support PCE-initiated SR-TE policies with
    autoroute steering and ECMP over multiple parallel SR-TE policies.
 
+4.6.  Telemetry-Driven Stateful PCE Optimization
+
+   Telemetry-Driven Stateful PCE Optimization (TSPO) is a centralized
+   closed-loop mechanism to alleviate link overload autonomously,
+   without operator approval for individual steering actions.  It
+   applies to RSVP-TE LSPs or SR Policy tunnels delegated to or
+   initiated by a stateful PCE.
+
+   In TSPO, the PCE obtains topology and link capacity via BGP-LS or
+   IGP, and near-real-time tunnel-level traffic demand from streaming
+   telemetry, IPFIX[RFC7011] flow collection or PCEP bandwidth-
+   utilization reports.  It proactively prefers links that will not push
+   the link past overload thresholds during tunnel path computation; If
+   no path avoids the threshold, the tunnel is placed on a path that
+   satisfies its other TE constraints.  When a link exceeds its overload
+   threshold, the PCE selects the minimal set of tunnels diverting to
+   alternate paths that are computed with each tunnel's full TE
+   constraint set.  TSPO performs local incremental adjustments rather
+   than global re-optimization.  Reversion occurs only when the
+   preferred path can safely carry the traffic.  In the absence of a
+   human in the loop, safety is provided by automated controls:
+   selecting only the tunnels needed, batching, make-before-break
+   sequencing, retry damping, and potentially suspending optimization
+   when telemetry is unavailable or stale.
+
+   TSPO requires a stateful PCE with PCEP [RFC5440] sessions to the
+   headends, delegated or PCE-initiated tunnels, a topology feed, and a
+   telemetry or flow-collection pipeline.
+
 5.  Applicability to Different Scenarios
 
    The approaches described in Section 4 share the common objective of
@@ -656,35 +687,7 @@ Table of Contents
    *  The accuracy of bandwidth information (depends on advertisement
       frequency) and the pressure on the control plane are a trade-off.
 
-5.3.  Scenario 3: Controller-Based Alleviation with Human Oversight
-
-   Characteristics: The network is managed by a central controller and
-   the operator requires visibility, auditability, and control over any
-   traffic steering actions.  Regulatory or operational policy requires
-   human-in-the-loop approval for traffic engineering changes.  The
-   overload events are transient and localized, and the operator wants
-   to offload the minimal necessary traffic volume to restore the link
-   to acceptable utilization.  Existing SR-TE policy infrastructure is
-   already deployed or can be deployed.
-
-   Applicable approach: Local Congestion Mitigation (LCM) Section 4.5.
-
-   LCM is the appropriate choice when operational safety and human
-   oversight are paramount.  It operates as a closed-loop controller-
-   driven workflow: the controller collects interface statistics,
-   detects overload against user-configured thresholds, computes the
-   minimal offload volume, deploys temporary SR-TE policies, and later
-   removes them once hold-margin conditions are satisfied.  The monitor-
-   only and human-in-the-loop workflows allow operators to preview
-   recommendations before committing them.
-
-   Key deployment considerations:
-
-   *  Requires BGP-LS or IGP for topology collection;
-
-   *  Requires SR-TE policies and ECMP over multiple parallel policies.
-
-5.4.  Scenario 4: Distributed Alleviation with Existing Alternate Paths
+5.3.  Scenario 3: Distributed Alleviation with Existing Alternate Paths
       {sec-scenario-tte}
 
    Characteristics: The network requires distributed mitigation of
@@ -727,7 +730,66 @@ Table of Contents
    *  Where RSVP-TE protection paths are reused, the impact on reserved
       bandwidth and failure-protection capacity must also be considered.
 
-5.5.  Summary
+5.4.  Scenario 4: Controller-Based Alleviation with Human Oversight
+
+   Characteristics: The network is managed by a central controller and
+   the operator requires visibility, auditability, and control over any
+   traffic steering actions.  Regulatory or operational policy requires
+   human-in-the-loop approval for traffic engineering changes.  The
+   overload events are transient and localized, and the operator wants
+   to offload the minimal necessary traffic volume to restore the link
+   to acceptable utilization.  Existing SR-TE policy infrastructure is
+   already deployed or can be deployed.
+
+   Applicable approach: Local Congestion Mitigation (LCM) Section 4.5.
+
+   LCM is the appropriate choice when operational safety and human
+   oversight are paramount.  It operates as a closed-loop controller-
+   driven workflow: the controller collects interface statistics,
+   detects overload against user-configured thresholds, computes the
+   minimal offload volume, deploys temporary SR-TE policies, and later
+   removes them once hold-margin conditions are satisfied.  The monitor-
+   only and human-in-the-loop workflows allow operators to preview
+   recommendations before committing them.
+
+   Key deployment considerations:
+
+   *  Requires BGP-LS or IGP for topology collection;
+
+   *  Requires SR-TE policies and ECMP over multiple parallel policies.
+
+5.5.  Scenario 5: Autonomous Controller-Based Optimization
+
+   Characteristics: A stateful PCE manages the network's tunnels (RSVP-
+   TE LSPs and/or SR Policies), and traffic demand is available from
+   streaming telemetry (e.g., gRPC telemetry), flow collection, or PCEP
+   reporting [I-D.gandhi-pce-pm].  The operator wants overload to be
+   alleviated automatically, without approving individual actions, while
+   keeping full TE constraint compliance and bandwidth awareness for re-
+   routed traffic.  Overload events may be transient or sustained.  The
+   operator prefers minimal, incremental adjustment to network-wide re-
+   optimization.
+
+   Applicable approach: Telemetry-Driven Stateful PCE Optimization
+   Section 4.6.
+
+   TSPO fits when the network deployment relies on a stateful PCE for
+   tunnel placement and most of the traffic is forwarded within tunnels.
+
+   Key deployment considerations:
+
+   *  Requires a stateful PCE, PCEP delegation or PCE-initiated tunnels,
+      and a topology feed (BGP-LS or IGP).
+
+   *  Requires a telemetry or flow-collection pipeline.  Responsiveness
+      is bounded by the collection interval and by the configured
+      damping.
+
+   *  Traffic is steered within TE tunnels.  Traffic that is not carried
+      in managed tunnels is counted in link load but cannot be steered
+      directly.
+
+5.6.  Summary
 
    +=========+===================+===========+========================+
    |Scenario | Primary Criterion |Recommended| Key Prerequisite       |
@@ -750,18 +812,18 @@ Table of Contents
    |         | Existing          |           | protection mechanisms  |
    |         | Alternate Paths   |           |                        |
    +---------+-------------------+-----------+------------------------+
+   |Scenario5| Controller-based, |TSPO       | Stateful PCE +         |
+   |         | autonomous        |           | telemetry or flow      |
+   |         |                   |           | collection             |
+   +---------+-------------------+-----------+------------------------+
 
                                  Table 1
 
-   These scenarios are not mutually exclusive.  A network may deploy LCM
-   for policy-controlled offload while also relying on DCM or EBR for
-   autonomous distributed reaction to sudden events.  The choice of
-   approach should be guided by the operator's existing infrastructure,
-   operational model, and the specific characteristics of the overload
-   events that need to be mitigated.
-
-   In some deployments, multiple approaches' prerequisite may be
-   satisfied by one network.  When several mechanisms are technically
+   These scenarios are not mutually exclusive, a network may deploy
+   controller-based approaches for congestion caused by TE traffic while
+   also relying on distributed approaches for congestion caused by BE
+   traffic.  In some deployments, multiple approaches' prerequisite may
+   be satisfied by one network.  When several mechanisms are technically
    viable, operators can compare them using more evaluation criteria,
    including but are not limited to: responsiveness, scope of action,
    bandwidth awareness, compatibility, oscillation avoidance, secondary
@@ -838,6 +900,14 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-czz-rtgwg-
               elastic-bandwidth-routing-01>.
 
+   [I-D.gandhi-pce-pm]
+              Gandhi, R., Wen, B., Barth, C., Dhody, D., and A. Stone,
+              "PCEP Extensions for Performance Measurement for SR-TE and
+              MPLS-TE LSPs with Stateful PCE", Work in Progress,
+              Internet-Draft, draft-gandhi-pce-pm-15, 13 October 2026,
+              <https://datatracker.ietf.org/doc/html/draft-gandhi-pce-
+              pm-15>.
+
    [I-D.he-rtgwg-sr-ca]
               hexiaoming, X. and L. Deng, "Congestion Avoidance Using
               Segment Routing", Work in Progress, Internet-Draft, draft-
@@ -910,6 +980,12 @@ Table of Contents
               Element (PCE) Communication Protocol (PCEP)", RFC 5440,
               DOI 10.17487/RFC5440, March 2009,
               <https://www.rfc-editor.org/rfc/rfc5440>.
+
+   [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
+              "Specification of the IP Flow Information Export (IPFIX)
+              Protocol for the Exchange of Flow Information", STD 77,
+              RFC 7011, DOI 10.17487/RFC7011, September 2013,
+              <https://www.rfc-editor.org/rfc/rfc7011>.
 
    [RFC7471]  Giacalone, S., Ward, D., Drake, J., Atlas, A., and S.
               Previdi, "OSPF Traffic Engineering (TE) Metric
