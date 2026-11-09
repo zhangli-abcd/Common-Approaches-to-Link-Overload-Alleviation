@@ -393,4 +393,4 @@ This document makes no requests for IANA action.
 # Acknowledgments
 {:numbered="false"}
 
-The authors would like to thank Daniel King and Colby Barth for input to this document.
+The authors would like to thank Daniel King, Colby Barth and Andrew Stone for input to this document.
