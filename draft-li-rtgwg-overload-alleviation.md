@@ -260,7 +260,7 @@ LCM relies on BGP-LS {{?RFC9552}} or the active IGP to collect real-time topolog
 Telemetry-Driven Stateful PCE Optimization (TSPO) is a centralized closed-loop mechanism to alleviate link overload autonomously, without operator approval for individual steering actions. It applies to RSVP-TE LSPs or SR Policy tunnels delegated to or initiated by a stateful PCE.
 
 In TSPO, the PCE obtains topology and link capacity via BGP-LS or IGP, and near-real-time tunnel-level traffic demand from streaming telemetry, IPFIX{{?RFC7011}} flow collection or PCEP bandwidth-utilization reports. It proactively prefers links that will not push the link past overload thresholds during tunnel path computation; If no path avoids the threshold, the tunnel is placed on a path that satisfies its other TE constraints.
-When a link exceeds its overload threshold, the PCE selects the minimal set of tunnels diverting to alternate paths that are computed with each tunnel's full TE constraint set. TSPO performs local incremental adjustments rather than global re-optimization. Reversion occurs only when the preferred path can safely carry the traffic. 
+When a link exceeds its overload threshold, the PCE selects the minimal set of tunnels diverting to alternate paths that are computed with each tunnel's full TE constraint set. TSPO performs local incremental adjustments rather than global re-optimization. Reversion occurs only when the preferred path can safely carry the traffic.
 In the absence of a human in the loop, safety is provided by automated controls: selecting only the tunnels needed, batching, make-before-break sequencing, retry damping, and potentially suspending optimization when telemetry is unavailable or stale.
 
 TSPO requires a stateful PCE with PCEP {{?RFC5440}} sessions to the headends, delegated or PCE-initiated tunnels, a topology feed, and a telemetry or flow-collection pipeline.
@@ -334,15 +334,15 @@ Key deployment considerations:
 ## Scenario 5: Autonomous Controller-Based Optimization
 
 Characteristics: A stateful PCE manages the network's tunnels (RSVP-TE LSPs and/or SR Policies), and traffic demand is available from streaming telemetry (e.g., gRPC telemetry), flow collection, or PCEP reporting {{?I-D.gandhi-pce-pm}}. The operator wants overload to be alleviated automatically, without approving individual actions, while keeping full TE constraint compliance and bandwidth awareness for re-routed traffic. Overload events may be transient or sustained. The operator prefers minimal, incremental adjustment to network-wide re-optimization.
- 
+
 Applicable approach: Telemetry-Driven Stateful PCE Optimization {{sec-approach-TSPO}}.
- 
+
 TSPO fits when the network deployment relies on a stateful PCE for tunnel placement and most of the traffic is forwarded within tunnels.
 
 Key deployment considerations:
 
 *  Requires a stateful PCE, PCEP delegation or PCE-initiated tunnels, and a topology feed (BGP-LS or IGP).
- 
+
 *  Requires a telemetry or flow-collection pipeline. Responsiveness is bounded by the collection interval and by the configured damping.
 
 *  Traffic is steered within TE tunnels. Traffic that is not carried in managed tunnels is counted in link load but cannot be steered directly.
