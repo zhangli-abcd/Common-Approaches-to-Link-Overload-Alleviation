@@ -261,7 +261,7 @@ Telemetry-Driven Stateful PCE Optimization (TSPO) is a centralized closed-loop m
 
 Currently, TSPO is a proprietary solution from Nokia, although there is a plan to document it in an Internet-Draft.
 
-In TSPO, the PCE obtains topology and link capacity via BGP-LS {{?RFC9552}} or IGP, and near-real-time tunnel-level traffic demand from streaming telemetry, IPFIX {{?RFC7011}} flow collection or PCEP {{?RFC5440}} bandwidth-utilization reports. It proactively prefers links that will not push the link past overload thresholds during tunnel path computation. When a link exceeds its overload threshold, the PCE selects the minimal set of tunnels diverting to alternate paths that are computed with each tunnel's full TE constraint set. 
+In TSPO, the PCE obtains topology and link capacity via BGP-LS {{?RFC9552}} or IGP, and near-real-time tunnel-level traffic demand from streaming telemetry, IPFIX {{?RFC7011}} flow collection or PCEP {{?RFC5440}} bandwidth-utilization reports. It proactively prefers links that will not push the link past overload thresholds during tunnel path computation. When a link exceeds its overload threshold, the PCE selects the minimal set of tunnels diverting to alternate paths that are computed with each tunnel's full TE constraint set.
 
 # Applicability to Different Scenarios {#sec-applicability}
 
