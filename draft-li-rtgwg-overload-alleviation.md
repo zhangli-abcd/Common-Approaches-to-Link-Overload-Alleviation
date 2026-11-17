@@ -271,7 +271,7 @@ Key deployment considerations:
 
 - Requires IGP-wide support for Flex-Algo and extended administrative groups.
 
-- The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.
+- Requires extra Flex-algo and its SIDs to be provisioned and advertised.
 
 ## Scenario 2: Distributed Alleviation with SR-TE Capability {#sec-scenario-ebr}
 
@@ -285,7 +285,7 @@ Key deployment considerations:
 
 - SR-TE data plane capability is mandatory for steering offloaded traffic.
 
-- The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.
+- The threshold for triggering bandwidth updates and minimal advertisement interval need to be provisioned according to the network conditions.
 
 ## Scenario 3: Controller-Based Alleviation with Human Oversight {#sec-scenario-lcm}
 
@@ -303,13 +303,11 @@ Key deployment considerations:
 
 ## Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}
 
-Characteristics: The network requires distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
+Characteristics: The network requires distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The network may use conventional IP routing, RSVP-TE, or Segment Routing.
 
 Applicable approach: Tactical Traffic Engineering (TTE) {{sec-approach-TTE}}.
 
-TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. It does not require additional control-plane activity, which reduces the deployment burden on the devices. This also makes TTE hard to promptly perceive the link utilization of other links in the network, making it more prone to secondary congestion compared to the approaches that requires additional control-plane activity.
-
-In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.
+TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.
 
 Key deployment considerations:
 
