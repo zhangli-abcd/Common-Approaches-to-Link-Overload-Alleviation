@@ -1054,7 +1054,7 @@ svg {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Zhang, et al.</td>
-<td class="center">Expires 10 May 2027</td>
+<td class="center">Expires 22 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,12 +1067,12 @@ svg {
 <dd class="internet-draft">draft-li-rtgwg-overload-alleviation-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-11-06" class="published">6 November 2026</time>
+<time datetime="2026-11-18" class="published">18 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-05-10">10 May 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-22">22 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1131,7 +1131,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 10 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 22 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1554,7 +1554,7 @@ They can rapidly bring an overloaded link back within acceptable utilization lim
             <p id="section-5.1-5.1.1">Requires IGP-wide support for Flex-Algo and extended administrative groups.<a href="#section-5.1-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-5.2">
-            <p id="section-5.1-5.2.1">The OFA topology is shared across participating routers; scaling may be a concern if many distinct Flex-Algo typologies already exist.<a href="#section-5.1-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-5.2.1">Requires extra Flex-algo and its SIDs to be provisioned and advertised.<a href="#section-5.1-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1573,7 +1573,7 @@ They can rapidly bring an overloaded link back within acceptable utilization lim
             <p id="section-5.2-5.1.1">SR-TE data plane capability is mandatory for steering offloaded traffic.<a href="#section-5.2-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.2-5.2">
-            <p id="section-5.2-5.2.1">The accuracy of bandwidth information (depends on advertisement frequency) and the pressure on the control plane are a trade-off.<a href="#section-5.2-5.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.2-5.2.1">The threshold for triggering bandwidth updates and minimal advertisement interval need to be provisioned according to the network conditions.<a href="#section-5.2-5.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1602,23 +1602,22 @@ They can rapidly bring an overloaded link back within acceptable utilization lim
         <h3 id="name-scenario-4-distributed-alle">
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-scenario-4-distributed-alle" class="section-name selfRef">Scenario 4: Distributed Alleviation with Existing Alternate Paths {sec-scenario-tte}</a>
         </h3>
-<p id="section-5.4-1">Characteristics: The network requires distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The operator wishes to minimize the additional control-plane activity, at the cost of higher risk of secondary congestion, or plans to use other mechanisms to deal with the secondary congestion. The network may use conventional IP routing, RSVP-TE, or Segment Routing.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-1">Characteristics: The network requires distributed mitigation of unexpected link overload and has suitable alternate forwarding paths available. The network may use conventional IP routing, RSVP-TE, or Segment Routing.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
 <p id="section-5.4-2">Applicable approach: Tactical Traffic Engineering (TTE) <a href="#sec-approach-TTE" class="auto internal xref">Section 4.3</a>.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
-<p id="section-5.4-3">TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. It does not require additional control-plane activity, which reduces the deployment burden on the devices. This also makes TTE hard to promptly perceive the link utilization of other links in the network, making it more prone to secondary congestion compared to the approaches that requires additional control-plane activity.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
-<p id="section-5.4-4">In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.<a href="#section-5.4-4" class="pilcrow">¶</a></p>
-<p id="section-5.4-5">Key deployment considerations:<a href="#section-5.4-5" class="pilcrow">¶</a></p>
+<p id="section-5.4-3">TTE is particularly applicable when existing loop-free alternate paths and forwarding-plane capabilities can be leveraged to redistribute selected traffic locally. It provides a tactical response to overload without requiring changes to the underlying routing or traffic engineering architecture. In RSVP-TE networks, TTE complements existing bandwidth-engineering mechanisms, including bandwidth reservations, admission control, Auto-Bandwidth, and CSPF-based path selection. It can provide localized overload relief while these mechanisms perform bandwidth adjustments or global LSP reoptimization.<a href="#section-5.4-3" class="pilcrow">¶</a></p>
+<p id="section-5.4-4">Key deployment considerations:<a href="#section-5.4-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.4-6.1">
-            <p id="section-5.4-6.1.1">Alternate paths must be suitable for carrying additional traffic.<a href="#section-5.4-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.4-5.1">
+            <p id="section-5.4-5.1.1">Alternate paths must be suitable for carrying additional traffic.<a href="#section-5.4-5.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.4-6.2">
-            <p id="section-5.4-6.2.1">Offloading must avoid creating secondary overload.<a href="#section-5.4-6.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.4-5.2">
+            <p id="section-5.4-5.2.1">Offloading must avoid creating secondary overload.<a href="#section-5.4-5.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.4-6.3">
-            <p id="section-5.4-6.3.1">Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability.<a href="#section-5.4-6.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.4-5.3">
+            <p id="section-5.4-5.3.1">Forwarding-plane capabilities must support the required traffic distribution, and appropriate hysteresis and reversion policies are necessary to prevent instability.<a href="#section-5.4-5.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.4-6.4">
-            <p id="section-5.4-6.4.1">Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.<a href="#section-5.4-6.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.4-5.4">
+            <p id="section-5.4-5.4.1">Where RSVP-TE protection paths are reused, the impact on reserved bandwidth and failure-protection capacity must also be considered.<a href="#section-5.4-5.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
